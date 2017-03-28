@@ -5,14 +5,18 @@
 */
 
 String gameState = "MAIN MENU";
+PIMage trees;
+PImage sky;
 
 void setup() {
+  trees = loadImage("Graphics/Trees-01.png");
+  sky = loadImage("Graphics/Sky-01.png");
 
 }
 
 void draw() {
   switch(gameState){
-    case "MAIN MENU"
+    case "MAIN MENU":
       startMenu();
       break;
     case "OPTIONS"
