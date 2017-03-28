@@ -49,7 +49,22 @@ public void draw() {
       break;
   }
 }
-
+/*
+Giles, David, Cho
+March 2017
+Displays the game over screen and give the player the option of playing again.
+It also displays the score.
+*/
+/*
+David, Cho, Giles
+March 2017
+Controls the actual gameplay of the game
+*/
+/*
+Cho, Giles, David
+March 2017
+Displays and controls the main menu of the game
+*/
 
 public void startMenu() {
   menuBackground();
@@ -59,13 +74,37 @@ public void menuBackground(){
   background(0);
 
   //draw sky
+  pushMatrix();
+  scale(1.5f);
+  translate(0, -30);
   image(sky, 0, 0, width, height);
+
 
   //draw trees
   image(trees, 0, 400, width, trees.height/(trees.width/800));
+  popMatrix();
+  
+  //draw title
+  fill(255);
+  textAlign(CENTER);
+  textSize(58);
+  text("BEAR RUN", width/2, 150);
+  stroke(255);
+  strokeWeight(5);
+  noFill();
+  rectMode(CENTER);
+  rect(width/2, 130, 350, 100);
 }
-
-
+/*
+Giles, David, Cho
+March 2017
+Display and controls the options page of the game
+*/
+/*
+Giles, David, Cho
+March 2017
+Displays the pause screen and allows the player to unpause
+*/
   public void settings() {  size(800, 600); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Destroy_them_all" };
