@@ -5,10 +5,14 @@
 */
 
 String gameState = "MAIN MENU";
-PIMage trees;
+PImage trees;
 PImage sky;
 
 void setup() {
+  size(800, 600);
+  background(0);
+  textAlign(CENTER);
+  text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
 
@@ -19,13 +23,13 @@ void draw() {
     case "MAIN MENU":
       startMenu();
       break;
-    case "OPTIONS"
+    case "OPTIONS":
       break;
-    case "GAME START"
+    case "GAME START":
       break;
-    case "GAME OVER"
+    case "GAME OVER":
       break;
-    case "PAUSE"
+    case "PAUSE":
       break;
   }
 }
