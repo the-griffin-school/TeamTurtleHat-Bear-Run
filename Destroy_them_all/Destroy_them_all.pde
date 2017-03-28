@@ -7,6 +7,7 @@
 String gameState = "MAIN MENU";
 PImage trees;
 PImage sky;
+PFont ubuntuCondensed;
 
 void setup() {
   size(800, 600);
@@ -15,7 +16,7 @@ void setup() {
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
-
+  ubuntuCondensed = loadFont("ubuntuCondensed-Regular-48.vlw");
 }
 
 void draw() {
