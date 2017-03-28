@@ -49,7 +49,22 @@ public void draw() {
       break;
   }
 }
-
+/*
+Giles, David, Cho
+March 2017
+Displays the game over screen and give the player the option of playing again.
+It also displays the score.
+*/
+/*
+David, Cho, Giles
+March 2017
+Controls the actual gameplay of the game
+*/
+/*
+Cho, Giles, David
+March 2017
+Displays and controls the main menu of the game
+*/
 
 public void startMenu() {
   menuBackground();
@@ -64,8 +79,16 @@ public void menuBackground(){
   //draw trees
   image(trees, 0, 400, width, trees.height/(trees.width/800));
 }
-
-
+/*
+Giles, David, Cho
+March 2017
+Display and controls the options page of the game
+*/
+/*
+Giles, David, Cho
+March 2017
+Displays the pause screen and allows the player to unpause
+*/
   public void settings() {  size(800, 600); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Destroy_them_all" };
