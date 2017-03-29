@@ -7,6 +7,8 @@
 String gameState = "MAIN MENU";
 PImage trees;
 PImage sky;
+PImage bearPic;
+
 
 void setup() {
   size(800, 600);
@@ -15,6 +17,8 @@ void setup() {
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
+  bearPic = loadImage("Graphics/Bear.png");
+  bear = new Bear();
 
 }
 

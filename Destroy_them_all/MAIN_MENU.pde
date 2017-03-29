@@ -16,4 +16,5 @@ void menuBackground(){
 
   //draw trees
   image(trees, 0, 400, width, trees.height/(trees.width/800));
+  
 }
