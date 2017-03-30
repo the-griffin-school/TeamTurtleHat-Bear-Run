@@ -5,15 +5,16 @@ Class that controls the bear and bear stuff
 */
 
 class Bear {
-  int posY = 200;
-  
+  int posY = 400;
+
   void display() {
-    image(bearPic, 100, posY, 300, 300);
+    image(bearSprite, 75, posY, bearSprite.width/15, bearSprite.height/15);
+    println(bearSprite.width + " " + bearSprite.height);
   }
-  
+
   void jump() {
     //if(/*jump boolean*/) {
-    // posY--; 
+    // posY--;
     //}
   }
 }
