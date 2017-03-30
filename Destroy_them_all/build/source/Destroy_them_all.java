@@ -57,8 +57,11 @@ public void draw() {
 }
 
 public void keyPressed() {
-  if(key == ENTER) {
+  if(key == ENTER && gameState == "MAIN MENU") {
     startGame = true;
+  }
+  if(key == ' ' && gameState == "GAME START") {
+    playerJump = true;
   }
 }
 /*
@@ -69,16 +72,27 @@ Class that controls the bear and bear stuff
 
 class Bear {
   int posY = 400;
+  int bearSize = 110;
 
   public void display() {
-    image(bearSprite, 75, posY, bearSprite.width/15, bearSprite.height/15);
-    println(bearSprite.width + " " + bearSprite.height);
+    image(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
+
   }
 
   public void jump() {
-    //if(/*jump boolean*/) {
-    // posY--;
-    //}
+    boolean up = true;
+    if(up) {
+      posY-= 5;
+      if(posY < 300) {
+        up = false;
+      }
+    } else if (!up) {
+      posY += 5;
+      if(posY > 400) {
+        up = true;
+        playerJump = false;
+      }
+    }
   }
 }
 /*
@@ -101,6 +115,7 @@ David, Cho, Giles
 March 2017
 Controls the actual gameplay of the game
 */
+boolean playerJump = false;
 
 public void gameStart() {
   //draw sky
@@ -109,6 +124,9 @@ public void gameStart() {
   //draw trees
   image(trees, 0, 400, width, trees.height/(trees.width/800));
   player.display();
+  if(playerJump) {
+    player.jump();
+  }
 }
 /*
 Cho, Giles, David

@@ -3,6 +3,7 @@ David, Cho, Giles
 March 2017
 Controls the actual gameplay of the game
 */
+boolean playerJump = false;
 
 void gameStart() {
   //draw sky
@@ -11,4 +12,7 @@ void gameStart() {
   //draw trees
   image(trees, 0, 400, width, trees.height/(trees.width/800));
   player.display();
+  if(playerJump) {
+    player.jump();
+  }
 }

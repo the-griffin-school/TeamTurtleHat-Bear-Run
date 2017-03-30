@@ -41,7 +41,10 @@ void draw() {
 }
 
 void keyPressed() {
-  if(key == ENTER) {
+  if(key == ENTER && gameState == "MAIN MENU") {
     startGame = true;
+  }
+  if(key == ' ' && gameState == "GAME START") {
+    playerJump = true;
   }
 }
