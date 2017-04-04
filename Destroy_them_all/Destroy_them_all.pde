@@ -14,6 +14,7 @@ PFont robotoCondensed;
 
 
 void setup() {
+  frameRate(120);
   size(800, 600);
   background(0);
   textAlign(CENTER);
@@ -22,6 +23,7 @@ void setup() {
   sky = loadImage("Graphics/Sky-01.png");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadImage("Graphics/Bear.png");
+  loadSprites();
 }
 
 void draw() {
