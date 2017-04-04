@@ -25,7 +25,8 @@ PImage trees;
 PImage sky;
 PImage bearSprite;
 Bear player = new Bear();
-//PFont ubuntuCondensed;
+
+PFont robotoCondensed;
 
 
 public void setup() {
@@ -35,8 +36,8 @@ public void setup() {
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
+  robotoCondensed = loadFont("RobotoCondensed-Bold-50.vlw");
   bearSprite = loadImage("Graphics/Bear.png");
-  //ubuntuCondensed = loadFont("UbuntuCondensed-Regular-48.vlw");
 }
 
 public void draw() {
