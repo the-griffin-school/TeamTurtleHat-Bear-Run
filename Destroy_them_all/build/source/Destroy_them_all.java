@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
+<<<<<<< HEAD
+=======
 public class Destroy_them_all extends PApplet {
 
 /*
@@ -325,3 +327,4 @@ class Traps extends Sprites {
     }
   }
 }
+>>>>>>> 3336df2100b35d696e04d2315350932b1f8ba5af

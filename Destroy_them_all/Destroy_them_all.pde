@@ -34,7 +34,7 @@ void draw() {
     case "OPTIONS":
       break;
     case "GAME START":
-    gameStart();
+      gameStart();
       break;
     case "GAME OVER":
       break;
@@ -44,10 +44,33 @@ void draw() {
 }
 
 void keyPressed() {
-  if(key == ENTER && gameState == "MAIN MENU") {
-    startGame = true;
-  }
-  if(key == ' ' && gameState == "GAME START") {
-    playerJump = true;
+  switch(gameState) {
+    case "MAIN MENU":
+      if(key == ENTER) {
+        switch(selectMenu) {
+          case 0:
+            startGame = true;
+            break;
+          case 1:
+            break;
+          case 2:
+            break;
+        }
+      } else if (keyCode == UP) {
+        selectMenu--;
+
+        // From top selection to the bottom when pressed 'up'
+        if (selectMenu < 0) selectMenu = 2;
+      } else if (keyCode == DOWN) {
+        selectMenu++;
+        // From bottom selection to the top when pressed 'down'
+        if (selectMenu > 2) selectMenu = 0;
+      }
+      break;
+    case "GAME START":
+      if(key == ' ') {
+        playerJump = true;
+      }
+      break;
   }
 }
