@@ -14,14 +14,16 @@ PFont robotoCondensed;
 
 
 void setup() {
+  frameRate(120);
   size(800, 600);
   background(0);
   textAlign(CENTER);
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
-  robotoCondensed = loadFont("RobotoCondensed-Bold-50.vlw");
+  robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadImage("Graphics/Bear.png");
+  loadSprites();
 }
 
 void draw() {

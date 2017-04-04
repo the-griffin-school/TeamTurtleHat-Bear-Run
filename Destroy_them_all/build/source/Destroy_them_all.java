@@ -30,14 +30,16 @@ PFont robotoCondensed;
 
 
 public void setup() {
+  frameRate(60);
   
   background(0);
   textAlign(CENTER);
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
-  robotoCondensed = loadFont("RobotoCondensed-Bold-50.vlw");
+  robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadImage("Graphics/Bear.png");
+  loadSprites();
 }
 
 public void draw() {
@@ -92,7 +94,26 @@ Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
 
-  
+  Buildings(int posX, int typeOfSprite) {
+    super(posX, typeOfSprite);
+  }
+
+  public void display() {
+    switch(typeOfSprite){
+      case 1:
+        //load image andd set posY;
+        image(building1, posX, 400, 200, 200);
+        println("iwok");
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+    }
+  }
+
 }
 /*
 Giles, David, Cho
@@ -125,13 +146,22 @@ public void gameStart() {
   if(randomSprite < 45 && randomSprite > 40) {
     if(randomSprite > 42.5f) {
       //add buliding
-      sprites.add(new Buildings());
+      sprites.add(new Buildings(900, 1));
+      println("addedbuilding");
     } else if (randomSprite < 42.5f) {
       //add trap
-      sprites.add(new Traps());
+      sprites.add(new Traps(900, 1));
     }
   }
-  println(sprites.size());
+  //loops through all objects in ArrayList
+  for(int i = 0; i < sprites.size(); i++) {
+    sprites.get(i).move();
+    sprites.get(i).display();
+    //removes object from ArrayList if it off the screen.
+    if(sprites.get(i).posX < -300) {
+      sprites.remove(i);
+    }
+  }
 }
 /*
 Cho, Giles, David
@@ -185,6 +215,39 @@ Giles, David, Cho
 March 2017
 Display and controls the options page of the game
 */
+
+
+class Button {
+  int RectX;
+  int RectY;
+  int RectW;
+  int RectH;
+  String text;
+
+  Button (int RectX, int RectY, int RectW, int RectH, String text) {
+    this. RectX = RectX;
+    this. RectY = RectY;
+    this. RectW = RectW;
+    this. RectH = RectH;
+    this. text = text;
+  }
+
+  public boolean mouseOver() {
+    if (mouseX >= RectX && mouseX <= RectX + RectW && mouseY >= RectY && mouseY <= RectY + RectH) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public void display() { 
+   fill(255);
+    rect(RectX, RectY, RectW, RectH);
+    fill(0);
+   text (text, (RectX + (RectW/3)), (RectY + (RectH/3)));
+   textSize(75);
+  }
+}
 /*
 Giles, David, Cho
 March 2017
@@ -195,10 +258,26 @@ Cho, David, Giles
 March 2017
 Class that both buildings and traps inherit.
 */
-
+PImage building1;
+public void loadSprites() {
+  building1 = loadImage("Graphics/building1.png");
+}
 class Sprites {
+  int posX;
+  int posY;
+  int typeOfSprite;
 
-  
+  Sprites(int posX, int typeOfSprite) {
+    this.posX = posX;
+    this.typeOfSprite = typeOfSprite;
+  }
+
+  public void move() {
+    posX -= 10;
+  }
+
+  public void display() {
+  }
 }
 /*
 Cho, David, Giles
@@ -208,7 +287,27 @@ Controls the displaying of traps including villagers and trap stuff
 
 class Traps extends Sprites {
 
-  
+
+  Traps(int posX, int typeOfSprite) {
+    super(posX, typeOfSprite);
+  }
+
+
+  public void display() {
+    switch(typeOfSprite){
+      case 1:
+        //load image andd set posY;
+        println("iwok");
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+    }
+  }
+
 }
   public void settings() {  size(800, 600); }
   static public void main(String[] passedArgs) {
