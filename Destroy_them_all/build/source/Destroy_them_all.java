@@ -75,8 +75,8 @@ Class that controls the bear and bear stuff
 
 class Bear {
   int posY = 400;
+  //is used to control size of the bear
   int bearSize = 110;
-  int upDown = -1;
 
   public void display() {
     image(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
@@ -94,16 +94,17 @@ Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
 
+  //uses construcor of the sprites class
   Buildings(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
   }
 
+  //displays a building based on typeOfSprite
   public void display() {
     switch(typeOfSprite){
       case 1:
-        //load image andd set posY;
+        //displays the first building type.
         image(building1, posX, 400, 200, 200);
-        println("iwok");
         break;
       case 2:
         break;
@@ -145,17 +146,18 @@ public void gameStart() {
   //is going to determine if a sprite should be added. Then it will decide either building or trap.
   if(randomSprite < 45 && randomSprite > 40) {
     if(randomSprite > 42.5f) {
-      //add buliding
+      //add buliding to arraylist
       sprites.add(new Buildings(900, 1));
-      println("addedbuilding");
     } else if (randomSprite < 42.5f) {
-      //add trap
+      //adds trap to arraylist
       sprites.add(new Traps(900, 1));
     }
   }
   //loops through all objects in ArrayList
   for(int i = 0; i < sprites.size(); i++) {
+    //moves sprite from right to left
     sprites.get(i).move();
+    //displays sprite
     sprites.get(i).display();
     //removes object from ArrayList if it off the screen.
     if(sprites.get(i).posX < -300) {
@@ -259,21 +261,24 @@ March 2017
 Class that both buildings and traps inherit.
 */
 PImage building1;
+//used to load building and trap sprites
 public void loadSprites() {
   building1 = loadImage("Graphics/building1.png");
 }
+//parent class to buildings and traps
 class Sprites {
   int posX;
   int posY;
+  //determines which type of builing/trap will be displayed.
   int typeOfSprite;
 
   Sprites(int posX, int typeOfSprite) {
     this.posX = posX;
     this.typeOfSprite = typeOfSprite;
   }
-
+  //moves sprites from right to left
   public void move() {
-    posX -= 10;
+    posX -= 1;
   }
 
   public void display() {
@@ -287,13 +292,14 @@ Controls the displaying of traps including villagers and trap stuff
 
 class Traps extends Sprites {
 
-
+  //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
   }
 
 
   public void display() {
+    //typeOfSprite determines which building it will display
     switch(typeOfSprite){
       case 1:
         //load image andd set posY;
