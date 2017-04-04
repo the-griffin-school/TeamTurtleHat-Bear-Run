@@ -17,7 +17,6 @@ class Traps extends Sprites {
     switch(typeOfSprite){
       case 1:
         //load image andd set posY;
-        println("iwok");
         break;
       case 2:
         break;

@@ -12,8 +12,6 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-<<<<<<< HEAD
-=======
 public class Destroy_them_all extends PApplet {
 
 /*
@@ -24,7 +22,9 @@ public class Destroy_them_all extends PApplet {
 
 String gameState = "MAIN MENU";
 PImage trees;
+PImage trees2;
 PImage sky;
+
 PImage bearSprite;
 Bear player = new Bear();
 
@@ -32,12 +32,13 @@ PFont robotoCondensed;
 
 
 public void setup() {
-  frameRate(60);
+  frameRate(240);
   
   background(0);
   textAlign(CENTER);
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
+  trees2 = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadImage("Graphics/Bear.png");
@@ -52,7 +53,7 @@ public void draw() {
     case "OPTIONS":
       break;
     case "GAME START":
-    gameStart();
+      gameStart();
       break;
     case "GAME OVER":
       break;
@@ -62,11 +63,34 @@ public void draw() {
 }
 
 public void keyPressed() {
-  if(key == ENTER && gameState == "MAIN MENU") {
-    startGame = true;
-  }
-  if(key == ' ' && gameState == "GAME START") {
-    playerJump = true;
+  switch(gameState) {
+    case "MAIN MENU":
+      if(key == ENTER) {
+        switch(selectMenu) {
+          case 0:
+            startGame = true;
+            break;
+          case 1:
+            break;
+          case 2:
+            break;
+        }
+      } else if (keyCode == UP) {
+        selectMenu--;
+
+        // From top selection to the bottom when pressed 'up'
+        if (selectMenu < 0) selectMenu = 2;
+      } else if (keyCode == DOWN) {
+        selectMenu++;
+        // From bottom selection to the top when pressed 'down'
+        if (selectMenu > 2) selectMenu = 0;
+      }
+      break;
+    case "GAME START":
+      if(key == ' ') {
+        playerJump = true;
+      }
+      break;
   }
 }
 /*
@@ -95,6 +119,8 @@ March 2017
 Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
+  //is able to control the size of the building proportionally
+  int building1Size = 140;
 
   //uses construcor of the sprites class
   Buildings(int posX, int typeOfSprite) {
@@ -106,7 +132,7 @@ class Buildings extends Sprites {
     switch(typeOfSprite){
       case 1:
         //displays the first building type.
-        image(building1, posX, 400, 200, 200);
+        image(building1, posX, 350, building1Size, (building1.height * building1Size)/building1.width);
         break;
       case 2:
         break;
@@ -132,29 +158,37 @@ Controls the actual gameplay of the game
 boolean playerJump = false;
 float randomSprite;
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
+float treesX = 0;
+float trees2X = 800;
 
 public void gameStart() {
   //draw sky
   image(sky, 0, 0, width, height);
 
   //draw trees
-  image(trees, 0, 400, width, trees.height/(trees.width/800));
-  player.display();
-  if(playerJump) {
-    player.jump();
+  image(trees, treesX, 400, width, trees.height/(trees.width/800));
+  image(trees2, trees2X, 400, width, trees.height/(trees.width/800));
+  treesX-= 1;
+  trees2X-= 1;
+  //loops images
+  if(treesX <= -800) {
+    treesX = 800;
   }
-
-  randomSprite = random(100);
+  //loops trees
+  if(trees2X <= -800) {
+    trees2X = 800;
+  }
+  randomSprite = random(200);
   //is going to determine if a sprite should be added. Then it will decide either building or trap.
   if(randomSprite < 45 && randomSprite > 40) {
-    if(randomSprite > 42.5f) {
+    if(randomSprite > 43) {
       //add buliding to arraylist
-      sprites.add(new Buildings(900, 1));
-    } else if (randomSprite < 42.5f) {
+      sprites.add(new Buildings(810, 1));
+    } else if (randomSprite < 41) {
       //adds trap to arraylist
-      sprites.add(new Traps(900, 1));
+      sprites.add(new Traps(810, 1));
     }
-  }
+}
   //loops through all objects in ArrayList
   for(int i = 0; i < sprites.size(); i++) {
     //moves sprite from right to left
@@ -166,6 +200,11 @@ public void gameStart() {
       sprites.remove(i);
     }
   }
+  //displays player.
+  player.display();
+  if(playerJump) {
+    player.jump();
+  }
 }
 /*
 Cho, Giles, David
@@ -173,6 +212,7 @@ March 2017
 Displays and controls the main menu of the game
 */
 boolean startGame = false;
+int selectMenu = 0;
 
 public void startMenu() {
   menuBackground();
@@ -198,16 +238,39 @@ public void menuBackground(){
   //draw title
   fill(255);
   textAlign(CENTER);
-  textSize(58);
-  text("BEAR RUN", width/2, 150);
+  textFont(robotoCondensed);
+  textSize(50);
+  text("RIGHT TO BEAR ARMS", width/2, 150);
   stroke(255);
   strokeWeight(5);
   noFill();
   rectMode(CENTER);
-  rect(width/2, 130, 350, 100);
+  rect(width/2, 130, 500, 100);
 
-  //play button
-  text("press enter to play", width/2, height/2);
+  // menu selection
+  switch(selectMenu) {
+    case 0:
+      textSize(40);
+      text("Play", width/2, 300);
+      textSize(30);
+      text("Stats", width/2, 350);
+      text("Options", width/2, 400);
+      break;
+    case 1:
+      textSize(40);
+      text("Stats", width/2, 350);
+      textSize(30);
+      text("Play", width/2, 300);
+      text("Options", width/2, 400);
+      break;
+    case 2:
+      textSize(40);
+      text("Options", width/2, 400);
+      textSize(30);
+      text("Play", width/2, 300);
+      text("Stats", width/2, 350);
+      break;
+  }
 
   //if user pressed ENTER
   if(startGame) {
@@ -305,7 +368,6 @@ class Traps extends Sprites {
     switch(typeOfSprite){
       case 1:
         //load image andd set posY;
-        println("iwok");
         break;
       case 2:
         break;
@@ -327,4 +389,3 @@ class Traps extends Sprites {
     }
   }
 }
->>>>>>> 3336df2100b35d696e04d2315350932b1f8ba5af

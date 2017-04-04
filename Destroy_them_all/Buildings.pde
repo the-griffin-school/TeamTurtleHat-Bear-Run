@@ -4,6 +4,8 @@ March 2017
 Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
+  //is able to control the size of the building proportionally
+  int building1Size = 140;
 
   //uses construcor of the sprites class
   Buildings(int posX, int typeOfSprite) {
@@ -15,7 +17,7 @@ class Buildings extends Sprites {
     switch(typeOfSprite){
       case 1:
         //displays the first building type.
-        image(building1, posX, 400, 200, 200);
+        image(building1, posX, 350, building1Size, (building1.height * building1Size)/building1.width);
         break;
       case 2:
         break;
