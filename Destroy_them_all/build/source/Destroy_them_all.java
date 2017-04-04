@@ -73,6 +73,7 @@ Class that controls the bear and bear stuff
 class Bear {
   int posY = 400;
   int bearSize = 110;
+  int upDown = -1;
 
   public void display() {
     image(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
@@ -80,19 +81,7 @@ class Bear {
   }
 
   public void jump() {
-    boolean up = true;
-    if(up) {
-      posY-= 5;
-      if(posY < 300) {
-        up = false;
-      }
-    } else if (!up) {
-      posY += 5;
-      if(posY > 400) {
-        up = true;
-        playerJump = false;
-      }
-    }
+
   }
 }
 /*
@@ -116,6 +105,8 @@ March 2017
 Controls the actual gameplay of the game
 */
 boolean playerJump = false;
+float randomSprite;
+ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 
 public void gameStart() {
   //draw sky
@@ -127,6 +118,19 @@ public void gameStart() {
   if(playerJump) {
     player.jump();
   }
+
+  randomSprite = random(100);
+  //is going to determine if a sprite should be added. Then it will decide either building or trap.
+  if(randomSprite < 45 && randomSprite > 40) {
+    if(randomSprite > 42.5f) {
+      //add buliding
+      sprites.add(new Buildings());
+    } else if (randomSprite < 42.5f) {
+      //add trap
+      sprites.add(new Traps());
+    }
+  }
+  println(sprites.size());
 }
 /*
 Cho, Giles, David
