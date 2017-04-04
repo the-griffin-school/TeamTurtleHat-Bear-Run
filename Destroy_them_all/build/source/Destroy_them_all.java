@@ -23,7 +23,14 @@ public class Destroy_them_all extends PApplet {
 String gameState = "MAIN MENU";
 PImage trees;
 PImage sky;
+<<<<<<< HEAD
 PFont ubuntuCondensed;
+=======
+PImage bearSprite;
+Bear player = new Bear();
+//PFont ubuntuCondensed;
+
+>>>>>>> 35b57afc1d861781a64523a07251945c24265db8
 
 public void setup() {
   
@@ -32,7 +39,12 @@ public void setup() {
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
+<<<<<<< HEAD
   ubuntuCondensed = loadFont("Fonts/ubuntuCondensed-Regular-48.vlw");
+=======
+  bearSprite = loadImage("Graphics/Bear.png");
+  //ubuntuCondensed = loadFont("UbuntuCondensed-Regular-48.vlw");
+>>>>>>> 35b57afc1d861781a64523a07251945c24265db8
 }
 
 public void draw() {
@@ -43,12 +55,62 @@ public void draw() {
     case "OPTIONS":
       break;
     case "GAME START":
+    gameStart();
       break;
     case "GAME OVER":
       break;
     case "PAUSE":
       break;
   }
+}
+
+public void keyPressed() {
+  if(key == ENTER && gameState == "MAIN MENU") {
+    startGame = true;
+  }
+  if(key == ' ' && gameState == "GAME START") {
+    playerJump = true;
+  }
+}
+/*
+David, Cho, Giles
+March 2017
+Class that controls the bear and bear stuff
+*/
+
+class Bear {
+  int posY = 400;
+  int bearSize = 110;
+
+  public void display() {
+    image(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
+
+  }
+
+  public void jump() {
+    boolean up = true;
+    if(up) {
+      posY-= 5;
+      if(posY < 300) {
+        up = false;
+      }
+    } else if (!up) {
+      posY += 5;
+      if(posY > 400) {
+        up = true;
+        playerJump = false;
+      }
+    }
+  }
+}
+/*
+Cho, David, Giles
+March 2017
+Controls the displaying of buildings and building stuff
+*/
+class Buildings extends Sprites {
+
+  
 }
 /*
 David, Cho, Giles
@@ -71,11 +133,25 @@ David, Cho, Giles
 March 2017
 Controls the actual gameplay of the game
 */
+boolean playerJump = false;
+
+public void gameStart() {
+  //draw sky
+  image(sky, 0, 0, width, height);
+
+  //draw trees
+  image(trees, 0, 400, width, trees.height/(trees.width/800));
+  player.display();
+  if(playerJump) {
+    player.jump();
+  }
+}
 /*
 Cho, Giles, David
 March 2017
 Displays and controls the main menu of the game
 */
+boolean startGame = false;
 
 public void startMenu() {
   menuBackground();
@@ -93,8 +169,11 @@ public void menuBackground(){
 
   //draw trees
   image(trees, 0, 400, width, trees.height/(trees.width/800));
+
+
+
   popMatrix();
-  
+
   //draw title
   fill(255);
   textAlign(CENTER);
@@ -105,6 +184,14 @@ public void menuBackground(){
   noFill();
   rectMode(CENTER);
   rect(width/2, 130, 350, 100);
+
+  //play button
+  text("press enter to play", width/2, height/2);
+
+  //if user pressed ENTER
+  if(startGame) {
+    gameState = "GAME START";
+  }
 }
 /*
 Giles, David, Cho
@@ -119,13 +206,31 @@ Displays the pause screen and allows the player to unpause
 /*
 Cho, David, Giles
 March 2017
+<<<<<<< HEAD
 Class that both buildings and traps inherit. 
 */
+=======
+Class that both buildings and traps inherit.
+*/
+
+class Sprites {
+
+  
+}
+>>>>>>> 35b57afc1d861781a64523a07251945c24265db8
 /*
 Cho, David, Giles
 March 2017
 Controls the displaying of traps including villagers and trap stuff
 */
+<<<<<<< HEAD
+=======
+
+class Traps extends Sprites {
+
+  
+}
+>>>>>>> 35b57afc1d861781a64523a07251945c24265db8
   public void settings() {  size(800, 600); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Destroy_them_all" };

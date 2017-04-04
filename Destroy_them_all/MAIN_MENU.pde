@@ -3,6 +3,7 @@ Cho, Giles, David
 March 2017
 Displays and controls the main menu of the game
 */
+boolean startGame = false;
 
 void startMenu() {
   menuBackground();
@@ -20,8 +21,11 @@ void menuBackground(){
 
   //draw trees
   image(trees, 0, 400, width, trees.height/(trees.width/800));
+
+
+
   popMatrix();
-  
+
   //draw title
   fill(255);
   textAlign(CENTER);
@@ -32,4 +36,12 @@ void menuBackground(){
   noFill();
   rectMode(CENTER);
   rect(width/2, 130, 350, 100);
+
+  //play button
+  text("press enter to play", width/2, height/2);
+
+  //if user pressed ENTER
+  if(startGame) {
+    gameState = "GAME START";
+  }
 }
