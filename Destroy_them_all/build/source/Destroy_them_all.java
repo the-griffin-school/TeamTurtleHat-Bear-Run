@@ -23,14 +23,11 @@ public class Destroy_them_all extends PApplet {
 String gameState = "MAIN MENU";
 PImage trees;
 PImage sky;
-<<<<<<< HEAD
-PFont ubuntuCondensed;
-=======
 PImage bearSprite;
 Bear player = new Bear();
-//PFont ubuntuCondensed;
 
->>>>>>> 35b57afc1d861781a64523a07251945c24265db8
+PFont robotoCondensed;
+
 
 public void setup() {
   
@@ -39,12 +36,8 @@ public void setup() {
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
-<<<<<<< HEAD
-  ubuntuCondensed = loadFont("Fonts/ubuntuCondensed-Regular-48.vlw");
-=======
+  robotoCondensed = loadFont("RobotoCondensed-Bold-50.vlw");
   bearSprite = loadImage("Graphics/Bear.png");
-  //ubuntuCondensed = loadFont("UbuntuCondensed-Regular-48.vlw");
->>>>>>> 35b57afc1d861781a64523a07251945c24265db8
 }
 
 public void draw() {
@@ -88,19 +81,7 @@ class Bear {
   }
 
   public void jump() {
-    boolean up = true;
-    if(up) {
-      posY-= 5;
-      if(posY < 300) {
-        up = false;
-      }
-    } else if (!up) {
-      posY += 5;
-      if(posY > 400) {
-        up = true;
-        playerJump = false;
-      }
-    }
+
   }
 }
 /*
@@ -112,16 +93,6 @@ class Buildings extends Sprites {
 
   
 }
-/*
-David, Cho, Giles
-March 2017
-Class that controls the bear and bear stuff
-*/
-/*
-Cho, David, Giles
-March 2017
-Controls the displaying of buildings and building stuff
-*/
 /*
 Giles, David, Cho
 March 2017
@@ -206,10 +177,6 @@ Displays the pause screen and allows the player to unpause
 /*
 Cho, David, Giles
 March 2017
-<<<<<<< HEAD
-Class that both buildings and traps inherit. 
-*/
-=======
 Class that both buildings and traps inherit.
 */
 
@@ -217,20 +184,16 @@ class Sprites {
 
   
 }
->>>>>>> 35b57afc1d861781a64523a07251945c24265db8
 /*
 Cho, David, Giles
 March 2017
 Controls the displaying of traps including villagers and trap stuff
 */
-<<<<<<< HEAD
-=======
 
 class Traps extends Sprites {
 
   
 }
->>>>>>> 35b57afc1d861781a64523a07251945c24265db8
   public void settings() {  size(800, 600); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Destroy_them_all" };
