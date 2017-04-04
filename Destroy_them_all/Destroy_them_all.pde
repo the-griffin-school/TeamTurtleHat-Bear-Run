@@ -16,7 +16,7 @@ void setup() {
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
-  ubuntuCondensed = loadFont("ubuntuCondensed-Regular-48.vlw");
+  ubuntuCondensed = loadFont("Fonts/ubuntuCondensed-Regular-48.vlw");
 }
 
 void draw() {

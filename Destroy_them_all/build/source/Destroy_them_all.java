@@ -23,6 +23,7 @@ public class Destroy_them_all extends PApplet {
 String gameState = "MAIN MENU";
 PImage trees;
 PImage sky;
+PFont ubuntuCondensed;
 
 public void setup() {
   
@@ -31,7 +32,7 @@ public void setup() {
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
-
+  ubuntuCondensed = loadFont("Fonts/ubuntuCondensed-Regular-48.vlw");
 }
 
 public void draw() {
@@ -49,6 +50,16 @@ public void draw() {
       break;
   }
 }
+/*
+David, Cho, Giles
+March 2017
+Class that controls the bear and bear stuff
+*/
+/*
+Cho, David, Giles
+March 2017
+Controls the displaying of buildings and building stuff
+*/
 /*
 Giles, David, Cho
 March 2017
@@ -104,6 +115,16 @@ Display and controls the options page of the game
 Giles, David, Cho
 March 2017
 Displays the pause screen and allows the player to unpause
+*/
+/*
+Cho, David, Giles
+March 2017
+Class that both buildings and traps inherit. 
+*/
+/*
+Cho, David, Giles
+March 2017
+Controls the displaying of traps including villagers and trap stuff
 */
   public void settings() {  size(800, 600); }
   static public void main(String[] passedArgs) {
