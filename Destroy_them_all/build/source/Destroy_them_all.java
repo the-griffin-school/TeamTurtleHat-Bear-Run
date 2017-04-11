@@ -22,7 +22,9 @@ public class Destroy_them_all extends PApplet {
 
 String gameState = "MAIN MENU";
 PImage trees;
+PImage trees2;
 PImage sky;
+
 PImage bearSprite;
 Bear player = new Bear();
 
@@ -30,12 +32,17 @@ PFont robotoCondensed;
 
 
 public void setup() {
+<<<<<<< HEAD
   frameRate(120);
+=======
+  frameRate(240);
+>>>>>>> refs/remotes/origin/Develop
   
   background(0);
   textAlign(CENTER);
   text("Loading...", width/2, height/2);
   trees = loadImage("Graphics/Trees-01.png");
+  trees2 = loadImage("Graphics/Trees-01.png");
   sky = loadImage("Graphics/Sky-01.png");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadImage("Graphics/Bear.png");
@@ -116,6 +123,8 @@ March 2017
 Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
+  //is able to control the size of the building proportionally
+  int building1Size = 140;
 
   //uses construcor of the sprites class
   Buildings(int posX, int typeOfSprite) {
@@ -127,7 +136,11 @@ class Buildings extends Sprites {
     switch(typeOfSprite){
       case 1:
         //displays the first building type.
+<<<<<<< HEAD
         image(building1, posX, 400, 200, 200);
+=======
+        image(building1, posX, 350, building1Size, (building1.height * building1Size)/building1.width);
+>>>>>>> refs/remotes/origin/Develop
         break;
       case 2:
         break;
@@ -153,20 +166,31 @@ Controls the actual gameplay of the game
 boolean playerJump = false;
 float randomSprite;
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
+float treesX = 0;
+float trees2X = 800;
+int time = 0;
 
 public void gameStart() {
   //draw sky
   image(sky, 0, 0, width, height);
 
   //draw trees
-  image(trees, 0, 400, width, trees.height/(trees.width/800));
-  player.display();
-  if(playerJump) {
-    player.jump();
+  image(trees, treesX, 400, width, trees.height/(trees.width/800));
+  image(trees2, trees2X, 400, width, trees.height/(trees.width/800));
+  treesX-= 1;
+  trees2X-= 1;
+  //loops images
+  if(treesX <= -800) {
+    treesX = 800;
+  }
+  //loops trees
+  if(trees2X <= -800) {
+    trees2X = 800;
   }
 
-  randomSprite = random(100);
+  randomSprite = random(50);
   //is going to determine if a sprite should be added. Then it will decide either building or trap.
+<<<<<<< HEAD
   if(randomSprite < 45 && randomSprite > 40) {
     if(randomSprite > 42.5f) {
       //add buliding to arraylist
@@ -174,8 +198,20 @@ public void gameStart() {
     } else if (randomSprite < 42.5f) {
       //adds trap to arraylist
       sprites.add(new Traps(900, 1));
+=======
+  if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
+    println("iwok");
+    if(randomSprite > 43) {
+      //add buliding to arraylist
+      sprites.add(new Buildings(800, 1));
+      time = millis();
+    } else if (randomSprite < 41) {
+      //adds trap to arraylist
+      sprites.add(new Traps(800, 1));
+      time = millis();
+>>>>>>> refs/remotes/origin/Develop
     }
-  }
+}
   //loops through all objects in ArrayList
   for(int i = 0; i < sprites.size(); i++) {
     //moves sprite from right to left
@@ -186,6 +222,11 @@ public void gameStart() {
     if(sprites.get(i).posX < -300) {
       sprites.remove(i);
     }
+  }
+  //displays player.
+  player.display();
+  if(playerJump) {
+    player.jump();
   }
 }
 /*
@@ -350,7 +391,6 @@ class Traps extends Sprites {
     switch(typeOfSprite){
       case 1:
         //load image andd set posY;
-        println("iwok");
         break;
       case 2:
         break;
