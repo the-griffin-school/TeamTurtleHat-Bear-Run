@@ -8,6 +8,7 @@ float randomSprite;
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 float treesX = 0;
 float trees2X = 800;
+//stores time;
 int time = 0;
 
 void gameStart() {
@@ -28,17 +29,21 @@ void gameStart() {
     trees2X = 800;
   }
 
-  randomSprite = random(50);
+  randomSprite = random(39, 46);
   //is going to determine if a sprite should be added. Then it will decide either building or trap.
+  //millis() - time makes controls the least amount of time between the spawning of sprites
+
   if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
     println("iwok");
     if(randomSprite > 43) {
       //add buliding to arraylist
       sprites.add(new Buildings(800, 1));
+      //stores the time at which the building was spawned
       time = millis();
     } else if (randomSprite < 41) {
       //adds trap to arraylist
       sprites.add(new Traps(800, 1));
+      //stores the time at which the trap was spawned
       time = millis();
     }
 }

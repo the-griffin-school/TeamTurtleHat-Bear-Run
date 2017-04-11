@@ -32,11 +32,7 @@ PFont robotoCondensed;
 
 
 public void setup() {
-<<<<<<< HEAD
-  frameRate(120);
-=======
-  frameRate(240);
->>>>>>> refs/remotes/origin/Develop
+  frameRate(500);
   
   background(0);
   textAlign(CENTER);
@@ -125,6 +121,7 @@ Controls the displaying of buildings and building stuff
 class Buildings extends Sprites {
   //is able to control the size of the building proportionally
   int building1Size = 140;
+  int posY;
 
   //uses construcor of the sprites class
   Buildings(int posX, int typeOfSprite) {
@@ -136,11 +133,8 @@ class Buildings extends Sprites {
     switch(typeOfSprite){
       case 1:
         //displays the first building type.
-<<<<<<< HEAD
-        image(building1, posX, 400, 200, 200);
-=======
-        image(building1, posX, 350, building1Size, (building1.height * building1Size)/building1.width);
->>>>>>> refs/remotes/origin/Develop
+        posY = 350;
+        image(building1, posX, posY, building1Size, (building1.height * building1Size)/building1.width);
         break;
       case 2:
         break;
@@ -151,6 +145,9 @@ class Buildings extends Sprites {
     }
   }
 
+  public void detect() {
+    
+  }
 }
 /*
 Giles, David, Cho
@@ -168,6 +165,7 @@ float randomSprite;
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 float treesX = 0;
 float trees2X = 800;
+//stores time;
 int time = 0;
 
 public void gameStart() {
@@ -188,28 +186,22 @@ public void gameStart() {
     trees2X = 800;
   }
 
-  randomSprite = random(50);
+  randomSprite = random(39, 46);
   //is going to determine if a sprite should be added. Then it will decide either building or trap.
-<<<<<<< HEAD
-  if(randomSprite < 45 && randomSprite > 40) {
-    if(randomSprite > 42.5f) {
-      //add buliding to arraylist
-      sprites.add(new Buildings(900, 1));
-    } else if (randomSprite < 42.5f) {
-      //adds trap to arraylist
-      sprites.add(new Traps(900, 1));
-=======
+  //millis() - time makes controls the least amount of time between the spawning of sprites
+
   if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
     println("iwok");
     if(randomSprite > 43) {
       //add buliding to arraylist
       sprites.add(new Buildings(800, 1));
+      //stores the time at which the building was spawned
       time = millis();
     } else if (randomSprite < 41) {
       //adds trap to arraylist
       sprites.add(new Traps(800, 1));
+      //stores the time at which the trap was spawned
       time = millis();
->>>>>>> refs/remotes/origin/Develop
     }
 }
   //loops through all objects in ArrayList
