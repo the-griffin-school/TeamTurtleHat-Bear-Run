@@ -5,6 +5,8 @@
 */
 
 String gameState = "MAIN MENU";
+GameStart PlayGame = new PlayGame();
+
 PImage trees;
 PImage trees2;
 PImage sky;
@@ -37,7 +39,7 @@ void draw() {
     case "OPTIONS":
       break;
     case "GAME START":
-      gameStart();
+      PlayGame.gameStart();
       break;
     case "GAME OVER":
       break;
