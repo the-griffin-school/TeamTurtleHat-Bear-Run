@@ -5,6 +5,7 @@ Controls the actual gameplay of the game
 */
 
 class PlayGame {
+  //Fields
   boolean playerJump;
   float randomSprite;
   ArrayList<Sprites> sprites = new ArrayList<Sprites>();
@@ -70,15 +71,15 @@ class PlayGame {
     }
   }
 
-  void display() {
-    //displays player.
+  void displaySprites() {
+    //displays player
     player.display();
     if(playerJump) {
       player.jump();
     }
   }
 
-  void gameStart() {
+  void display() {
     //draw sky
     image(sky, 0, 0, width, height);
     //draw trees
@@ -88,6 +89,6 @@ class PlayGame {
     //move sprites
     move();
     //display sprites
-    display();
+    displaySprites();
   }
 }

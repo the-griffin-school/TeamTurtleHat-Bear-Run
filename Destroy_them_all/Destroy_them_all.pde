@@ -5,7 +5,8 @@
 */
 
 String gameState = "MAIN MENU";
-GameStart PlayGame = new PlayGame();
+GameStart playGame = new PlayGame();
+MainMenu mainMenu = new MainMenu();
 
 PImage trees;
 PImage trees2;
@@ -34,12 +35,12 @@ void setup() {
 void draw() {
   switch(gameState){
     case "MAIN MENU":
-      startMenu();
+      mainMenu.display();
       break;
     case "OPTIONS":
       break;
     case "GAME START":
-      PlayGame.gameStart();
+      playGame.display();
       break;
     case "GAME OVER":
       break;
