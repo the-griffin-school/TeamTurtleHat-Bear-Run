@@ -12,8 +12,6 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-<<<<<<< HEAD
-=======
 public class Destroy_them_all extends PApplet {
 
 /*
@@ -32,7 +30,7 @@ PFont robotoCondensed;
 
 
 public void setup() {
-  frameRate(60);
+  frameRate(120);
   
   background(0);
   textAlign(CENTER);
@@ -52,7 +50,7 @@ public void draw() {
     case "OPTIONS":
       break;
     case "GAME START":
-    gameStart();
+      gameStart();
       break;
     case "GAME OVER":
       break;
@@ -62,11 +60,34 @@ public void draw() {
 }
 
 public void keyPressed() {
-  if(key == ENTER && gameState == "MAIN MENU") {
-    startGame = true;
-  }
-  if(key == ' ' && gameState == "GAME START") {
-    playerJump = true;
+  switch(gameState) {
+    case "MAIN MENU":
+      if(key == ENTER) {
+        switch(selectMenu) {
+          case 0:
+            startGame = true;
+            break;
+          case 1:
+            break;
+          case 2:
+            break;
+        }
+      } else if (keyCode == UP) {
+        selectMenu--;
+
+        // From top selection to the bottom when pressed 'up'
+        if (selectMenu < 0) selectMenu = 2;
+      } else if (keyCode == DOWN) {
+        selectMenu++;
+        // From bottom selection to the top when pressed 'down'
+        if (selectMenu > 2) selectMenu = 0;
+      }
+      break;
+    case "GAME START":
+      if(key == ' ') {
+        playerJump = true;
+      }
+      break;
   }
 }
 /*
@@ -77,8 +98,8 @@ Class that controls the bear and bear stuff
 
 class Bear {
   int posY = 400;
+  //is used to control size of the bear
   int bearSize = 110;
-  int upDown = -1;
 
   public void display() {
     image(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
@@ -96,16 +117,17 @@ Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
 
+  //uses construcor of the sprites class
   Buildings(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
   }
 
+  //displays a building based on typeOfSprite
   public void display() {
     switch(typeOfSprite){
       case 1:
-        //load image andd set posY;
+        //displays the first building type.
         image(building1, posX, 400, 200, 200);
-        println("iwok");
         break;
       case 2:
         break;
@@ -147,17 +169,18 @@ public void gameStart() {
   //is going to determine if a sprite should be added. Then it will decide either building or trap.
   if(randomSprite < 45 && randomSprite > 40) {
     if(randomSprite > 42.5f) {
-      //add buliding
+      //add buliding to arraylist
       sprites.add(new Buildings(900, 1));
-      println("addedbuilding");
     } else if (randomSprite < 42.5f) {
-      //add trap
+      //adds trap to arraylist
       sprites.add(new Traps(900, 1));
     }
   }
   //loops through all objects in ArrayList
   for(int i = 0; i < sprites.size(); i++) {
+    //moves sprite from right to left
     sprites.get(i).move();
+    //displays sprite
     sprites.get(i).display();
     //removes object from ArrayList if it off the screen.
     if(sprites.get(i).posX < -300) {
@@ -171,6 +194,7 @@ March 2017
 Displays and controls the main menu of the game
 */
 boolean startGame = false;
+int selectMenu = 0;
 
 public void startMenu() {
   menuBackground();
@@ -196,16 +220,39 @@ public void menuBackground(){
   //draw title
   fill(255);
   textAlign(CENTER);
-  textSize(58);
-  text("BEAR RUN", width/2, 150);
+  textFont(robotoCondensed);
+  textSize(50);
+  text("RIGHT TO BEAR ARMS", width/2, 150);
   stroke(255);
   strokeWeight(5);
   noFill();
   rectMode(CENTER);
-  rect(width/2, 130, 350, 100);
+  rect(width/2, 130, 500, 100);
 
-  //play button
-  text("press enter to play", width/2, height/2);
+  // menu selection
+  switch(selectMenu) {
+    case 0:
+      textSize(40);
+      text("Play", width/2, 300);
+      textSize(30);
+      text("Stats", width/2, 350);
+      text("Options", width/2, 400);
+      break;
+    case 1:
+      textSize(40);
+      text("Stats", width/2, 350);
+      textSize(30);
+      text("Play", width/2, 300);
+      text("Options", width/2, 400);
+      break;
+    case 2:
+      textSize(40);
+      text("Options", width/2, 400);
+      textSize(30);
+      text("Play", width/2, 300);
+      text("Stats", width/2, 350);
+      break;
+  }
 
   //if user pressed ENTER
   if(startGame) {
@@ -261,21 +308,24 @@ March 2017
 Class that both buildings and traps inherit.
 */
 PImage building1;
+//used to load building and trap sprites
 public void loadSprites() {
   building1 = loadImage("Graphics/building1.png");
 }
+//parent class to buildings and traps
 class Sprites {
   int posX;
   int posY;
+  //determines which type of builing/trap will be displayed.
   int typeOfSprite;
 
   Sprites(int posX, int typeOfSprite) {
     this.posX = posX;
     this.typeOfSprite = typeOfSprite;
   }
-
+  //moves sprites from right to left
   public void move() {
-    posX -= 10;
+    posX -= 1;
   }
 
   public void display() {
@@ -289,13 +339,14 @@ Controls the displaying of traps including villagers and trap stuff
 
 class Traps extends Sprites {
 
-
+  //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
   }
 
 
   public void display() {
+    //typeOfSprite determines which building it will display
     switch(typeOfSprite){
       case 1:
         //load image andd set posY;
@@ -321,4 +372,3 @@ class Traps extends Sprites {
     }
   }
 }
->>>>>>> 3336df2100b35d696e04d2315350932b1f8ba5af
