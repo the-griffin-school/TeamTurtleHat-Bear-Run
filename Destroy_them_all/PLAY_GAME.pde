@@ -14,7 +14,7 @@ class PlayGame {
   int time;
 
   //Constructor
-  Playgame() {
+  PlayGame() {
     playerJump = false;
     treesX = 0;
     trees2X = 800;
