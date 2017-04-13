@@ -3,21 +3,6 @@
   March 2017
   This is the main file that controls all the screens
 */
-import shiffman.box2d.*;
-import org.jbox2d.common.*;
-import org.jbox2d.dynamics.joints.*;
-import org.jbox2d.collision.shapes.*;
-import org.jbox2d.collision.shapes.Shape;
-import org.jbox2d.common.*;
-import org.jbox2d.dynamics.*;
-import org.jbox2d.dynamics.contacts.*;
-
-// A reference to our box2d world
-Box2DProcessing box2d;
-
-//list of particles
-ArrayList<Particle> particles;
-
 String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
@@ -45,15 +30,6 @@ void setup() {
   bearSprite = loadImage("Graphics/Bear.png");
   loadSprites();
 
-  // Initialize box2d physics and create the world
-  box2d = new Box2DProcessing(this);
-  box2d.createWorld();
-
-  // Turn on collision listening!
-  box2d.listenForCollisions();
-
-  // Create the empty list
-  particles = new ArrayList<Particle>();
 }
 
 void draw() {

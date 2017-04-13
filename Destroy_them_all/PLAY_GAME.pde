@@ -30,25 +30,6 @@ class PlayGame {
     time = 0;
   }
 
-
-  randomSprite = random(39, 46);
-  //is going to determine if a sprite should be added. Then it will decide either building or trap.
-  //millis() - time makes controls the least amount of time between the spawning of sprites
-
-  if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
-    println("iwok");
-    if(randomSprite > 43) {
-      //add buliding to arraylist
-      sprites.add(new Buildings(800, 1));
-      //stores the time at which the building was spawned
-      time = millis();
-    } else if (randomSprite < 41) {
-      //adds trap to arraylist
-      sprites.add(new Traps(800, 1));
-      //stores the time at which the trap was spawned
-      time = millis();
-    
-
   //Methods
   //Function that draws tree layer by stitching two images of trees
   void drawTrees() {
@@ -119,4 +100,28 @@ class PlayGame {
     //display sprites
     displaySprites();
   }
+}
+
+void beginContact(Contact cp) {
+  // Get both shapes
+  Fixture f1 = cp.getFixtureA();
+  Fixture f2 = cp.getFixtureB();
+  // Get both bodies
+  Body b1 = f1.getBody();
+  Body b2 = f2.getBody();
+
+  // Get our objects that reference these bodies
+  Object o1 = b1.getUserData();
+  Object o2 = b2.getUserData();
+
+  if (o1.getClass() == Particle.class && o2.getClass() == Particle.class) {
+    Particle p1 = (Particle) o1;
+    p1.change();
+    Particle p2 = (Particle) o2;
+    p2.change();
+  }
+}
+
+// Objects stop touching each other
+void endContact(Contact cp) {
 }

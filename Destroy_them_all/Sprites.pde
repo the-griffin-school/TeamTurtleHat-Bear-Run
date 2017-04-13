@@ -12,6 +12,8 @@ void loadSprites() {
 class Sprites {
   int posX;
   int posY;
+  int boundryWidth;
+  int boudnryHeight;
   //determines which type of builing/trap will be displayed.
   int typeOfSprite;
 

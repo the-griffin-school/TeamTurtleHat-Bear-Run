@@ -20,6 +20,8 @@ class Buildings extends Sprites {
         //displays the first building type.
         posY = 350;
         image(building1, posX, posY, building1Size, (building1.height * building1Size)/building1.width);
+        boundryWidth = building1Size;
+        boudnryHeight = (building1.height * building1Size)/building1.width;
         break;
       case 2:
         break;
@@ -31,6 +33,6 @@ class Buildings extends Sprites {
   }
 
   void detect() {
-    
+
   }
 }
