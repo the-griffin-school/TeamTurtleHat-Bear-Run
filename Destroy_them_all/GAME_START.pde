@@ -3,7 +3,7 @@ David, Cho, Giles
 March 2017
 Controls the actual gameplay of the game
 */
-<<<<<<< HEAD
+
 boolean playerJump = false;
 float randomSprite;
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
@@ -11,8 +11,7 @@ float treesX = 0;
 float trees2X = 800;
 //stores time;
 int time = 0;
-=======
->>>>>>> refs/remotes/origin/Develop
+
 
 class PlayGame {
   boolean playerJump;
@@ -30,7 +29,7 @@ class PlayGame {
     time = 0;
   }
 
-<<<<<<< HEAD
+
   randomSprite = random(39, 46);
   //is going to determine if a sprite should be added. Then it will decide either building or trap.
   //millis() - time makes controls the least amount of time between the spawning of sprites
@@ -47,7 +46,8 @@ class PlayGame {
       sprites.add(new Traps(800, 1));
       //stores the time at which the trap was spawned
       time = millis();
-=======
+    
+
   //Methods
   //Function that draws tree layer by stitching two images of trees
   void drawTrees() {
@@ -59,7 +59,6 @@ class PlayGame {
     //loops images
     if(treesX <= -800) {
       treesX = 800;
->>>>>>> refs/remotes/origin/Develop
     }
     //loops trees
     if(trees2X <= -800) {
