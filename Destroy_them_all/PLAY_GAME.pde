@@ -14,6 +14,7 @@ int time = 0;
 
 
 class PlayGame {
+  //Fields
   boolean playerJump;
   float randomSprite;
   ArrayList<Sprites> sprites = new ArrayList<Sprites>();
@@ -22,7 +23,7 @@ class PlayGame {
   int time;
 
   //Constructor
-  Playgame() {
+  PlayGame() {
     playerJump = false;
     treesX = 0;
     trees2X = 800;
@@ -98,15 +99,15 @@ class PlayGame {
     }
   }
 
-  void display() {
-    //displays player.
+  void displaySprites() {
+    //displays player
     player.display();
     if(playerJump) {
       player.jump();
     }
   }
 
-  void gameStart() {
+  void display() {
     //draw sky
     image(sky, 0, 0, width, height);
     //draw trees
@@ -116,6 +117,6 @@ class PlayGame {
     //move sprites
     move();
     //display sprites
-    display();
+    displaySprites();
   }
 }
