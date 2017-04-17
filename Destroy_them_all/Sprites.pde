@@ -1,4 +1,5 @@
 /*
+Team-turtle-hat
 Cho, David, Giles
 March 2017
 Class that both buildings and traps inherit.
@@ -23,9 +24,11 @@ class Sprites {
   }
   //moves sprites from right to left
   void move() {
-    posX -= 1;
+    posX -= 5;
   }
 
   void display() {
   }
+
+
 }

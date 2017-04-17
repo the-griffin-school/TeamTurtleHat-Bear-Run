@@ -1,4 +1,5 @@
 /*
+Team-turtle-hat
 David, Cho, Giles
 March 2017
 Controls the actual gameplay of the game
@@ -100,28 +101,6 @@ class PlayGame {
     //display sprites
     displaySprites();
   }
-}
 
-void beginContact(Contact cp) {
-  // Get both shapes
-  Fixture f1 = cp.getFixtureA();
-  Fixture f2 = cp.getFixtureB();
-  // Get both bodies
-  Body b1 = f1.getBody();
-  Body b2 = f2.getBody();
 
-  // Get our objects that reference these bodies
-  Object o1 = b1.getUserData();
-  Object o2 = b2.getUserData();
-
-  if (o1.getClass() == Particle.class && o2.getClass() == Particle.class) {
-    Particle p1 = (Particle) o1;
-    p1.change();
-    Particle p2 = (Particle) o2;
-    p2.change();
-  }
-}
-
-// Objects stop touching each other
-void endContact(Contact cp) {
 }

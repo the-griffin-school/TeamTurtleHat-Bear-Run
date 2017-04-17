@@ -1,4 +1,5 @@
 /*
+Team-turtle-hat
 Cho, David, Giles
 March 2017
 Controls the displaying of buildings and building stuff
@@ -32,7 +33,7 @@ class Buildings extends Sprites {
     }
   }
 
-  void detect() {
-
+  void detection() {
+    
   }
 }

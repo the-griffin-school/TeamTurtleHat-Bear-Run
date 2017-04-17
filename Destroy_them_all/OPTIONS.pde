@@ -1,4 +1,5 @@
 /*
+Team-turtle-hat
 Giles, David, Cho
 March 2017
 Display and controls the options page of the game
@@ -28,7 +29,7 @@ class Button {
     }
   }
 
-  void display() { 
+  void display() {
    fill(255);
     rect(RectX, RectY, RectW, RectH);
     fill(0);
