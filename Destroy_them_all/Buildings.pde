@@ -34,6 +34,17 @@ class Buildings extends Sprites {
   }
 
   void detection() {
-    
+    if(posX < 185) {
+      for (int i = posY; i < (posY + 100); i += 3) {
+        if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
+          destroyed = true;
+        }
+      }
+      for (int i = posX; i < posX + building1Size; i += 3) {
+        if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
+          destroyed = true;
+        }
+      }
+    }
   }
 }

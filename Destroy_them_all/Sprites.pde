@@ -15,6 +15,7 @@ class Sprites {
   int posY;
   int boundryWidth;
   int boudnryHeight;
+  boolean destroyed;
   //determines which type of builing/trap will be displayed.
   int typeOfSprite;
 
@@ -30,5 +31,7 @@ class Sprites {
   void display() {
   }
 
+  void detection() {
 
+  }
 }

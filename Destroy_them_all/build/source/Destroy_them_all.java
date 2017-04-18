@@ -162,7 +162,18 @@ class Buildings extends Sprites {
   }
 
   public void detection() {
-    
+    if(posX < 185) {
+      for (int i = posY; i < (posY + 100); i += 3) {
+        if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
+          destroyed = true;
+        }
+      }
+      for (int i = posX; i < posX + building1Size; i += 3) {
+        if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
+          destroyed = true;
+        }
+      }
+    }
   }
 }
 /*
@@ -359,7 +370,6 @@ class PlayGame {
     randomSprite = random(50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
-      println("iwok");
       if(randomSprite > 43) {
         //add buliding to arraylist
         sprites.add(new Buildings(800, 1));
@@ -381,7 +391,7 @@ class PlayGame {
       sprites.get(i).display();
       sprites.get(i).detection();
       //removes object from ArrayList if it off the screen.
-      if(sprites.get(i).posX < -300) {
+      if(sprites.get(i).posX < -300 || sprites.get(i).destroyed) {
         sprites.remove(i);
       }
     }
@@ -407,8 +417,6 @@ class PlayGame {
     //display sprites
     displaySprites();
   }
-
-
 }
 /*
 Team-turtle-hat
@@ -427,6 +435,7 @@ class Sprites {
   int posY;
   int boundryWidth;
   int boudnryHeight;
+  boolean destroyed;
   //determines which type of builing/trap will be displayed.
   int typeOfSprite;
 
@@ -443,20 +452,7 @@ class Sprites {
   }
 
   public void detection() {
-    println(posY);
-    if(posX <= 75 + player.bearSize && posX >= 75) {
-      println("working");
-      for(int i = posY; i < posY + boundryWidth; i += 3) {
-        if(i < player.posY + (bearSprite.height * player.bearSize)/bearSprite.width && i > player.posY) {
-          println("stuff+things");
-        }
-      }
-    }
-    for(int i = posY; i < posY + boundryWidth; i += 3) {
-      println(i);
-      fill(0);
-      rect(posX, i, 5, 5);
-    }
+
   }
 }
 /*
@@ -489,9 +485,9 @@ class Traps extends Sprites {
     }
   }
 
-  public void detection() {
-    
-  }
+  // void detection() {
+  //
+  // }
 }
   public void settings() {  size(800, 600); }
   static public void main(String[] passedArgs) {

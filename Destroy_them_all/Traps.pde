@@ -28,7 +28,7 @@ class Traps extends Sprites {
     }
   }
 
-  void detection() {
-    
-  }
+  // void detection() {
+  //
+  // }
 }

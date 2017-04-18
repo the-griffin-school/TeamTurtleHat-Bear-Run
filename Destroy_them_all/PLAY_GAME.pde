@@ -54,7 +54,6 @@ class PlayGame {
     randomSprite = random(50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
-      println("iwok");
       if(randomSprite > 43) {
         //add buliding to arraylist
         sprites.add(new Buildings(800, 1));
@@ -74,8 +73,9 @@ class PlayGame {
       sprites.get(i).move();
       //displays sprite
       sprites.get(i).display();
+      sprites.get(i).detection();
       //removes object from ArrayList if it off the screen.
-      if(sprites.get(i).posX < -300) {
+      if(sprites.get(i).posX < -300 || sprites.get(i).destroyed) {
         sprites.remove(i);
       }
     }
@@ -101,6 +101,4 @@ class PlayGame {
     //display sprites
     displaySprites();
   }
-
-
 }
