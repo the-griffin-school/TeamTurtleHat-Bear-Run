@@ -1,4 +1,5 @@
 /*
+Team-turtle-hat
 Giles, David, Cho
 March 2017
 Display and controls the options page of the game
@@ -28,13 +29,14 @@ Display and controls the options page of the game
     }
   }
 
-  void display() { 
+  void display() {
    fill(255);
     rect(RectX, RectY, RectW, RectH);
     fill(0);
    text (text, (RectX + (RectW/3)), (RectY + (RectH/3)));
    textSize(75);
   }
+<<<<<<< HEAD
 } */
 
 int selectOptions;
@@ -76,3 +78,6 @@ void optionsMenuBackground() {
    textAlign(RIGHT);
    
   
+=======
+}
+>>>>>>> 0a0453e1d503d91d30268e352e11d4d1af37826a

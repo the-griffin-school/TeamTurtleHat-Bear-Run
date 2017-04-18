@@ -1,4 +1,5 @@
 /*
+Team-turtle-hat
 Cho, David, Giles
 March 2017
 Class that both buildings and traps inherit.
@@ -12,6 +13,8 @@ void loadSprites() {
 class Sprites {
   int posX;
   int posY;
+  int boundryWidth;
+  int boudnryHeight;
   //determines which type of builing/trap will be displayed.
   int typeOfSprite;
 
@@ -21,9 +24,11 @@ class Sprites {
   }
   //moves sprites from right to left
   void move() {
-    posX -= 1;
+    posX -= 5;
   }
 
   void display() {
   }
+
+
 }

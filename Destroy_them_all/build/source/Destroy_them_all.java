@@ -15,12 +15,15 @@ import java.io.IOException;
 public class Destroy_them_all extends PApplet {
 
 /*
+  Team-turtle-hat
   Wonseok Cho, David Klingler, Giles Fowles
   March 2017
   This is the main file that controls all the screens
 */
-
 String gameState = "MAIN MENU";
+PlayGame playGame = new PlayGame();
+MainMenu mainMenu = new MainMenu();
+
 PImage trees;
 PImage trees2;
 PImage sky;
@@ -32,11 +35,7 @@ PFont robotoCondensed;
 
 
 public void setup() {
-<<<<<<< HEAD
-  frameRate(120);
-=======
   frameRate(240);
->>>>>>> refs/remotes/origin/Develop
   
   background(0);
   textAlign(CENTER);
@@ -47,17 +46,18 @@ public void setup() {
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadImage("Graphics/Bear.png");
   loadSprites();
+
 }
 
 public void draw() {
   switch(gameState){
     case "MAIN MENU":
-      startMenu();
+      mainMenu.display();
       break;
     case "OPTIONS":
       break;
     case "GAME START":
-      gameStart();
+      playGame.display();
       break;
     case "GAME OVER":
       break;
@@ -70,9 +70,9 @@ public void keyPressed() {
   switch(gameState) {
     case "MAIN MENU":
       if(key == ENTER) {
-        switch(selectMenu) {
+        switch(mainMenu.selectMenu) {
           case 0:
-            startGame = true;
+            mainMenu.startGame = true;
             break;
           case 1:
             break;
@@ -80,24 +80,25 @@ public void keyPressed() {
             break;
         }
       } else if (keyCode == UP) {
-        selectMenu--;
+        mainMenu.selectMenu--;
 
         // From top selection to the bottom when pressed 'up'
-        if (selectMenu < 0) selectMenu = 2;
+        if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 2;
       } else if (keyCode == DOWN) {
-        selectMenu++;
+        mainMenu.selectMenu++;
         // From bottom selection to the top when pressed 'down'
-        if (selectMenu > 2) selectMenu = 0;
+        if (mainMenu.selectMenu > 2) mainMenu.selectMenu = 0;
       }
       break;
     case "GAME START":
       if(key == ' ') {
-        playerJump = true;
+        playGame.playerJump = true;
       }
       break;
   }
 }
 /*
+Team-turtle-hat
 David, Cho, Giles
 March 2017
 Class that controls the bear and bear stuff
@@ -116,8 +117,17 @@ class Bear {
   public void jump() {
 
   }
+
+  // boolean detetion(Sprites sprite) {
+  //   for(int i = 0; i < sprites.size(); i++) {
+  //     if (sprite == sprites.get(i)) {
+  //
+  //     }
+  //   }
+  // }
 }
 /*
+Team-turtle-hat
 Cho, David, Giles
 March 2017
 Controls the displaying of buildings and building stuff
@@ -125,6 +135,7 @@ Controls the displaying of buildings and building stuff
 class Buildings extends Sprites {
   //is able to control the size of the building proportionally
   int building1Size = 140;
+  int posY;
 
   //uses construcor of the sprites class
   Buildings(int posX, int typeOfSprite) {
@@ -136,11 +147,10 @@ class Buildings extends Sprites {
     switch(typeOfSprite){
       case 1:
         //displays the first building type.
-<<<<<<< HEAD
-        image(building1, posX, 400, 200, 200);
-=======
-        image(building1, posX, 350, building1Size, (building1.height * building1Size)/building1.width);
->>>>>>> refs/remotes/origin/Develop
+        posY = 350;
+        image(building1, posX, posY, building1Size, (building1.height * building1Size)/building1.width);
+        boundryWidth = building1Size;
+        boudnryHeight = (building1.height * building1Size)/building1.width;
         break;
       case 2:
         break;
@@ -151,156 +161,105 @@ class Buildings extends Sprites {
     }
   }
 
+  public void detection() {
+    
+  }
 }
 /*
+Team-turtle-hat
 Giles, David, Cho
 March 2017
 Displays the game over screen and give the player the option of playing again.
 It also displays the score.
 */
 /*
-David, Cho, Giles
-March 2017
-Controls the actual gameplay of the game
-*/
-boolean playerJump = false;
-float randomSprite;
-ArrayList<Sprites> sprites = new ArrayList<Sprites>();
-float treesX = 0;
-float trees2X = 800;
-int time = 0;
-
-public void gameStart() {
-  //draw sky
-  image(sky, 0, 0, width, height);
-
-  //draw trees
-  image(trees, treesX, 400, width, trees.height/(trees.width/800));
-  image(trees2, trees2X, 400, width, trees.height/(trees.width/800));
-  treesX-= 1;
-  trees2X-= 1;
-  //loops images
-  if(treesX <= -800) {
-    treesX = 800;
-  }
-  //loops trees
-  if(trees2X <= -800) {
-    trees2X = 800;
-  }
-
-  randomSprite = random(50);
-  //is going to determine if a sprite should be added. Then it will decide either building or trap.
-<<<<<<< HEAD
-  if(randomSprite < 45 && randomSprite > 40) {
-    if(randomSprite > 42.5f) {
-      //add buliding to arraylist
-      sprites.add(new Buildings(900, 1));
-    } else if (randomSprite < 42.5f) {
-      //adds trap to arraylist
-      sprites.add(new Traps(900, 1));
-=======
-  if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
-    println("iwok");
-    if(randomSprite > 43) {
-      //add buliding to arraylist
-      sprites.add(new Buildings(800, 1));
-      time = millis();
-    } else if (randomSprite < 41) {
-      //adds trap to arraylist
-      sprites.add(new Traps(800, 1));
-      time = millis();
->>>>>>> refs/remotes/origin/Develop
-    }
-}
-  //loops through all objects in ArrayList
-  for(int i = 0; i < sprites.size(); i++) {
-    //moves sprite from right to left
-    sprites.get(i).move();
-    //displays sprite
-    sprites.get(i).display();
-    //removes object from ArrayList if it off the screen.
-    if(sprites.get(i).posX < -300) {
-      sprites.remove(i);
-    }
-  }
-  //displays player.
-  player.display();
-  if(playerJump) {
-    player.jump();
-  }
-}
-/*
+Team-turtle-hat
 Cho, Giles, David
 March 2017
 Displays and controls the main menu of the game
 */
-boolean startGame = false;
-int selectMenu = 0;
 
-public void startMenu() {
-  menuBackground();
-}
+class MainMenu {
+  //Fields
+  boolean startGame;
+  int selectMenu;
+  float scaleFactor;
 
-public void menuBackground(){
-  background(0);
-
-  //draw sky
-  pushMatrix();
-  scale(1.5f);
-  translate(0, -30);
-  image(sky, 0, 0, width, height);
-
-
-  //draw trees
-  image(trees, 0, 400, width, trees.height/(trees.width/800));
-
-
-
-  popMatrix();
-
-  //draw title
-  fill(255);
-  textAlign(CENTER);
-  textFont(robotoCondensed);
-  textSize(50);
-  text("RIGHT TO BEAR ARMS", width/2, 150);
-  stroke(255);
-  strokeWeight(5);
-  noFill();
-  rectMode(CENTER);
-  rect(width/2, 130, 500, 100);
-
-  // menu selection
-  switch(selectMenu) {
-    case 0:
-      textSize(40);
-      text("Play", width/2, 300);
-      textSize(30);
-      text("Stats", width/2, 350);
-      text("Options", width/2, 400);
-      break;
-    case 1:
-      textSize(40);
-      text("Stats", width/2, 350);
-      textSize(30);
-      text("Play", width/2, 300);
-      text("Options", width/2, 400);
-      break;
-    case 2:
-      textSize(40);
-      text("Options", width/2, 400);
-      textSize(30);
-      text("Play", width/2, 300);
-      text("Stats", width/2, 350);
-      break;
+  //Constructor
+  MainMenu() {
+    startGame = false;
+    selectMenu = 0;
+    scaleFactor = 1.5f;
   }
 
-  //if user pressed ENTER
-  if(startGame) {
-    gameState = "GAME START";
+  //Methods
+  public void drawSky() {
+    pushMatrix();
+    scale(scaleFactor);
+    translate(0, -30);
+    image(sky, 0, 0, width, height);
+    popMatrix();
+  }
+  public void drawTrees() {
+    pushMatrix();
+    scale(scaleFactor);
+    image(trees, 0, 400, width, trees.height/(trees.width/800));
+    popMatrix();
+  }
+  public void drawTitle() {
+    fill(255);
+    textAlign(CENTER);
+    textFont(robotoCondensed);
+    textSize(50);
+    text("RIGHT TO BEAR ARMS", width/2, 150);
+    stroke(255);
+    strokeWeight(5);
+    noFill();
+    rectMode(CENTER);
+    rect(width/2, 130, 500, 100);
+  }
+
+  public void display() {
+    drawSky();
+    drawTrees();
+    drawTitle();
+    drawTitle();
+    menuSelection();
+  }
+
+  public void menuSelection(){
+    // menu selection
+    switch(selectMenu) {
+      case 0:
+        textSize(40);
+        text("Play", width/2, 300);
+        textSize(30);
+        text("Stats", width/2, 350);
+        text("Options", width/2, 400);
+        break;
+      case 1:
+        textSize(40);
+        text("Stats", width/2, 350);
+        textSize(30);
+        text("Play", width/2, 300);
+        text("Options", width/2, 400);
+        break;
+      case 2:
+        textSize(40);
+        text("Options", width/2, 400);
+        textSize(30);
+        text("Play", width/2, 300);
+        text("Stats", width/2, 350);
+        break;
+    }
+    //if user pressed ENTER
+    if(startGame) {
+      gameState = "GAME START";
+    }
   }
 }
 /*
+Team-turtle-hat
 Giles, David, Cho
 March 2017
 Display and controls the options page of the game
@@ -330,7 +289,7 @@ class Button {
     }
   }
 
-  public void display() { 
+  public void display() {
    fill(255);
     rect(RectX, RectY, RectW, RectH);
     fill(0);
@@ -339,11 +298,120 @@ class Button {
   }
 }
 /*
+Team-turtle-hat
 Giles, David, Cho
 March 2017
 Displays the pause screen and allows the player to unpause
 */
 /*
+Team-turtle-hat
+David, Cho, Giles
+March 2017
+Controls the actual gameplay of the game
+*/
+
+boolean playerJump = false;
+float randomSprite;
+ArrayList<Sprites> sprites = new ArrayList<Sprites>();
+float treesX = 0;
+float trees2X = 800;
+//stores time;
+int time = 0;
+
+
+class PlayGame {
+  //Fields
+  boolean playerJump;
+  float randomSprite;
+  ArrayList<Sprites> sprites = new ArrayList<Sprites>();
+  float treesX;
+  float trees2X;
+  int time;
+
+  //Constructor
+  PlayGame() {
+    playerJump = false;
+    treesX = 0;
+    trees2X = 800;
+    time = 0;
+  }
+
+  //Methods
+  //Function that draws tree layer by stitching two images of trees
+  public void drawTrees() {
+    //draw trees
+    image(trees, treesX, 400, width, trees.height/(trees.width/800));
+    image(trees2, trees2X, 400, width, trees.height/(trees.width/800));
+    treesX-= 1;
+    trees2X-= 1;
+    //loops images
+    if(treesX <= -800) {
+      treesX = 800;
+    }
+    //loops trees
+    if(trees2X <= -800) {
+      trees2X = 800;
+    }
+  }
+
+  //Function to randomely determine when a tree is going to be placed
+  public void generateSprites() {
+    randomSprite = random(50);
+    //is going to determine if a sprite should be added. Then it will decide either building or trap.
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
+      println("iwok");
+      if(randomSprite > 43) {
+        //add buliding to arraylist
+        sprites.add(new Buildings(800, 1));
+        time = millis();
+      } else if (randomSprite < 41) {
+        //adds trap to arraylist
+        sprites.add(new Traps(800, 1));
+        time = millis();
+      }
+    }
+  }
+
+  public void move() {
+    //loops through all objects in ArrayList
+    for(int i = 0; i < sprites.size(); i++) {
+      //moves sprite from right to left
+      sprites.get(i).move();
+      //displays sprite
+      sprites.get(i).display();
+      sprites.get(i).detection();
+      //removes object from ArrayList if it off the screen.
+      if(sprites.get(i).posX < -300) {
+        sprites.remove(i);
+      }
+    }
+  }
+
+  public void displaySprites() {
+    //displays player
+    player.display();
+    if(playerJump) {
+      player.jump();
+    }
+  }
+
+  public void display() {
+    //draw sky
+    image(sky, 0, 0, width, height);
+    //draw trees
+    drawTrees();
+    //generate sprites
+    generateSprites();
+    //move sprites
+    move();
+    //display sprites
+    displaySprites();
+  }
+
+
+}
+/*
+Team-turtle-hat
 Cho, David, Giles
 March 2017
 Class that both buildings and traps inherit.
@@ -357,6 +425,8 @@ public void loadSprites() {
 class Sprites {
   int posX;
   int posY;
+  int boundryWidth;
+  int boudnryHeight;
   //determines which type of builing/trap will be displayed.
   int typeOfSprite;
 
@@ -366,13 +436,31 @@ class Sprites {
   }
   //moves sprites from right to left
   public void move() {
-    posX -= 1;
+    posX -= 5;
   }
 
   public void display() {
   }
+
+  public void detection() {
+    println(posY);
+    if(posX <= 75 + player.bearSize && posX >= 75) {
+      println("working");
+      for(int i = posY; i < posY + boundryWidth; i += 3) {
+        if(i < player.posY + (bearSprite.height * player.bearSize)/bearSprite.width && i > player.posY) {
+          println("stuff+things");
+        }
+      }
+    }
+    for(int i = posY; i < posY + boundryWidth; i += 3) {
+      println(i);
+      fill(0);
+      rect(posX, i, 5, 5);
+    }
+  }
 }
 /*
+Team-turtle-hat
 Cho, David, Giles
 March 2017
 Controls the displaying of traps including villagers and trap stuff
@@ -401,6 +489,9 @@ class Traps extends Sprites {
     }
   }
 
+  public void detection() {
+    
+  }
 }
   public void settings() {  size(800, 600); }
   static public void main(String[] passedArgs) {

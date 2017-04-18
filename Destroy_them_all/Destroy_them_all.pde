@@ -1,10 +1,13 @@
 /*
+  Team-turtle-hat
   Wonseok Cho, David Klingler, Giles Fowles
   March 2017
   This is the main file that controls all the screens
 */
-
 String gameState = "MAIN MENU";
+PlayGame playGame = new PlayGame();
+MainMenu mainMenu = new MainMenu();
+
 PImage trees;
 PImage trees2;
 PImage sky;
@@ -27,17 +30,18 @@ void setup() {
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadImage("Graphics/Bear.png");
   loadSprites();
+
 }
 
 void draw() {
   switch(gameState){
     case "MAIN MENU":
-      startMenu();
+      mainMenu.display();
       break;
     case "OPTIONS":
       break;
     case "GAME START":
-      gameStart();
+      playGame.display();
       break;
     case "GAME OVER":
       break;
@@ -50,9 +54,9 @@ void keyPressed() {
   switch(gameState) {
     case "MAIN MENU":
       if(key == ENTER) {
-        switch(selectMenu) {
+        switch(mainMenu.selectMenu) {
           case 0:
-            startGame = true;
+            mainMenu.startGame = true;
             break;
           case 1:
             break;
@@ -60,19 +64,19 @@ void keyPressed() {
             break;
         }
       } else if (keyCode == UP) {
-        selectMenu--;
+        mainMenu.selectMenu--;
 
         // From top selection to the bottom when pressed 'up'
-        if (selectMenu < 0) selectMenu = 2;
+        if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 2;
       } else if (keyCode == DOWN) {
-        selectMenu++;
+        mainMenu.selectMenu++;
         // From bottom selection to the top when pressed 'down'
-        if (selectMenu > 2) selectMenu = 0;
+        if (mainMenu.selectMenu > 2) mainMenu.selectMenu = 0;
       }
       break;
     case "GAME START":
       if(key == ' ') {
-        playerJump = true;
+        playGame.playerJump = true;
       }
       break;
   }

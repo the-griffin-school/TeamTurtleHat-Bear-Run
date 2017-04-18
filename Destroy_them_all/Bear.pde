@@ -1,4 +1,5 @@
 /*
+Team-turtle-hat
 David, Cho, Giles
 March 2017
 Class that controls the bear and bear stuff
@@ -17,4 +18,12 @@ class Bear {
   void jump() {
 
   }
+
+  // boolean detetion(Sprites sprite) {
+  //   for(int i = 0; i < sprites.size(); i++) {
+  //     if (sprite == sprites.get(i)) {
+  //
+  //     }
+  //   }
+  // }
 }
