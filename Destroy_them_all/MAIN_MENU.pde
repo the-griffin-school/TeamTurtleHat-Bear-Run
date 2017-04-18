@@ -32,7 +32,7 @@ void menuBackground(){
   textAlign(CENTER);
   textFont(robotoCondensed);
   textSize(50);
-  text("RIGHT TO BEAR ARMS", width/2, 150);
+  text("RIGHT TO BEAR ARMS", width/3, 150);
   stroke(255);
   strokeWeight(5);
   noFill();
