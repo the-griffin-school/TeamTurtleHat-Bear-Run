@@ -77,6 +77,7 @@ public void keyPressed() {
           case 1:
             break;
           case 2:
+          optionsMenuBackground();
             break;
         }
       } else if (keyCode == UP) {
@@ -230,6 +231,7 @@ class MainMenu {
     rect(width/2, 130, 500, 100);
   }
 
+
   public void display() {
     drawSky();
     drawTrees();
@@ -277,7 +279,7 @@ Display and controls the options page of the game
 */
 
 
-class Button {
+/* class Button {
   int RectX;
   int RectY;
   int RectW;
@@ -292,7 +294,7 @@ class Button {
     this. text = text;
   }
 
-  public boolean mouseOver() {
+  boolean mouseOver() {
     if (mouseX >= RectX && mouseX <= RectX + RectW && mouseY >= RectY && mouseY <= RectY + RectH) {
       return true;
     } else {
@@ -300,13 +302,54 @@ class Button {
     }
   }
 
-  public void display() {
+  void display() {
    fill(255);
     rect(RectX, RectY, RectW, RectH);
     fill(0);
    text (text, (RectX + (RectW/3)), (RectY + (RectH/3)));
    textSize(75);
   }
+
+} */
+
+int selectOptions;
+
+public void optionsMenuBackground() {
+  background(0);
+  //draw sky
+  pushMatrix();
+  scale(1.5f);
+  translate(0, -30);
+  image(sky, 0, 0, width, height);
+
+  popMatrix();
+
+  fill(255);
+  textAlign(CENTER);
+  textFont(robotoCondensed);
+  textSize(50);
+  text("Options", width/2, 150);
+  stroke(255);
+  strokeWeight(5);
+  noFill();
+
+  textAlign(RIGHT);
+  text("DIFFICULTY", width/3, 200);
+  textAlign(LEFT);
+  text("OPTIONS", width/3, 200);
+
+
+  switch (selectOptions) {
+    case 0:
+      textAlign(LEFT);
+      textSize(30);
+      text("EASY", width/3, 250);
+      textSize(20);
+      text("MEDIUM", width/3, 300);
+      text("HARD", width/3, 350);
+      textAlign(RIGHT);
+      break;
+    }
 }
 /*
 Team-turtle-hat

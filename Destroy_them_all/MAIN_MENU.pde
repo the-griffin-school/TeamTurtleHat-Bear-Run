@@ -18,21 +18,6 @@ class MainMenu {
     scaleFactor = 1.5;
   }
 
-<<<<<<< HEAD
-  popMatrix();
-
-  //draw title
-  fill(255);
-  textAlign(CENTER);
-  textFont(robotoCondensed);
-  textSize(50);
-  text("RIGHT TO BEAR ARMS", width/3, 150);
-  stroke(255);
-  strokeWeight(5);
-  noFill();
-  rectMode(CENTER);
-  rect(width/2, 130, 500, 100);
-=======
   //Methods
   void drawSky() {
     pushMatrix();
@@ -59,7 +44,7 @@ class MainMenu {
     rectMode(CENTER);
     rect(width/2, 130, 500, 100);
   }
->>>>>>> 0a0453e1d503d91d30268e352e11d4d1af37826a
+
 
   void display() {
     drawSky();

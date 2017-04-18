@@ -61,6 +61,7 @@ void keyPressed() {
           case 1:
             break;
           case 2:
+          //optionsMenuBackground();
             break;
         }
       } else if (keyCode == UP) {
