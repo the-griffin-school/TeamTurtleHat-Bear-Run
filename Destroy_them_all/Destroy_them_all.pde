@@ -1,4 +1,5 @@
 /*
+  Team-turtle-hat
   Wonseok Cho, David Klingler, Giles Fowles
   March 2017
   This is the main file that controls all the screens
@@ -60,6 +61,7 @@ void keyPressed() {
           case 1:
             break;
           case 2:
+          //optionsMenuBackground();
             break;
         }
       } else if (keyCode == UP) {

@@ -1,4 +1,5 @@
 /*
+Team-turtle-hat
 Cho, Giles, David
 March 2017
 Displays and controls the main menu of the game
@@ -43,6 +44,7 @@ class MainMenu {
     rectMode(CENTER);
     rect(width/2, 130, 500, 100);
   }
+
 
   void display() {
     drawSky();
