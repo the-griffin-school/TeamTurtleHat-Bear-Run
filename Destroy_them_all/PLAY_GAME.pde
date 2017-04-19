@@ -51,7 +51,7 @@ class PlayGame {
 
   //Function to randomely determine when a tree is going to be placed
   void generateSprites() {
-    randomSprite = random(50);
+    randomSprite = random(40, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
       if(randomSprite > 43) {
@@ -75,9 +75,10 @@ class PlayGame {
       sprites.get(i).display();
       sprites.get(i).detection();
       //removes object from ArrayList if it off the screen.
-      if(sprites.get(i).posX < -300 || sprites.get(i).destroyed) {
+      if(sprites.get(i).posX < -500 || sprites.get(i).destroyed()) {
         sprites.remove(i);
       }
+
     }
   }
 
@@ -90,10 +91,11 @@ class PlayGame {
   }
 
   void display() {
+    background(0);
     //draw sky
-    image(sky, 0, 0, width, height);
+    //image(sky, 0, 0, width, height);
     //draw trees
-    drawTrees();
+    //drawTrees();
     //generate sprites
     generateSprites();
     //move sprites

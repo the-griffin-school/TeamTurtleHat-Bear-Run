@@ -35,7 +35,7 @@ PFont robotoCondensed;
 
 
 public void setup() {
-  frameRate(240);
+  frameRate(60);
   
   background(0);
   textAlign(CENTER);
@@ -77,7 +77,7 @@ public void keyPressed() {
           case 1:
             break;
           case 2:
-          optionsMenuBackground();
+          //optionsMenuBackground();
             break;
         }
       } else if (keyCode == UP) {
@@ -116,16 +116,8 @@ class Bear {
   }
 
   public void jump() {
-
+    
   }
-
-  // boolean detetion(Sprites sprite) {
-  //   for(int i = 0; i < sprites.size(); i++) {
-  //     if (sprite == sprites.get(i)) {
-  //
-  //     }
-  //   }
-  // }
 }
 /*
 Team-turtle-hat
@@ -137,6 +129,7 @@ class Buildings extends Sprites {
   //is able to control the size of the building proportionally
   int building1Size = 140;
   int posY;
+  float boundryHeight;
 
   //uses construcor of the sprites class
   Buildings(int posX, int typeOfSprite) {
@@ -150,8 +143,7 @@ class Buildings extends Sprites {
         //displays the first building type.
         posY = 350;
         image(building1, posX, posY, building1Size, (building1.height * building1Size)/building1.width);
-        boundryWidth = building1Size;
-        boudnryHeight = (building1.height * building1Size)/building1.width;
+        boundryHeight = (building1.height * building1Size)/building1.width;
         break;
       case 2:
         break;
@@ -164,7 +156,7 @@ class Buildings extends Sprites {
 
   public void detection() {
     if(posX < 185) {
-      for (int i = posY; i < (posY + 100); i += 3) {
+      for (int i = posY; i < (posY + boundryHeight); i += 3) {
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           destroyed = true;
         }
@@ -410,7 +402,7 @@ class PlayGame {
 
   //Function to randomely determine when a tree is going to be placed
   public void generateSprites() {
-    randomSprite = random(50);
+    randomSprite = random(40, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
       if(randomSprite > 43) {
@@ -434,9 +426,10 @@ class PlayGame {
       sprites.get(i).display();
       sprites.get(i).detection();
       //removes object from ArrayList if it off the screen.
-      if(sprites.get(i).posX < -300 || sprites.get(i).destroyed) {
+      if(sprites.get(i).posX < -500 || sprites.get(i).destroyed) {
         sprites.remove(i);
       }
+
     }
   }
 
@@ -449,10 +442,11 @@ class PlayGame {
   }
 
   public void display() {
+    background(0);
     //draw sky
-    image(sky, 0, 0, width, height);
+    //image(sky, 0, 0, width, height);
     //draw trees
-    drawTrees();
+    //drawTrees();
     //generate sprites
     generateSprites();
     //move sprites
@@ -468,17 +462,22 @@ March 2017
 Class that both buildings and traps inherit.
 */
 PImage building1;
+PShape bearTrap;
+PShape bearTrapActivated;
 //used to load building and trap sprites
 public void loadSprites() {
   building1 = loadImage("Graphics/building1.png");
+  bearTrap = loadShape("Graphics/Traps/BearTrap.svg");
+  bearTrapActivated = loadShape("Graphics/Traps/BearTrapActivated.svg");
 }
 //parent class to buildings and traps
 class Sprites {
   int posX;
   int posY;
-  int boundryWidth;
-  int boudnryHeight;
+  // int boundryWidth;
+  // int boudnryHeight;
   boolean destroyed;
+  boolean activated;
   //determines which type of builing/trap will be displayed.
   int typeOfSprite;
 
@@ -506,10 +505,12 @@ Controls the displaying of traps including villagers and trap stuff
 */
 
 class Traps extends Sprites {
-
+  int boundryHeight;
+  int boundryWidth;
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
+    activated = false;
   }
 
 
@@ -518,6 +519,15 @@ class Traps extends Sprites {
     switch(typeOfSprite){
       case 1:
         //load image andd set posY;
+        int trapSize = 100;
+        posY = 520;
+        if(!activated) {
+          shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
+        } else {
+          shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
+        }
+        boundryHeight = PApplet.parseInt((bearTrap.height * trapSize)/bearTrap.width);
+        boundryWidth = trapSize;
         break;
       case 2:
         break;
@@ -528,9 +538,20 @@ class Traps extends Sprites {
     }
   }
 
-  // void detection() {
-  //
-  // }
+  public void detection() {
+    if(posX < 185) {
+      for (int i = posY; i < (posY + boundryHeight); i += 3) {
+        if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
+          activated = true;
+        }
+      }
+      for (int i = posX; i < posX + boundryWidth; i += 3) {
+        if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
+          activated = true;
+        }
+      }
+    }
+  }
 }
   public void settings() {  size(800, 600); }
   static public void main(String[] passedArgs) {

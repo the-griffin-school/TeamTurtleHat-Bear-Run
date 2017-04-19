@@ -16,14 +16,6 @@ class Bear {
   }
 
   void jump() {
-
+    
   }
-
-  // boolean detetion(Sprites sprite) {
-  //   for(int i = 0; i < sprites.size(); i++) {
-  //     if (sprite == sprites.get(i)) {
-  //
-  //     }
-  //   }
-  // }
 }
