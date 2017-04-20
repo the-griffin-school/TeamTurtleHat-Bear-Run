@@ -22,6 +22,7 @@ class PlayGame {
   float treesX;
   float trees2X;
   int time;
+  int score;
 
   //Constructor
   PlayGame() {
@@ -29,6 +30,7 @@ class PlayGame {
     treesX = 0;
     trees2X = 800;
     time = 0;
+    score = 0;
   }
 
   //Methods
@@ -66,6 +68,14 @@ class PlayGame {
     }
   }
 
+  void addScore() {
+    score += 10;
+  }
+
+  void displayScore() {
+    text("Score:" + " " + score, 40, 30);
+  }
+
   void move() {
     //loops through all objects in ArrayList
     for(int i = 0; i < sprites.size(); i++) {
@@ -76,6 +86,7 @@ class PlayGame {
       sprites.get(i).detection();
       //removes object from ArrayList if it off the screen.
       if(sprites.get(i).posX < -500 || sprites.get(i).destroyed()) {
+        addScore();
         sprites.remove(i);
       }
 
@@ -93,7 +104,8 @@ class PlayGame {
   void display() {
     background(0);
     //draw sky
-    shape(sky, 0, 0, width, height);
+    //shape(sky, 0, 0, width, height);
+    background(#00e4ff);
     //draw trees
     drawTrees();
     //generate sprites
@@ -102,5 +114,7 @@ class PlayGame {
     move();
     //display sprites
     displaySprites();
+    //displays score;
+    displayScore();
   }
 }

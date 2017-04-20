@@ -20,11 +20,7 @@ class MainMenu {
 
   //Methods
   void drawSky() {
-    pushMatrix();
-    scale(scaleFactor);
-    translate(0, -30);
-    shape(sky, 0, 0, width, height);
-    popMatrix();
+    background(#00e4ff);
   }
   void drawTrees() {
     pushMatrix();

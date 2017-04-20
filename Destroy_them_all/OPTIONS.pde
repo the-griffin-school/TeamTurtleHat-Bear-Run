@@ -44,12 +44,7 @@ int selectOptions;
 void optionsMenuBackground() {
   background(0);
   //draw sky
-  pushMatrix();
-  scale(1.5);
-  translate(0, -30);
-  shape(sky, 0, 0, width, height);
-
-  popMatrix();
+  background(#00e4ff);
 
   fill(255);
   textAlign(CENTER);

@@ -10,7 +10,7 @@ MainMenu mainMenu = new MainMenu();
 
 PShape trees;
 PShape trees2;
-PShape sky;
+//PShape sky;
 
 PShape bearSprite;
 Bear player = new Bear();
@@ -26,7 +26,7 @@ void setup() {
   text("Loading...", width/2, height/2);
   trees = loadShape("Graphics/Trees-01.svg");
   trees2 = loadShape("Graphics/Trees-01.svg");
-  sky = loadShape("Graphics/Sky-01.svg");
+  //sky = loadShape("Graphics/Sky-01.svg");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadShape("Graphics/Bear.svg");
   loadSprites();

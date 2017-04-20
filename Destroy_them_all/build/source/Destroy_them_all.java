@@ -26,7 +26,7 @@ MainMenu mainMenu = new MainMenu();
 
 PShape trees;
 PShape trees2;
-PShape sky;
+//PShape sky;
 
 PShape bearSprite;
 Bear player = new Bear();
@@ -42,7 +42,7 @@ public void setup() {
   text("Loading...", width/2, height/2);
   trees = loadShape("Graphics/Trees-01.svg");
   trees2 = loadShape("Graphics/Trees-01.svg");
-  sky = loadShape("Graphics/Sky-01.svg");
+  //sky = loadShape("Graphics/Sky-01.svg");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadShape("Graphics/Bear.svg");
   loadSprites();
@@ -108,7 +108,7 @@ Class that controls the bear and bear stuff
 class Bear {
   int posY = 400;
   //is used to control size of the bear
-  int bearSize = 110;
+  int bearSize = 300;
 
   public void display() {
     shape(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
@@ -143,6 +143,7 @@ class Buildings extends Sprites {
         //displays the first building type.
         posY = 350;
         shape(building1, posX, posY, building1Size, (building1.height * building1Size)/building1.width);
+        //defines boundries of the building for detection purposes
         boundryHeight = PApplet.parseInt((building1.height * building1Size)/building1.width);
         boundryWidth = building1Size;
         break;
@@ -156,13 +157,18 @@ class Buildings extends Sprites {
   }
 
   public void detection() {
+    //tests for detection at the last possible moment to reduce load
     if(posX < 185) {
+      //loops through y values of the building
       for (int i = posY; i < (posY + boundryHeight); i += 3) {
+        //tests for detection along the left side of the building
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           destroyedStatus = true;
         }
       }
-      for (int i = posX; i < posX + building1Size; i += 3) {
+      //loops through x values of building
+      for (int i = posX; i < posX + boundryWidth; i += 3) {
+        //tests for detection along the top of the building
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           destroyedStatus = true;
         }
@@ -177,6 +183,38 @@ March 2017
 Displays the game over screen and give the player the option of playing again.
 It also displays the score.
 */
+int randomMsg;
+String deathMsg;
+
+class GameOver {
+
+  GameOver() {
+    randomMsg = PApplet.parseInt(random(5));
+  }
+
+
+  // void deathMsg() {
+  //   switch(randomMsg) {
+  //     case 0:
+  //       deathMsg = "You're unBEARable";
+  //       break;
+  //     case 1:
+  //       deathMsg = "You're worse than a barBEARian";
+  //       break;
+  //     case 2:
+  //       deathMsg = "It is time for you to be BEARied";
+  //       break;
+  //     case 3:
+  //       deathMsg = "You should be emBEARessed";
+  //       break;
+  //     case 4:
+  //       deathMsg = "You're a BEARicade of progress";
+  //       break;
+  //   }
+  //   textAlign(CENTER);
+  //   text(deathMsg, width/2, height/2);
+  // }
+}
 /*
 Team-turtle-hat
 Cho, Giles, David
@@ -199,11 +237,7 @@ class MainMenu {
 
   //Methods
   public void drawSky() {
-    //pushMatrix();
-    //scale(scaleFactor);
-    //translate(0, -30);
-    shape(sky, 0, 0, width, height);
-    //popMatrix();
+    background(0xff00e4ff);
   }
   public void drawTrees() {
     pushMatrix();
@@ -310,12 +344,7 @@ int selectOptions;
 public void optionsMenuBackground() {
   background(0);
   //draw sky
-  pushMatrix();
-  scale(1.5f);
-  translate(0, -30);
-  shape(sky, 0, 0, width, height);
-
-  popMatrix();
+  background(0xff00e4ff);
 
   fill(255);
   textAlign(CENTER);
@@ -374,6 +403,7 @@ class PlayGame {
   float treesX;
   float trees2X;
   int time;
+  int score;
 
   //Constructor
   PlayGame() {
@@ -381,6 +411,7 @@ class PlayGame {
     treesX = 0;
     trees2X = 800;
     time = 0;
+    score = 0;
   }
 
   //Methods
@@ -418,6 +449,14 @@ class PlayGame {
     }
   }
 
+  public void addScore() {
+    score += 10;
+  }
+
+  public void displayScore() {
+    text("Score:" + " " + score, 40, 30);
+  }
+
   public void move() {
     //loops through all objects in ArrayList
     for(int i = 0; i < sprites.size(); i++) {
@@ -428,6 +467,7 @@ class PlayGame {
       sprites.get(i).detection();
       //removes object from ArrayList if it off the screen.
       if(sprites.get(i).posX < -500 || sprites.get(i).destroyed()) {
+        addScore();
         sprites.remove(i);
       }
 
@@ -445,7 +485,8 @@ class PlayGame {
   public void display() {
     background(0);
     //draw sky
-    shape(sky, 0, 0, width, height);
+    //shape(sky, 0, 0, width, height);
+    background(0xff00e4ff);
     //draw trees
     drawTrees();
     //generate sprites
@@ -454,6 +495,8 @@ class PlayGame {
     move();
     //display sprites
     displaySprites();
+    //displays score;
+    displayScore();
   }
 }
 /*
@@ -488,17 +531,20 @@ class Sprites {
   }
 
   //Methods
+
+  //used to determine if a building should be destroyed
   public boolean destroyed() {
     return destroyedStatus;
   }
 
+  //used to determine if a trap has been activated
   public boolean activated() {
     return activatedStatus;
   }
 
   //moves sprites from right to left
   public void move() {
-    posX -= 2;
+    posX -= 1;
   }
 
   public void display() {
@@ -535,6 +581,7 @@ class Traps extends Sprites {
         } else {
           shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         }
+        //defines boundrys for detection
         boundryHeight = PApplet.parseInt((bearTrap.height * trapSize)/bearTrap.width);
         boundryWidth = trapSize;
         break;
@@ -548,13 +595,18 @@ class Traps extends Sprites {
   }
 
   public void detection() {
+    //if a trap is less than 185 it begins to test for detection
     if(posX < 185) {
+      //loops through the y values of the trap
       for (int i = posY; i < (posY + boundryHeight); i += 3) {
+        //tests for detection along the left side of the trap
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           activatedStatus = true;
         }
       }
+      //loops through x values of trap
       for (int i = posX; i < posX + boundryWidth; i += 3) {
+        //tests for detection along the top of the trap
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           activatedStatus = true;
         }
