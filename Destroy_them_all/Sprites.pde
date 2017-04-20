@@ -51,4 +51,8 @@ class Sprites {
 
   void detection() {
   }
+
+  void subtractHealth() {
+    
+  }
 }

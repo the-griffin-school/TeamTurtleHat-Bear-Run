@@ -109,9 +109,23 @@ class Bear {
   int posY = 400;
   //is used to control size of the bear
   int bearSize = 110;
+  int health = 3;
+
+  Bear() {
+
+  }
 
   public void display() {
     shape(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
+  }
+
+
+  public boolean dead() {
+    if(health == 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public void jump() {
@@ -441,7 +455,7 @@ class PlayGame {
         //add buliding to arraylist
         sprites.add(new Buildings(800, 1));
         time = millis();
-      } else if (randomSprite < 41) {
+      } else if (randomSprite < 42) {
         //adds trap to arraylist
         sprites.add(new Traps(800, 1));
         time = millis();
@@ -454,7 +468,7 @@ class PlayGame {
   }
 
   public void displayScore() {
-    text("Score:" + " " + score, 40, 30);
+    text("Score:" + " " + score, 60, 30);
   }
 
   public void move() {
@@ -465,12 +479,16 @@ class PlayGame {
       //displays sprite
       sprites.get(i).display();
       sprites.get(i).detection();
+      sprites.get(i).subtractHealth();
+      println(player.health);
+      if(player.dead()) {
+       println("dead");
+      }
       //removes object from ArrayList if it off the screen.
       if(sprites.get(i).posX < -500 || sprites.get(i).destroyed()) {
         addScore();
         sprites.remove(i);
       }
-
     }
   }
 
@@ -552,6 +570,10 @@ class Sprites {
 
   public void detection() {
   }
+
+  public void subtractHealth() {
+    
+  }
 }
 /*
 Team-turtle-hat
@@ -563,6 +585,7 @@ Controls the displaying of traps including villagers and trap stuff
 class Traps extends Sprites {
   int boundryHeight;
   int boundryWidth;
+  boolean once = true;
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
@@ -591,6 +614,15 @@ class Traps extends Sprites {
         break;
       case 4:
         break;
+    }
+  }
+
+  public void subtractHealth() {
+    if(activated()) {
+      if(once) {
+        player.health--;
+        once = false;
+      }
     }
   }
 

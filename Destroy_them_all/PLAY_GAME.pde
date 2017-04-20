@@ -60,7 +60,7 @@ class PlayGame {
         //add buliding to arraylist
         sprites.add(new Buildings(800, 1));
         time = millis();
-      } else if (randomSprite < 41) {
+      } else if (randomSprite < 42) {
         //adds trap to arraylist
         sprites.add(new Traps(800, 1));
         time = millis();
@@ -73,7 +73,7 @@ class PlayGame {
   }
 
   void displayScore() {
-    text("Score:" + " " + score, 40, 30);
+    text("Score:" + " " + score, 60, 30);
   }
 
   void move() {
@@ -84,12 +84,16 @@ class PlayGame {
       //displays sprite
       sprites.get(i).display();
       sprites.get(i).detection();
+      sprites.get(i).subtractHealth();
+      println(player.health);
+      if(player.dead()) {
+       println("dead");
+      }
       //removes object from ArrayList if it off the screen.
       if(sprites.get(i).posX < -500 || sprites.get(i).destroyed()) {
         addScore();
         sprites.remove(i);
       }
-
     }
   }
 

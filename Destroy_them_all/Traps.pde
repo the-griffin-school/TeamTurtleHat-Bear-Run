@@ -8,6 +8,7 @@ Controls the displaying of traps including villagers and trap stuff
 class Traps extends Sprites {
   int boundryHeight;
   int boundryWidth;
+  boolean once = true;
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
@@ -36,6 +37,15 @@ class Traps extends Sprites {
         break;
       case 4:
         break;
+    }
+  }
+
+  void subtractHealth() {
+    if(activated()) {
+      if(once) {
+        player.health--;
+        once = false;
+      }
     }
   }
 
