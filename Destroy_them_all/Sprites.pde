@@ -30,17 +30,20 @@ class Sprites {
   }
 
   //Methods
+
+  //used to determine if a building should be destroyed
   boolean destroyed() {
     return destroyedStatus;
   }
 
+  //used to determine if a trap has been activated
   boolean activated() {
     return activatedStatus;
   }
 
   //moves sprites from right to left
   void move() {
-    posX -= 2;
+    posX -= 1;
   }
 
   void display() {
