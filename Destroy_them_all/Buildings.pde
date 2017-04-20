@@ -23,6 +23,7 @@ class Buildings extends Sprites {
         //displays the first building type.
         posY = 350;
         shape(building1, posX, posY, building1Size, (building1.height * building1Size)/building1.width);
+        //defines boundries of the building for detection purposes
         boundryHeight = int((building1.height * building1Size)/building1.width);
         boundryWidth = building1Size;
         break;
@@ -36,13 +37,18 @@ class Buildings extends Sprites {
   }
 
   void detection() {
+    //tests for detection at the last possible moment to reduce load
     if(posX < 185) {
+      //loops through y values of the building
       for (int i = posY; i < (posY + boundryHeight); i += 3) {
+        //tests for detection along the left side of the building
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           destroyedStatus = true;
         }
       }
-      for (int i = posX; i < posX + building1Size; i += 3) {
+      //loops through x values of building
+      for (int i = posX; i < posX + boundryWidth; i += 3) {
+        //tests for detection along the top of the building
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           destroyedStatus = true;
         }
