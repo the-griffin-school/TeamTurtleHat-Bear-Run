@@ -8,11 +8,11 @@ String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
 
-PImage trees;
-PImage trees2;
-PImage sky;
+PShape trees;
+PShape trees2;
+PShape sky;
 
-PImage bearSprite;
+PShape bearSprite;
 Bear player = new Bear();
 
 PFont robotoCondensed;
@@ -24,11 +24,11 @@ void setup() {
   background(0);
   textAlign(CENTER);
   text("Loading...", width/2, height/2);
-  trees = loadImage("Graphics/Trees-01.png");
-  trees2 = loadImage("Graphics/Trees-01.png");
-  sky = loadImage("Graphics/Sky-01.png");
+  trees = loadShape("Graphics/Trees-01.svg");
+  trees2 = loadShape("Graphics/Trees-01.svg");
+  sky = loadShape("Graphics/Sky-01.svg");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
-  bearSprite = loadImage("Graphics/Bear.png");
+  bearSprite = loadShape("Graphics/Bear.svg");
   loadSprites();
 
 }

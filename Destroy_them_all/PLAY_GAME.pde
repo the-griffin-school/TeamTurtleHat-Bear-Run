@@ -35,8 +35,8 @@ class PlayGame {
   //Function that draws tree layer by stitching two images of trees
   void drawTrees() {
     //draw trees
-    image(trees, treesX, 400, width, trees.height/(trees.width/800));
-    image(trees2, trees2X, 400, width, trees.height/(trees.width/800));
+    shape(trees, treesX, 400, width, trees.height/(trees.width/800));
+    shape(trees2, trees2X, 400, width, trees.height/(trees.width/800));
     treesX-= 1;
     trees2X-= 1;
     //loops images
@@ -53,7 +53,7 @@ class PlayGame {
   void generateSprites() {
     randomSprite = random(40, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 10000) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 43) {
         //add buliding to arraylist
         sprites.add(new Buildings(800, 1));
@@ -93,9 +93,9 @@ class PlayGame {
   void display() {
     background(0);
     //draw sky
-    //image(sky, 0, 0, width, height);
+    shape(sky, 0, 0, width, height);
     //draw trees
-    //drawTrees();
+    drawTrees();
     //generate sprites
     generateSprites();
     //move sprites

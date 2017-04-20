@@ -11,11 +11,10 @@ class Bear {
   int bearSize = 110;
 
   void display() {
-    image(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
-
+    shape(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
   }
 
   void jump() {
-    
+
   }
 }

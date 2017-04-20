@@ -8,7 +8,8 @@ class Buildings extends Sprites {
   //is able to control the size of the building proportionally
   int building1Size = 140;
   int posY;
-  float boundryHeight;
+  int boundryHeight;
+  int boundryWidth;
 
   //uses construcor of the sprites class
   Buildings(int posX, int typeOfSprite) {
@@ -21,8 +22,9 @@ class Buildings extends Sprites {
       case 1:
         //displays the first building type.
         posY = 350;
-        image(building1, posX, posY, building1Size, (building1.height * building1Size)/building1.width);
-        boundryHeight = (building1.height * building1Size)/building1.width;
+        shape(building1, posX, posY, building1Size, (building1.height * building1Size)/building1.width);
+        boundryHeight = int((building1.height * building1Size)/building1.width);
+        boundryWidth = building1Size;
         break;
       case 2:
         break;
@@ -37,12 +39,12 @@ class Buildings extends Sprites {
     if(posX < 185) {
       for (int i = posY; i < (posY + boundryHeight); i += 3) {
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
-          destroyed = true;
+          destroyedStatus = true;
         }
       }
       for (int i = posX; i < posX + building1Size; i += 3) {
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
-          destroyed = true;
+          destroyedStatus = true;
         }
       }
     }

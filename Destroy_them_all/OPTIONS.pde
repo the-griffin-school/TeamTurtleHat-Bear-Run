@@ -47,7 +47,7 @@ void optionsMenuBackground() {
   pushMatrix();
   scale(1.5);
   translate(0, -30);
-  image(sky, 0, 0, width, height);
+  shape(sky, 0, 0, width, height);
 
   popMatrix();
 

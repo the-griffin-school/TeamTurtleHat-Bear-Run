@@ -20,16 +20,16 @@ class MainMenu {
 
   //Methods
   void drawSky() {
-    pushMatrix();
-    scale(scaleFactor);
-    translate(0, -30);
-    image(sky, 0, 0, width, height);
-    popMatrix();
+    //pushMatrix();
+    //scale(scaleFactor);
+    //translate(0, -30);
+    shape(sky, 0, 0, width, height);
+    //popMatrix();
   }
   void drawTrees() {
     pushMatrix();
     scale(scaleFactor);
-    image(trees, 0, 400, width, trees.height/(trees.width/800));
+    shape(trees, 0, 400, width, trees.height/(trees.width/800));
     popMatrix();
   }
   void drawTitle() {
