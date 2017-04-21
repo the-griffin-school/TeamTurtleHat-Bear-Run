@@ -34,22 +34,6 @@ class PlayGame {
   }
 
   //Methods
-  //Function that draws tree layer by stitching two images of trees
-  void drawTrees() {
-    //draw trees
-    shape(trees, treesX, 400, width, trees.height/(trees.width/800));
-    shape(trees2, trees2X, 400, width, trees.height/(trees.width/800));
-    treesX-= 1;
-    trees2X-= 1;
-    //loops images
-    if(treesX <= -800) {
-      treesX = 800;
-    }
-    //loops trees
-    if(trees2X <= -800) {
-      trees2X = 800;
-    }
-  }
 
   //Function to randomely determine when a tree is going to be placed
   void generateSprites() {
@@ -58,11 +42,11 @@ class PlayGame {
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 43) {
         //add buliding to arraylist
-        sprites.add(new Buildings(800, 1));
+        sprites.add(new Buildings(width, int(random(7))));
         time = millis();
       } else if (randomSprite < 42) {
         //adds trap to arraylist
-        sprites.add(new Traps(800, 1));
+        sprites.add(new Traps(width, 1));
         time = millis();
       }
     }
@@ -85,7 +69,6 @@ class PlayGame {
       sprites.get(i).display();
       sprites.get(i).detection();
       sprites.get(i).subtractHealth();
-      println(player.health);
       if(player.dead()) {
        println("dead");
       }
@@ -108,10 +91,7 @@ class PlayGame {
   void display() {
     background(0);
     //draw sky
-    //shape(sky, 0, 0, width, height);
-    background(#00e4ff);
-    //draw trees
-    drawTrees();
+    shape(sky, 0, 0, width, height);
     //generate sprites
     generateSprites();
     //move sprites

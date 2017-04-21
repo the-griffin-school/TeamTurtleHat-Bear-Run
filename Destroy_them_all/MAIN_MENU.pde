@@ -20,13 +20,7 @@ class MainMenu {
 
   //Methods
   void drawSky() {
-    background(#00e4ff);
-  }
-  void drawTrees() {
-    pushMatrix();
-    scale(scaleFactor);
-    shape(trees, 0, 400, width, trees.height/(trees.width/800));
-    popMatrix();
+    shape(sky, 0, 0, width, height);
   }
   void drawTitle() {
     fill(255);
@@ -44,7 +38,6 @@ class MainMenu {
 
   void display() {
     drawSky();
-    drawTrees();
     drawTitle();
     drawTitle();
     menuSelection();

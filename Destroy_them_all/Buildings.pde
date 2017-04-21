@@ -6,7 +6,7 @@ Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
   //is able to control the size of the building proportionally
-  int building1Size = 140;
+  int buildingSize = 140;
   int posY;
   int boundryHeight;
   int boundryWidth;
@@ -22,16 +22,45 @@ class Buildings extends Sprites {
       case 1:
         //displays the first building type.
         posY = 350;
-        shape(building1, posX, posY, building1Size, (building1.height * building1Size)/building1.width);
+        shape(building1, posX, posY, buildingSize, (building1.height * buildingSize)/building1.width);
         //defines boundries of the building for detection purposes
-        boundryHeight = int((building1.height * building1Size)/building1.width);
-        boundryWidth = building1Size;
+        boundryHeight = int((building1.height * buildingSize)/building1.width);
+        boundryWidth = buildingSize;
         break;
       case 2:
+        posY = 350;
+        shape(building2, posX, posY, buildingSize, (building2.height * buildingSize)/building2.width);
+        //defines boundries of the building for detection purposes
+        boundryHeight = int((building2.height * buildingSize)/building2.width);
+        boundryWidth = buildingSize;
         break;
       case 3:
+        posY = 350;
+        shape(building3, posX, posY, buildingSize, (building3.height * buildingSize)/building3.width);
+        //defines boundries of the building for detection purposes
+        boundryHeight = int((building3.height * buildingSize)/building3.width);
+        boundryWidth = buildingSize;
         break;
       case 4:
+        posY = 350;
+        shape(building4, posX, posY, buildingSize, (building4.height * buildingSize)/building4.width);
+        //defines boundries of the building for detection purposes
+        boundryHeight = int((building4.height * buildingSize)/building4.width);
+        boundryWidth = buildingSize;
+        break;
+      case 5:
+        posY = 350;
+        shape(building5, posX, posY, buildingSize, (building5.height * buildingSize)/building5.width);
+        //defines boundries of the building for detection purposes
+        boundryHeight = int((building5.height * buildingSize)/building5.width);
+        boundryWidth = buildingSize;
+        break;
+      case 6:
+        posY = 350;
+        shape(building6, posX, posY, buildingSize, (building6.height * buildingSize)/building6.width);
+        //defines boundries of the building for detection purposes
+        boundryHeight = int((building6.height * buildingSize)/building6.width);
+        boundryWidth = buildingSize;
         break;
     }
   }

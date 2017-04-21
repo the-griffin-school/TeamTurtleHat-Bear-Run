@@ -24,12 +24,13 @@ String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
 
-PShape trees;
-PShape trees2;
 //PShape sky;
+PShape sky;
 
 PShape bearSprite;
 Bear player = new Bear();
+
+
 
 PFont robotoCondensed;
 
@@ -40,11 +41,10 @@ public void setup() {
   background(0);
   textAlign(CENTER);
   text("Loading...", width/2, height/2);
-  trees = loadShape("Graphics/Trees-01.svg");
-  trees2 = loadShape("Graphics/Trees-01.svg");
-  //sky = loadShape("Graphics/Sky-01.svg");
+
+  sky = loadShape("Graphics/Environment/Sky/Sky.svg");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
-  bearSprite = loadShape("Graphics/Bear.svg");
+  bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
 
 }
@@ -140,7 +140,7 @@ Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
   //is able to control the size of the building proportionally
-  int building1Size = 140;
+  int buildingSize = 140;
   int posY;
   int boundryHeight;
   int boundryWidth;
@@ -156,16 +156,45 @@ class Buildings extends Sprites {
       case 1:
         //displays the first building type.
         posY = 350;
-        shape(building1, posX, posY, building1Size, (building1.height * building1Size)/building1.width);
+        shape(building1, posX, posY, buildingSize, (building1.height * buildingSize)/building1.width);
         //defines boundries of the building for detection purposes
-        boundryHeight = PApplet.parseInt((building1.height * building1Size)/building1.width);
-        boundryWidth = building1Size;
+        boundryHeight = PApplet.parseInt((building1.height * buildingSize)/building1.width);
+        boundryWidth = buildingSize;
         break;
       case 2:
+        posY = 350;
+        shape(building2, posX, posY, buildingSize, (building2.height * buildingSize)/building2.width);
+        //defines boundries of the building for detection purposes
+        boundryHeight = PApplet.parseInt((building2.height * buildingSize)/building2.width);
+        boundryWidth = buildingSize;
         break;
       case 3:
+        posY = 350;
+        shape(building3, posX, posY, buildingSize, (building3.height * buildingSize)/building3.width);
+        //defines boundries of the building for detection purposes
+        boundryHeight = PApplet.parseInt((building3.height * buildingSize)/building3.width);
+        boundryWidth = buildingSize;
         break;
       case 4:
+        posY = 350;
+        shape(building4, posX, posY, buildingSize, (building4.height * buildingSize)/building4.width);
+        //defines boundries of the building for detection purposes
+        boundryHeight = PApplet.parseInt((building4.height * buildingSize)/building4.width);
+        boundryWidth = buildingSize;
+        break;
+      case 5:
+        posY = 350;
+        shape(building5, posX, posY, buildingSize, (building5.height * buildingSize)/building5.width);
+        //defines boundries of the building for detection purposes
+        boundryHeight = PApplet.parseInt((building5.height * buildingSize)/building5.width);
+        boundryWidth = buildingSize;
+        break;
+      case 6:
+        posY = 350;
+        shape(building6, posX, posY, buildingSize, (building6.height * buildingSize)/building6.width);
+        //defines boundries of the building for detection purposes
+        boundryHeight = PApplet.parseInt((building6.height * buildingSize)/building6.width);
+        boundryWidth = buildingSize;
         break;
     }
   }
@@ -251,13 +280,7 @@ class MainMenu {
 
   //Methods
   public void drawSky() {
-    background(0xff00e4ff);
-  }
-  public void drawTrees() {
-    pushMatrix();
-    scale(scaleFactor);
-    shape(trees, 0, 400, width, trees.height/(trees.width/800));
-    popMatrix();
+    shape(sky, 0, 0, width, height);
   }
   public void drawTitle() {
     fill(255);
@@ -275,7 +298,6 @@ class MainMenu {
 
   public void display() {
     drawSky();
-    drawTrees();
     drawTitle();
     drawTitle();
     menuSelection();
@@ -429,22 +451,6 @@ class PlayGame {
   }
 
   //Methods
-  //Function that draws tree layer by stitching two images of trees
-  public void drawTrees() {
-    //draw trees
-    shape(trees, treesX, 400, width, trees.height/(trees.width/800));
-    shape(trees2, trees2X, 400, width, trees.height/(trees.width/800));
-    treesX-= 1;
-    trees2X-= 1;
-    //loops images
-    if(treesX <= -800) {
-      treesX = 800;
-    }
-    //loops trees
-    if(trees2X <= -800) {
-      trees2X = 800;
-    }
-  }
 
   //Function to randomely determine when a tree is going to be placed
   public void generateSprites() {
@@ -453,11 +459,11 @@ class PlayGame {
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 43) {
         //add buliding to arraylist
-        sprites.add(new Buildings(800, 1));
+        sprites.add(new Buildings(width, PApplet.parseInt(random(7))));
         time = millis();
       } else if (randomSprite < 42) {
         //adds trap to arraylist
-        sprites.add(new Traps(800, 1));
+        sprites.add(new Traps(width, 1));
         time = millis();
       }
     }
@@ -480,7 +486,6 @@ class PlayGame {
       sprites.get(i).display();
       sprites.get(i).detection();
       sprites.get(i).subtractHealth();
-      println(player.health);
       if(player.dead()) {
        println("dead");
       }
@@ -503,10 +508,7 @@ class PlayGame {
   public void display() {
     background(0);
     //draw sky
-    //shape(sky, 0, 0, width, height);
-    background(0xff00e4ff);
-    //draw trees
-    drawTrees();
+    shape(sky, 0, 0, width, height);
     //generate sprites
     generateSprites();
     //move sprites
@@ -524,11 +526,21 @@ March 2017
 Class that both buildings and traps inherit.
 */
 PShape building1;
+PShape building2;
+PShape building3;
+PShape building4;
+PShape building5;
+PShape building6;
 PShape bearTrap;
 PShape bearTrapActivated;
 //used to load building and trap sprites
 public void loadSprites() {
-  building1 = loadShape("Graphics/building1.svg");
+  building1 = loadShape("Graphics/Buildings/Building 1.svg");
+  building2 = loadShape("Graphics/Buildings/Building 2.svg");
+  building3 = loadShape("Graphics/Buildings/Building 3.svg");
+  building4 = loadShape("Graphics/Buildings/Building 4.svg");
+  building5 = loadShape("Graphics/Buildings/Building 5.svg");
+  building6 = loadShape("Graphics/Buildings/Building 6.svg");
   bearTrap = loadShape("Graphics/Traps/BearTrap.svg");
   bearTrapActivated = loadShape("Graphics/Traps/BearTrapActivated.svg");
 }
@@ -562,7 +574,7 @@ class Sprites {
 
   //moves sprites from right to left
   public void move() {
-    posX -= 1;
+    posX -= 4;
   }
 
   public void display() {
@@ -572,7 +584,7 @@ class Sprites {
   }
 
   public void subtractHealth() {
-    
+
   }
 }
 /*
@@ -646,7 +658,7 @@ class Traps extends Sprites {
     }
   }
 }
-  public void settings() {  size(800, 600); }
+  public void settings() {  size(1100, 600); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Destroy_them_all" };
     if (passedArgs != null) {
