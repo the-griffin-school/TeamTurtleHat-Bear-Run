@@ -23,6 +23,7 @@ class PlayGame {
   float trees2X;
   int time;
   int score;
+  float gameSpeed;
 
   //Constructor
   PlayGame() {
@@ -31,6 +32,7 @@ class PlayGame {
     trees2X = 800;
     time = 0;
     score = 0;
+    gameSpeed = 5;
   }
 
   //Methods
@@ -52,6 +54,16 @@ class PlayGame {
     }
   }
 
+  //setting game speed from outside the class
+  void setGameSpeed(float newSpeed) {
+    gameSpeed = newSpeed;
+  }
+
+  //returns gameSpeed
+  float getGameSpeed() {
+    return gameSpeed;
+  }
+
   void addScore() {
     score += 10;
   }
@@ -60,23 +72,31 @@ class PlayGame {
     text("Score:" + " " + score, 60, 30);
   }
 
+  void checkAlive() {
+    if(player.dead()) {
+     println("dead");
+    }
+  }
+
+  //removes object from ArrayList if it off the screen.
+  void clearSprite(int i) {
+    if(sprites.get(i).getX() < -500 || sprites.get(i).destroyed()) {
+      addScore();
+      sprites.remove(i);
+    }
+  }
+
   void move() {
     //loops through all objects in ArrayList
     for(int i = 0; i < sprites.size(); i++) {
       //moves sprite from right to left
-      sprites.get(i).move();
+      sprites.get(i).move(getGameSpeed());
       //displays sprite
       sprites.get(i).display();
       sprites.get(i).detection();
       sprites.get(i).subtractHealth();
-      if(player.dead()) {
-       println("dead");
-      }
-      //removes object from ArrayList if it off the screen.
-      if(sprites.get(i).posX < -500 || sprites.get(i).destroyed()) {
-        addScore();
-        sprites.remove(i);
-      }
+      checkAlive();
+      clearSprite(i);
     }
   }
 
@@ -88,10 +108,26 @@ class PlayGame {
     }
   }
 
+  // ##LAGS TOO MUCH GRADIENT ATTEMPT FAILED
+  // sky gradient from (0, 228, 255) to (255, 255, 255)
+  // void drawSky() {
+  //   color skyColor = color(0, 228, 255);
+  //   strokeWeight(1);
+  //
+  //   for (int i = 0; i < height; i++){
+  //     stroke(lerpColor(skyColor, color(255), map(i, 0, height, 0, 1)));
+  //     line(0, i-1, width, i+1);
+  //   }
+  // }
+
+  // draw Sky
+  void drawSky() {
+    image(sky, 0, 0);
+  }
+
   void display() {
-    background(0);
     //draw sky
-    shape(sky, 0, 0, width, height);
+    drawSky();
     //generate sprites
     generateSprites();
     //move sprites

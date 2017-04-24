@@ -9,24 +9,19 @@ PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
 
 //PShape sky;
-PShape sky;
-
+PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
-
-
-
 PFont robotoCondensed;
 
 
 void setup() {
-  frameRate(60);
   size(1100, 600);
   background(0);
   textAlign(CENTER);
   text("Loading...", width/2, height/2);
 
-  sky = loadShape("Graphics/Environment/Sky/Sky.svg");
+  sky = loadImage("Graphics/Environment/Sky/SkyImage.png");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
@@ -34,6 +29,9 @@ void setup() {
 }
 
 void draw() {
+  if (frameCount % 60 == 0) {
+    println("Frame rate = " + frameRate);
+  }
   switch(gameState){
     case "MAIN MENU":
       mainMenu.display();

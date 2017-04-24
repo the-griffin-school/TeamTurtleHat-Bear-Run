@@ -25,8 +25,8 @@ void loadSprites() {
 }
 //parent class to buildings and traps
 class Sprites {
-  int posX;
-  int posY;
+  float posX;
+  float posY;
   // int boundryWidth;
   // int boudnryHeight;
   boolean destroyedStatus;
@@ -34,12 +34,22 @@ class Sprites {
   //determines which type of builing/trap will be displayed.
   int typeOfSprite;
 
-  Sprites(int posX, int typeOfSprite) {
+  Sprites(float posX, int typeOfSprite) {
     this.posX = posX;
     this.typeOfSprite = typeOfSprite;
   }
 
   //Methods
+
+  //returns posX
+  float getX() {
+    return posX;
+  }
+
+  //returns posY
+  float getY() {
+    return posX;
+  }
 
   //used to determine if a building should be destroyed
   boolean destroyed() {
@@ -51,9 +61,9 @@ class Sprites {
     return activatedStatus;
   }
 
-  //moves sprites from right to left
-  void move() {
-    posX -= 4;
+  //moves sprites from right to left, with input of game speed factor
+  void move(float gameSpeed) {
+    posX -= gameSpeed;
   }
 
   void display() {

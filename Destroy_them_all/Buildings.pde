@@ -6,14 +6,15 @@ Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
   //is able to control the size of the building proportionally
-  int buildingSize = 140;
-  int posY;
+  int buildingSize;
+  float posY;
   int boundryHeight;
   int boundryWidth;
 
   //uses construcor of the sprites class
-  Buildings(int posX, int typeOfSprite) {
+  Buildings(float posX, int typeOfSprite) {
     super(posX, typeOfSprite);
+    buildingSize = 140;
   }
 
   //displays a building based on typeOfSprite
@@ -69,14 +70,14 @@ class Buildings extends Sprites {
     //tests for detection at the last possible moment to reduce load
     if(posX < 185) {
       //loops through y values of the building
-      for (int i = posY; i < (posY + boundryHeight); i += 3) {
+      for (int i = int(posY); i < (posY + boundryHeight); i += 3) {
         //tests for detection along the left side of the building
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           destroyedStatus = true;
         }
       }
       //loops through x values of building
-      for (int i = posX; i < posX + boundryWidth; i += 3) {
+      for (int i = int(posX); i < posX + boundryWidth; i += 3) {
         //tests for detection along the top of the building
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           destroyedStatus = true;

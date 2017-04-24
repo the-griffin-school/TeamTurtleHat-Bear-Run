@@ -20,7 +20,7 @@ class MainMenu {
 
   //Methods
   void drawSky() {
-    shape(sky, 0, 0, width, height);
+    image(sky, 0, 0);
   }
   void drawTitle() {
     fill(255);

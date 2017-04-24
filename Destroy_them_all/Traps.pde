@@ -8,10 +8,11 @@ Controls the displaying of traps including villagers and trap stuff
 class Traps extends Sprites {
   int boundryHeight;
   int boundryWidth;
-  boolean once = true;
+  boolean once;
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
+    once = true;
   }
 
 
@@ -53,14 +54,14 @@ class Traps extends Sprites {
     //if a trap is less than 185 it begins to test for detection
     if(posX < 185) {
       //loops through the y values of the trap
-      for (int i = posY; i < (posY + boundryHeight); i += 3) {
+      for (int i = int(getY()); i < (posY + boundryHeight); i += 3) {
         //tests for detection along the left side of the trap
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           activatedStatus = true;
         }
       }
       //loops through x values of trap
-      for (int i = posX; i < posX + boundryWidth; i += 3) {
+      for (int i = int(getX()); i < posX + boundryWidth; i += 3) {
         //tests for detection along the top of the trap
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           activatedStatus = true;

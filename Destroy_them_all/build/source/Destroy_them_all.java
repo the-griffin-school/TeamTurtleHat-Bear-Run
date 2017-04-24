@@ -25,24 +25,19 @@ PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
 
 //PShape sky;
-PShape sky;
-
+PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
-
-
-
 PFont robotoCondensed;
 
 
 public void setup() {
-  frameRate(60);
   
   background(0);
   textAlign(CENTER);
   text("Loading...", width/2, height/2);
 
-  sky = loadShape("Graphics/Environment/Sky/Sky.svg");
+  sky = loadImage("Graphics/Environment/Sky/SkyImage.png");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
@@ -50,6 +45,9 @@ public void setup() {
 }
 
 public void draw() {
+  if (frameCount % 60 == 0) {
+    println("Frame rate = " + frameRate);
+  }
   switch(gameState){
     case "MAIN MENU":
       mainMenu.display();
@@ -140,14 +138,15 @@ Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
   //is able to control the size of the building proportionally
-  int buildingSize = 140;
-  int posY;
+  int buildingSize;
+  float posY;
   int boundryHeight;
   int boundryWidth;
 
   //uses construcor of the sprites class
-  Buildings(int posX, int typeOfSprite) {
+  Buildings(float posX, int typeOfSprite) {
     super(posX, typeOfSprite);
+    buildingSize = 140;
   }
 
   //displays a building based on typeOfSprite
@@ -203,14 +202,14 @@ class Buildings extends Sprites {
     //tests for detection at the last possible moment to reduce load
     if(posX < 185) {
       //loops through y values of the building
-      for (int i = posY; i < (posY + boundryHeight); i += 3) {
+      for (int i = PApplet.parseInt(posY); i < (posY + boundryHeight); i += 3) {
         //tests for detection along the left side of the building
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           destroyedStatus = true;
         }
       }
       //loops through x values of building
-      for (int i = posX; i < posX + boundryWidth; i += 3) {
+      for (int i = PApplet.parseInt(posX); i < posX + boundryWidth; i += 3) {
         //tests for detection along the top of the building
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           destroyedStatus = true;
@@ -280,7 +279,7 @@ class MainMenu {
 
   //Methods
   public void drawSky() {
-    shape(sky, 0, 0, width, height);
+    image(sky, 0, 0);
   }
   public void drawTitle() {
     fill(255);
@@ -440,6 +439,7 @@ class PlayGame {
   float trees2X;
   int time;
   int score;
+  float gameSpeed;
 
   //Constructor
   PlayGame() {
@@ -448,6 +448,7 @@ class PlayGame {
     trees2X = 800;
     time = 0;
     score = 0;
+    gameSpeed = 5;
   }
 
   //Methods
@@ -469,6 +470,16 @@ class PlayGame {
     }
   }
 
+  //setting game speed from outside the class
+  public void setGameSpeed(float newSpeed) {
+    gameSpeed = newSpeed;
+  }
+
+  //returns gameSpeed
+  public float getGameSpeed() {
+    return gameSpeed;
+  }
+
   public void addScore() {
     score += 10;
   }
@@ -477,23 +488,31 @@ class PlayGame {
     text("Score:" + " " + score, 60, 30);
   }
 
+  public void checkAlive() {
+    if(player.dead()) {
+     println("dead");
+    }
+  }
+
+  //removes object from ArrayList if it off the screen.
+  public void clearSprite(int i) {
+    if(sprites.get(i).getX() < -500 || sprites.get(i).destroyed()) {
+      addScore();
+      sprites.remove(i);
+    }
+  }
+
   public void move() {
     //loops through all objects in ArrayList
     for(int i = 0; i < sprites.size(); i++) {
       //moves sprite from right to left
-      sprites.get(i).move();
+      sprites.get(i).move(getGameSpeed());
       //displays sprite
       sprites.get(i).display();
       sprites.get(i).detection();
       sprites.get(i).subtractHealth();
-      if(player.dead()) {
-       println("dead");
-      }
-      //removes object from ArrayList if it off the screen.
-      if(sprites.get(i).posX < -500 || sprites.get(i).destroyed()) {
-        addScore();
-        sprites.remove(i);
-      }
+      checkAlive();
+      clearSprite(i);
     }
   }
 
@@ -505,10 +524,26 @@ class PlayGame {
     }
   }
 
+  // ##LAGS TOO MUCH GRADIENT ATTEMPT FAILED
+  // sky gradient from (0, 228, 255) to (255, 255, 255)
+  // void drawSky() {
+  //   color skyColor = color(0, 228, 255);
+  //   strokeWeight(1);
+  //
+  //   for (int i = 0; i < height; i++){
+  //     stroke(lerpColor(skyColor, color(255), map(i, 0, height, 0, 1)));
+  //     line(0, i-1, width, i+1);
+  //   }
+  // }
+
+  // draw Sky
+  public void drawSky() {
+    image(sky, 0, 0);
+  }
+
   public void display() {
-    background(0);
     //draw sky
-    shape(sky, 0, 0, width, height);
+    drawSky();
     //generate sprites
     generateSprites();
     //move sprites
@@ -546,8 +581,8 @@ public void loadSprites() {
 }
 //parent class to buildings and traps
 class Sprites {
-  int posX;
-  int posY;
+  float posX;
+  float posY;
   // int boundryWidth;
   // int boudnryHeight;
   boolean destroyedStatus;
@@ -555,12 +590,22 @@ class Sprites {
   //determines which type of builing/trap will be displayed.
   int typeOfSprite;
 
-  Sprites(int posX, int typeOfSprite) {
+  Sprites(float posX, int typeOfSprite) {
     this.posX = posX;
     this.typeOfSprite = typeOfSprite;
   }
 
   //Methods
+
+  //returns posX
+  public float getX() {
+    return posX;
+  }
+
+  //returns posY
+  public float getY() {
+    return posX;
+  }
 
   //used to determine if a building should be destroyed
   public boolean destroyed() {
@@ -572,9 +617,9 @@ class Sprites {
     return activatedStatus;
   }
 
-  //moves sprites from right to left
-  public void move() {
-    posX -= 4;
+  //moves sprites from right to left, with input of game speed factor
+  public void move(float gameSpeed) {
+    posX -= gameSpeed;
   }
 
   public void display() {
@@ -597,10 +642,11 @@ Controls the displaying of traps including villagers and trap stuff
 class Traps extends Sprites {
   int boundryHeight;
   int boundryWidth;
-  boolean once = true;
+  boolean once;
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
+    once = true;
   }
 
 
@@ -642,14 +688,14 @@ class Traps extends Sprites {
     //if a trap is less than 185 it begins to test for detection
     if(posX < 185) {
       //loops through the y values of the trap
-      for (int i = posY; i < (posY + boundryHeight); i += 3) {
+      for (int i = PApplet.parseInt(getY()); i < (posY + boundryHeight); i += 3) {
         //tests for detection along the left side of the trap
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           activatedStatus = true;
         }
       }
       //loops through x values of trap
-      for (int i = posX; i < posX + boundryWidth; i += 3) {
+      for (int i = PApplet.parseInt(getX()); i < posX + boundryWidth; i += 3) {
         //tests for detection along the top of the trap
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           activatedStatus = true;
