@@ -28,6 +28,7 @@ MainMenu mainMenu = new MainMenu();
 PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
+GameOver gameOver = new GameOver();
 PFont robotoCondensed;
 
 
@@ -58,6 +59,7 @@ public void draw() {
       playGame.display();
       break;
     case "GAME OVER":
+      gameOver.display();
       break;
     case "PAUSE":
       break;
@@ -161,35 +163,35 @@ class Buildings extends Sprites {
         boundryWidth = buildingSize;
         break;
       case 2:
-        posY = 350;
+        posY = 307;
         shape(building2, posX, posY, buildingSize, (building2.height * buildingSize)/building2.width);
         //defines boundries of the building for detection purposes
         boundryHeight = PApplet.parseInt((building2.height * buildingSize)/building2.width);
         boundryWidth = buildingSize;
         break;
       case 3:
-        posY = 350;
+        posY = 383;
         shape(building3, posX, posY, buildingSize, (building3.height * buildingSize)/building3.width);
         //defines boundries of the building for detection purposes
         boundryHeight = PApplet.parseInt((building3.height * buildingSize)/building3.width);
         boundryWidth = buildingSize;
         break;
       case 4:
-        posY = 350;
+        posY = 354;
         shape(building4, posX, posY, buildingSize, (building4.height * buildingSize)/building4.width);
         //defines boundries of the building for detection purposes
         boundryHeight = PApplet.parseInt((building4.height * buildingSize)/building4.width);
         boundryWidth = buildingSize;
         break;
       case 5:
-        posY = 350;
+        posY = 307;
         shape(building5, posX, posY, buildingSize, (building5.height * buildingSize)/building5.width);
         //defines boundries of the building for detection purposes
         boundryHeight = PApplet.parseInt((building5.height * buildingSize)/building5.width);
         boundryWidth = buildingSize;
         break;
       case 6:
-        posY = 350;
+        posY = 266;
         shape(building6, posX, posY, buildingSize, (building6.height * buildingSize)/building6.width);
         //defines boundries of the building for detection purposes
         boundryHeight = PApplet.parseInt((building6.height * buildingSize)/building6.width);
@@ -225,37 +227,57 @@ March 2017
 Displays the game over screen and give the player the option of playing again.
 It also displays the score.
 */
-int randomMsg;
-String deathMsg;
-
 class GameOver {
+  int randomMsg = PApplet.parseInt(random(5));
+  String deathMsg;
 
   GameOver() {
-    randomMsg = PApplet.parseInt(random(5));
   }
 
+   public void deathMsg() {
+     switch(randomMsg) {
+       case 0:
+         deathMsg = "You're unBEARable";
+         break;
+       case 1:
+         deathMsg = "You're worse than a barBEARian";
+         break;
+       case 2:
+         deathMsg = "It is time for you to be BEARied";
+         break;
+       case 3:
+         deathMsg = "You should be emBEARessed";
+         break;
+       case 4:
+         deathMsg = "You're a BEARicade of progress";
+         break;
+     }
+     textAlign(CENTER);
+     textSize(60);
+     fill(255, 0, 0);
+     text("GAME OVER", width/2, height/2 - height/6);
+     fill(255);
+     textSize(40);
+     text(deathMsg, width/2, height/2);
+     text("Score" + " " + playGame.score, width/2, height/2 + height/6);
+   }
 
-  // void deathMsg() {
-  //   switch(randomMsg) {
-  //     case 0:
-  //       deathMsg = "You're unBEARable";
-  //       break;
-  //     case 1:
-  //       deathMsg = "You're worse than a barBEARian";
-  //       break;
-  //     case 2:
-  //       deathMsg = "It is time for you to be BEARied";
-  //       break;
-  //     case 3:
-  //       deathMsg = "You should be emBEARessed";
-  //       break;
-  //     case 4:
-  //       deathMsg = "You're a BEARicade of progress";
-  //       break;
-  //   }
-  //   textAlign(CENTER);
-  //   text(deathMsg, width/2, height/2);
-  // }
+   public void buttonDetection() {
+      stroke(255);
+      fill(0);
+      rectMode(CORNER);
+      rect(width/2 - width/3, height/2 + height/4, width/3 - width/12, height/6);
+      rect(width/2 + (width/2 -width/3 - width/12), height/2 + height/4, width/3 - width/12, height/6);
+      rectMode(CENTER);
+      fill(255);
+      text("Main Menu", (width/2 - width/3) + (width/3 - width/12)/2, (height/2 + height/4) + height/9);
+   }
+
+   public void display() {
+    background(0);
+    deathMsg();
+    buttonDetection();
+  }
 }
 /*
 Team-turtle-hat
@@ -455,14 +477,14 @@ class PlayGame {
 
   //Function to randomely determine when a tree is going to be placed
   public void generateSprites() {
-    randomSprite = random(40, 50);
+    randomSprite = random(35, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
-      if(randomSprite > 43) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 500) {
+      if(randomSprite > 42.5f) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, PApplet.parseInt(random(7))));
         time = millis();
-      } else if (randomSprite < 42) {
+      } else if (randomSprite < 41) {
         //adds trap to arraylist
         sprites.add(new Traps(width, 1));
         time = millis();
@@ -490,7 +512,7 @@ class PlayGame {
 
   public void checkAlive() {
     if(player.dead()) {
-     println("dead");
+      gameState = "GAME OVER";
     }
   }
 
