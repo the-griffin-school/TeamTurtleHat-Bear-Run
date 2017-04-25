@@ -538,6 +538,19 @@ class PlayGame {
     }
     //shape(mtsFront, 0, 0, width, (mtsFront.height * width)/mtsFront.width);
   }
+
+  public void drawClouds() {
+    //shape(cloud1, 0, 0);
+    //shape(cloud2, 0, 200);
+    shape(cloud3, 200, 200);
+    //shape(cloud4, 400, 0);
+    //shape(cloud5, 400, 200);
+    //shape(cloud6, 400, 400);
+    //shape(cloud7, 800, 0);
+    //shape(cloud8, 800, 200);
+    //shape(cloud9, 800, 400);
+  }
+
   //setting game speed from outside the class
   public void setGameSpeed(float newSpeed) {
     gameSpeed = newSpeed;
@@ -619,6 +632,8 @@ class PlayGame {
     drawSky();
     //draws mts
     drawMountains();
+    //draw Clouds
+    drawClouds();
     //generate sprites
     generateSprites();
     //moves and displays
@@ -646,6 +661,7 @@ PShape bearTrapActivated;
 PShape grass;
 PShape mtsBack;
 PShape mtsFront;
+PShape cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9;
 //used to load building and trap sprites
 public void loadSprites() {
   building1 = loadShape("Graphics/Buildings/Building 1.svg");
@@ -659,6 +675,15 @@ public void loadSprites() {
   grass = loadShape("Graphics/Environment/Grass/Grass.svg");
   mtsFront = loadShape("Graphics/Environment/Mountains/Mountains Front.svg");
   mtsBack = loadShape("Graphics/Environment/Mountains/Mountains Back.svg");
+  cloud1 = loadShape("Graphics/Environment/Sky/Clouds Master-01.svg");
+  cloud2 = loadShape("Graphics/Environment/Sky/Clouds Master-02.svg");
+  cloud3 = loadShape("Graphics/Environment/Sky/Clouds Master-03.svg");
+  cloud4 = loadShape("Graphics/Environment/Sky/Clouds Master-04.svg");
+  cloud5 = loadShape("Graphics/Environment/Sky/Clouds Master-05.svg");
+  cloud6 = loadShape("Graphics/Environment/Sky/Clouds Master-06.svg");
+  cloud7 = loadShape("Graphics/Environment/Sky/Clouds Master-07.svg");
+  cloud8 = loadShape("Graphics/Environment/Sky/Clouds Master-08.svg");
+  cloud9 = loadShape("Graphics/Environment/Sky/Clouds Master-09.svg");
 }
 //parent class to buildings and traps
 class Sprites {

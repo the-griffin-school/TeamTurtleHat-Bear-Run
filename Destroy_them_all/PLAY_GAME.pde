@@ -98,6 +98,19 @@ class PlayGame {
     }
     //shape(mtsFront, 0, 0, width, (mtsFront.height * width)/mtsFront.width);
   }
+
+  void drawClouds() {
+    //shape(cloud1, 0, 0);
+    //shape(cloud2, 0, 200);
+    //shape(cloud3, 200, 200);
+    //shape(cloud4, 400, 0);
+    //shape(cloud5, 400, 200);
+    //shape(cloud6, 400, 400);
+    //shape(cloud7, 800, 0);
+    //shape(cloud8, 800, 200);
+    //shape(cloud9, 800, 400);
+  }
+
   //setting game speed from outside the class
   void setGameSpeed(float newSpeed) {
     gameSpeed = newSpeed;
@@ -179,6 +192,8 @@ class PlayGame {
     drawSky();
     //draws mts
     drawMountains();
+    //draw Clouds
+    drawClouds();
     //generate sprites
     generateSprites();
     //moves and displays
