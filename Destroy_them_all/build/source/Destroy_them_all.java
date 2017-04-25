@@ -31,12 +31,12 @@ Bear player = new Bear();
 GameOver gameOver = new GameOver();
 PFont robotoCondensed;
 
+int currentFrameRate;
 
 public void setup() {
   
   background(0);
   textAlign(CENTER);
-  text("Loading...", width/2, height/2);
 
   sky = loadImage("Graphics/Environment/Sky/SkyImage.png");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
@@ -47,9 +47,6 @@ public void setup() {
 }
 
 public void draw() {
-  if (frameCount % 60 == 0) {
-    println("Frame rate = " + frameRate);
-  }
   switch(gameState){
     case "MAIN MENU":
       mainMenu.display();
@@ -65,8 +62,20 @@ public void draw() {
     case "PAUSE":
       break;
   }
+  displayFrames();
+
 }
 
+public void displayFrames() {
+  currentFrameRate = PApplet.parseInt(frameRate);
+  textAlign(CORNERS);
+  fill(255);
+  noStroke();
+  textSize(20);
+  text("Frame rate: " + currentFrameRate, 950, 40);
+}
+
+//USER INPUTS
 public void keyPressed() {
   switch(gameState) {
     case "MAIN MENU":
@@ -107,13 +116,15 @@ Class that controls the bear and bear stuff
 */
 
 class Bear {
-  int posY = 400;
+  int posY;
   //is used to control size of the bear
-  int bearSize = 110;
-  int health = 3;
+  int bearSize;
+  int health;
 
   Bear() {
-
+    posY = 400;
+    bearSize = 110;
+    health = 3;
   }
 
   public void display() {
@@ -152,51 +163,38 @@ class Buildings extends Sprites {
     buildingSize = 140;
   }
 
+  public void drawBuilding(PShape building) {
+    posY = 350;
+      shape(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
+      //defines boundries of the building for detection purposes
+      boundryHeight = PApplet.parseInt((building.height * buildingSize)/building.width);
+      boundryWidth = buildingSize;
+  }
+
   //displays a building based on typeOfSprite
   public void display() {
     switch(typeOfSprite){
       case 1:
         //displays the first building type.
-        posY = 350;
-        shape(building1, posX, posY, buildingSize, (building1.height * buildingSize)/building1.width);
-        //defines boundries of the building for detection purposes
-        boundryHeight = PApplet.parseInt((building1.height * buildingSize)/building1.width);
-        boundryWidth = buildingSize;
+        drawBuilding(building1);
         break;
       case 2:
-        posY = 307;
-        shape(building2, posX, posY, buildingSize, (building2.height * buildingSize)/building2.width);
-        //defines boundries of the building for detection purposes
-        boundryHeight = PApplet.parseInt((building2.height * buildingSize)/building2.width);
-        boundryWidth = buildingSize;
+        drawBuilding(building2);
         break;
       case 3:
-        posY = 383;
-        shape(building3, posX, posY, buildingSize, (building3.height * buildingSize)/building3.width);
-        //defines boundries of the building for detection purposes
-        boundryHeight = PApplet.parseInt((building3.height * buildingSize)/building3.width);
-        boundryWidth = buildingSize;
+        drawBuilding(building3);
         break;
       case 4:
-        posY = 354;
-        shape(building4, posX, posY, buildingSize, (building4.height * buildingSize)/building4.width);
-        //defines boundries of the building for detection purposes
-        boundryHeight = PApplet.parseInt((building4.height * buildingSize)/building4.width);
-        boundryWidth = buildingSize;
+        posY = 350;
+        drawBuilding(building4);
         break;
       case 5:
-        posY = 307;
-        shape(building5, posX, posY, buildingSize, (building5.height * buildingSize)/building5.width);
-        //defines boundries of the building for detection purposes
-        boundryHeight = PApplet.parseInt((building5.height * buildingSize)/building5.width);
-        boundryWidth = buildingSize;
+        posY = 350;
+        drawBuilding(building5);
         break;
       case 6:
-        posY = 266;
-        shape(building6, posX, posY, buildingSize, (building6.height * buildingSize)/building6.width);
-        //defines boundries of the building for detection purposes
-        boundryHeight = PApplet.parseInt((building6.height * buildingSize)/building6.width);
-        boundryWidth = buildingSize;
+        posY = 350;
+        drawBuilding(building6);
         break;
     }
   }
@@ -553,7 +551,9 @@ class PlayGame {
   }
 
   public void displayScore() {
-    text("Score:" + " " + score, 60, 30);
+    textSize(30);
+    fill(255);
+    text("Score:" + " " + score, 40, 40);
   }
 
   public void checkAlive() {
@@ -702,7 +702,7 @@ class Sprites {
   public void move(float gameSpeed) {
     posX -= gameSpeed;
   }
-
+  
   public void display() {
   }
 
@@ -724,6 +724,7 @@ class Traps extends Sprites {
   int boundryHeight;
   int boundryWidth;
   boolean once;
+  
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
@@ -738,11 +739,13 @@ class Traps extends Sprites {
         //load image andd set posY;
         int trapSize = 100;
         posY = 520;
+        
         if(!activatedStatus) {
           shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         } else {
           shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         }
+        
         //defines boundrys for detection
         boundryHeight = PApplet.parseInt((bearTrap.height * trapSize)/bearTrap.width);
         boundryWidth = trapSize;

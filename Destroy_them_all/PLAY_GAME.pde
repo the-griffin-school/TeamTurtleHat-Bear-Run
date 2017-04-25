@@ -113,7 +113,9 @@ class PlayGame {
   }
 
   void displayScore() {
-    text("Score:" + " " + score, 60, 30);
+    textSize(30);
+    fill(255);
+    text("Score:" + " " + score, 40, 40);
   }
 
   void checkAlive() {

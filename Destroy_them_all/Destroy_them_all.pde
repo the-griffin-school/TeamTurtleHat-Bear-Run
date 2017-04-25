@@ -15,6 +15,7 @@ Bear player = new Bear();
 GameOver gameOver = new GameOver();
 PFont robotoCondensed;
 
+int currentFrameRate;
 
 void setup() {
   size(1100, 600);
@@ -30,9 +31,6 @@ void setup() {
 }
 
 void draw() {
-  if (frameCount % 60 == 0) {
-    println("Frame rate = " + frameRate);
-  }
   switch(gameState){
     case "MAIN MENU":
       mainMenu.display();
@@ -48,8 +46,18 @@ void draw() {
     case "PAUSE":
       break;
   }
+  displayFrames();
+
 }
 
+void displayFrames() {
+  currentFrameRate = int(frameRate);
+  textAlign(CORNERS);
+  fill(255);
+  noStroke();
+  textSize(20);
+  text("Frame rate: " + currentFrameRate, 950, 40);
+}
 
 //USER INPUTS
 void keyPressed() {
