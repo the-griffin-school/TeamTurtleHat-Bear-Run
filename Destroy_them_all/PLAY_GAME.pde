@@ -8,22 +8,27 @@ Controls the actual gameplay of the game
 boolean playerJump = false;
 float randomSprite;
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
+ArrayList<Float> grassList = new ArrayList<Float>();
+ArrayList<Integer> mountainsBack = new ArrayList<Integer>();
+ArrayList<Integer> mountainsFront = new ArrayList<Integer>();
 float treesX = 0;
 float trees2X = 800;
 //stores time;
 int time = 0;
+int grassPosX = 0;
 
 
 class PlayGame {
   //Fields
   boolean playerJump;
   float randomSprite;
-  ArrayList<Sprites> sprites = new ArrayList<Sprites>();
   float treesX;
   float trees2X;
   int time;
   int score;
   float gameSpeed;
+  int grassWidth = 50;
+  int mtsWidth = width;
 
   //Constructor
   PlayGame() {
@@ -41,7 +46,7 @@ class PlayGame {
   void generateSprites() {
     randomSprite = random(35, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 500) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 42.5) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, int(random(7))));
@@ -54,6 +59,45 @@ class PlayGame {
     }
   }
 
+  void addSprites() {
+    for (int i = 0; i <= width; i += grassWidth) {
+      grassList.add(new Float(i));
+    }
+    for(int i = 0; i <= width; i += width) {
+      mountainsBack.add(new Integer(i));
+    }
+    for(int i = 0; i <= width; i += width) {
+      mountainsFront.add(new Integer(i));
+    }
+  }
+
+  void drawGrass() {
+    for(int i = 0; i < grassList.size(); i++) {
+      grassList.set(i, grassList.get(i) - 10);
+      shape(grass, grassList.get(i), 570, grassWidth, (grass.height * grassWidth)/grass.width);
+      if(grassList.get(i) < 2 - grassWidth) {
+        grassList.set(i, float(width));
+      }
+    }
+  }
+
+  void drawMountains() {
+    for(int i = 0; i < mountainsBack.size(); i++) {
+      mountainsBack.set(i, mountainsBack.get(i) - 1);
+      shape(mtsBack, mountainsBack.get(i), 165, width, (mtsBack.height * width)/mtsBack.width);
+      if(mountainsBack.get(i) < 2 - width) {
+        mountainsBack.set(i, width);
+      }
+    }
+    for(int i = 0; i < mountainsFront.size(); i++) {
+      mountainsFront.set(i, mountainsFront.get(i) - 2);
+      shape(mtsFront, mountainsFront.get(i), 170, width, (mtsFront.height * width)/mtsFront.width);
+      if(mountainsFront.get(i) < 2 - width) {
+        mountainsFront.set(i, width);
+      }
+    }
+    //shape(mtsFront, 0, 0, width, (mtsFront.height * width)/mtsFront.width);
+  }
   //setting game speed from outside the class
   void setGameSpeed(float newSpeed) {
     gameSpeed = newSpeed;
@@ -74,7 +118,7 @@ class PlayGame {
 
   void checkAlive() {
     if(player.dead()) {
-      gameState = "GAME OVER";
+      //gameState = "GAME OVER";
     }
   }
 
@@ -86,7 +130,7 @@ class PlayGame {
     }
   }
 
-  void move() {
+  void process() {
     //loops through all objects in ArrayList
     for(int i = 0; i < sprites.size(); i++) {
       //moves sprite from right to left
@@ -98,9 +142,6 @@ class PlayGame {
       checkAlive();
       clearSprite(i);
     }
-  }
-
-  void displaySprites() {
     //displays player
     player.display();
     if(playerJump) {
@@ -125,15 +166,25 @@ class PlayGame {
     image(sky, 0, 0);
   }
 
+  // void drawGrass() {
+  //   int grassWidth = 50;
+  //   for(int i = 0; i < width; i += grassWidth) {
+  //     shape(grass, grassPosX + i, 570, grassWidth, (grass.height * grassWidth)/grass.width);
+  //   }
+  //   grassPosX--;
+  // }
+
   void display() {
     //draw sky
     drawSky();
+    //draws mts
+    drawMountains();
     //generate sprites
     generateSprites();
-    //move sprites
-    move();
-    //display sprites
-    displaySprites();
+    //moves and displays
+    process();
+    //draws grass
+    drawGrass();
     //displays score;
     displayScore();
   }

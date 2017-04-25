@@ -30,6 +30,7 @@ class GameOver {
          deathMsg = "You're a BEARicade of progress";
          break;
      }
+
      textAlign(CENTER);
      textSize(60);
      fill(255, 0, 0);
