@@ -12,6 +12,7 @@ float treesX = 0;
 float trees2X = 800;
 //stores time;
 int time = 0;
+int grassPosX = 0;
 
 
 class PlayGame {
@@ -74,7 +75,7 @@ class PlayGame {
 
   void checkAlive() {
     if(player.dead()) {
-      gameState = "GAME OVER";
+      //gameState = "GAME OVER";
     }
   }
 
@@ -122,7 +123,11 @@ class PlayGame {
     image(sky, 0, 0);
   }
   void drawGrass() {
-    
+    int grassWidth = 50;
+    for(int i = 0; i < width; i += grassWidth) {
+      shape(grass, grassPosX +i, 570, grassWidth, (grass.height * grassWidth)/grass.width);
+    }
+    grassPosX--;
   }
 
   void display() {
@@ -132,6 +137,8 @@ class PlayGame {
     generateSprites();
     //moves and displays
     process();
+    //draws grass
+    drawGrass();
     //displays score;
     displayScore();
   }

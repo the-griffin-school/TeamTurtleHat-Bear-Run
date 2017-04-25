@@ -451,6 +451,7 @@ float treesX = 0;
 float trees2X = 800;
 //stores time;
 int time = 0;
+int grassPosX = 0;
 
 
 class PlayGame {
@@ -513,7 +514,7 @@ class PlayGame {
 
   public void checkAlive() {
     if(player.dead()) {
-      gameState = "GAME OVER";
+      //gameState = "GAME OVER";
     }
   }
 
@@ -560,6 +561,13 @@ class PlayGame {
   public void drawSky() {
     image(sky, 0, 0);
   }
+  public void drawGrass() {
+    int grassWidth = 50;
+    for(int i = 0; i < width; i += grassWidth) {
+      shape(grass, grassPosX +i, 570, grassWidth, (grass.height * grassWidth)/grass.width);
+    }
+    grassPosX--;
+  }
 
   public void display() {
     //draw sky
@@ -568,6 +576,8 @@ class PlayGame {
     generateSprites();
     //moves and displays
     process();
+    //draws grass
+    drawGrass();
     //displays score;
     displayScore();
   }
@@ -586,6 +596,7 @@ PShape building5;
 PShape building6;
 PShape bearTrap;
 PShape bearTrapActivated;
+PShape grass;
 //used to load building and trap sprites
 public void loadSprites() {
   building1 = loadShape("Graphics/Buildings/Building 1.svg");
@@ -596,6 +607,7 @@ public void loadSprites() {
   building6 = loadShape("Graphics/Buildings/Building 6.svg");
   bearTrap = loadShape("Graphics/Traps/BearTrap.svg");
   bearTrapActivated = loadShape("Graphics/Traps/BearTrapActivated.svg");
+  grass = loadShape("Graphics/Environment/Grass/Grass.svg");
 }
 //parent class to buildings and traps
 class Sprites {

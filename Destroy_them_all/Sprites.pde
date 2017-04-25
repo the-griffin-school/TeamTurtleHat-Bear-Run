@@ -12,6 +12,7 @@ PShape building5;
 PShape building6;
 PShape bearTrap;
 PShape bearTrapActivated;
+PShape grass;
 //used to load building and trap sprites
 void loadSprites() {
   building1 = loadShape("Graphics/Buildings/Building 1.svg");
@@ -22,6 +23,7 @@ void loadSprites() {
   building6 = loadShape("Graphics/Buildings/Building 6.svg");
   bearTrap = loadShape("Graphics/Traps/BearTrap.svg");
   bearTrapActivated = loadShape("Graphics/Traps/BearTrapActivated.svg");
+  grass = loadShape("Graphics/Environment/Grass/Grass.svg");
 }
 //parent class to buildings and traps
 class Sprites {
