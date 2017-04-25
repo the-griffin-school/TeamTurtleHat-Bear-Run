@@ -42,7 +42,7 @@ public void setup() {
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
-  playGame.addGrass();
+  playGame.addSprites();
 
 }
 
@@ -449,6 +449,8 @@ boolean playerJump = false;
 float randomSprite;
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 ArrayList<Float> grassList = new ArrayList<Float>();
+ArrayList<Integer> mountainsBack = new ArrayList<Integer>();
+ArrayList<Integer> mountainsFront = new ArrayList<Integer>();
 float treesX = 0;
 float trees2X = 800;
 //stores time;
@@ -460,14 +462,13 @@ class PlayGame {
   //Fields
   boolean playerJump;
   float randomSprite;
-  ArrayList<Sprites> sprites = new ArrayList<Sprites>();
-  //ArrayList<float> grass = new ArrayList<float>();
   float treesX;
   float trees2X;
   int time;
   int score;
   float gameSpeed;
   int grassWidth = 50;
+  int mtsWidth = width;
 
   //Constructor
   PlayGame() {
@@ -485,7 +486,7 @@ class PlayGame {
   public void generateSprites() {
     randomSprite = random(35, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 500) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 42.5f) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, PApplet.parseInt(random(7))));
@@ -498,9 +499,15 @@ class PlayGame {
     }
   }
 
-  public void addGrass() {
+  public void addSprites() {
     for (int i = 0; i <= width; i += grassWidth) {
       grassList.add(new Float(i));
+    }
+    for(int i = 0; i <= width; i += width) {
+      mountainsBack.add(new Integer(i));
+    }
+    for(int i = 0; i <= width; i += width) {
+      mountainsFront.add(new Integer(i));
     }
   }
 
@@ -514,7 +521,23 @@ class PlayGame {
     }
   }
 
-
+  public void drawMountains() {
+    for(int i = 0; i < mountainsBack.size(); i++) {
+      mountainsBack.set(i, mountainsBack.get(i) - 1);
+      shape(mtsBack, mountainsBack.get(i), 165, width, (mtsBack.height * width)/mtsBack.width);
+      if(mountainsBack.get(i) < 2 - width) {
+        mountainsBack.set(i, width);
+      }
+    }
+    for(int i = 0; i < mountainsFront.size(); i++) {
+      mountainsFront.set(i, mountainsFront.get(i) - 2);
+      shape(mtsFront, mountainsFront.get(i), 170, width, (mtsFront.height * width)/mtsFront.width);
+      if(mountainsFront.get(i) < 2 - width) {
+        mountainsFront.set(i, width);
+      }
+    }
+    //shape(mtsFront, 0, 0, width, (mtsFront.height * width)/mtsFront.width);
+  }
   //setting game speed from outside the class
   public void setGameSpeed(float newSpeed) {
     gameSpeed = newSpeed;
@@ -594,6 +617,8 @@ class PlayGame {
   public void display() {
     //draw sky
     drawSky();
+    //draws mts
+    drawMountains();
     //generate sprites
     generateSprites();
     //moves and displays
@@ -619,6 +644,8 @@ PShape building6;
 PShape bearTrap;
 PShape bearTrapActivated;
 PShape grass;
+PShape mtsBack;
+PShape mtsFront;
 //used to load building and trap sprites
 public void loadSprites() {
   building1 = loadShape("Graphics/Buildings/Building 1.svg");
@@ -630,6 +657,8 @@ public void loadSprites() {
   bearTrap = loadShape("Graphics/Traps/BearTrap.svg");
   bearTrapActivated = loadShape("Graphics/Traps/BearTrapActivated.svg");
   grass = loadShape("Graphics/Environment/Grass/Grass.svg");
+  mtsFront = loadShape("Graphics/Environment/Mountains/Mountains Front.svg");
+  mtsBack = loadShape("Graphics/Environment/Mountains/Mountains Back.svg");
 }
 //parent class to buildings and traps
 class Sprites {
