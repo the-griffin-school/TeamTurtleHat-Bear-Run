@@ -9,6 +9,7 @@ class Traps extends Sprites {
   int boundryHeight;
   int boundryWidth;
   boolean once;
+  
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
@@ -23,11 +24,13 @@ class Traps extends Sprites {
         //load image andd set posY;
         int trapSize = 100;
         posY = 520;
+        
         if(!activatedStatus) {
           shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         } else {
           shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         }
+        
         //defines boundrys for detection
         boundryHeight = int((bearTrap.height * trapSize)/bearTrap.width);
         boundryWidth = trapSize;

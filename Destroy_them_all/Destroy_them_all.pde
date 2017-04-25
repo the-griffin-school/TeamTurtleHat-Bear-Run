@@ -19,7 +19,6 @@ void setup() {
   size(1100, 600);
   background(0);
   textAlign(CENTER);
-  text("Loading...", width/2, height/2);
 
   sky = loadImage("Graphics/Environment/Sky/SkyImage.png");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
@@ -48,6 +47,8 @@ void draw() {
   }
 }
 
+
+//USER INPUTS
 void keyPressed() {
   switch(gameState) {
     case "MAIN MENU":

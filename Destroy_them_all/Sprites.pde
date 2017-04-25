@@ -65,7 +65,7 @@ class Sprites {
   void move(float gameSpeed) {
     posX -= gameSpeed;
   }
-
+  
   void display() {
   }
 

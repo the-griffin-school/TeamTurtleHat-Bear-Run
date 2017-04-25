@@ -6,13 +6,15 @@ Class that controls the bear and bear stuff
 */
 
 class Bear {
-  int posY = 400;
+  int posY;
   //is used to control size of the bear
-  int bearSize = 110;
-  int health = 3;
+  int bearSize;
+  int health;
 
   Bear() {
-
+    posY = 400;
+    bearSize = 110;
+    health = 3;
   }
 
   void display() {
