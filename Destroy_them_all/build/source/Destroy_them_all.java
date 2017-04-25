@@ -42,6 +42,7 @@ public void setup() {
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
+  playGame.addGrass();
 
 }
 
@@ -447,6 +448,7 @@ Controls the actual gameplay of the game
 boolean playerJump = false;
 float randomSprite;
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
+ArrayList<Float> grassList = new ArrayList<Float>();
 float treesX = 0;
 float trees2X = 800;
 //stores time;
@@ -459,11 +461,13 @@ class PlayGame {
   boolean playerJump;
   float randomSprite;
   ArrayList<Sprites> sprites = new ArrayList<Sprites>();
+  //ArrayList<float> grass = new ArrayList<float>();
   float treesX;
   float trees2X;
   int time;
   int score;
   float gameSpeed;
+  int grassWidth = 50;
 
   //Constructor
   PlayGame() {
@@ -493,6 +497,23 @@ class PlayGame {
       }
     }
   }
+
+  public void addGrass() {
+    for (int i = 0; i <= width; i += grassWidth) {
+      grassList.add(new Float(i));
+    }
+  }
+
+  public void drawGrass() {
+    for(int i = 0; i < grassList.size(); i++) {
+      grassList.set(i, grassList.get(i) - 10);
+      shape(grass, grassList.get(i), 570, grassWidth, (grass.height * grassWidth)/grass.width);
+      if(grassList.get(i) < 2 - grassWidth) {
+        grassList.set(i, PApplet.parseFloat(width));
+      }
+    }
+  }
+
 
   //setting game speed from outside the class
   public void setGameSpeed(float newSpeed) {
@@ -561,13 +582,14 @@ class PlayGame {
   public void drawSky() {
     image(sky, 0, 0);
   }
-  public void drawGrass() {
-    int grassWidth = 50;
-    for(int i = 0; i < width; i += grassWidth) {
-      shape(grass, grassPosX +i, 570, grassWidth, (grass.height * grassWidth)/grass.width);
-    }
-    grassPosX--;
-  }
+
+  // void drawGrass() {
+  //   int grassWidth = 50;
+  //   for(int i = 0; i < width; i += grassWidth) {
+  //     shape(grass, grassPosX + i, 570, grassWidth, (grass.height * grassWidth)/grass.width);
+  //   }
+  //   grassPosX--;
+  // }
 
   public void display() {
     //draw sky

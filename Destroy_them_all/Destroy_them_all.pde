@@ -26,6 +26,7 @@ void setup() {
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
+  playGame.addGrass();
 
 }
 
