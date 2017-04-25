@@ -252,6 +252,7 @@ class GameOver {
          deathMsg = "You're a BEARicade of progress";
          break;
      }
+
      textAlign(CENTER);
      textSize(60);
      fill(255, 0, 0);
@@ -263,14 +264,14 @@ class GameOver {
    }
 
    public void buttonDetection() {
-      stroke(255);
-      fill(0);
-      rectMode(CORNER);
-      rect(width/2 - width/3, height/2 + height/4, width/3 - width/12, height/6);
-      rect(width/2 + (width/2 -width/3 - width/12), height/2 + height/4, width/3 - width/12, height/6);
-      rectMode(CENTER);
-      fill(255);
-      text("Main Menu", (width/2 - width/3) + (width/3 - width/12)/2, (height/2 + height/4) + height/9);
+      // stroke(255);
+      // fill(0);
+      // rectMode(CORNER);
+      // rect(width/2 - width/3, height/2 + height/4, width/3 - width/12, height/6);
+      // rect(width/2 + (width/2 -width/3 - width/12), height/2 + height/4, width/3 - width/12, height/6);
+      // rectMode(CENTER);
+      // fill(255);
+      // text("Main Menu", (width/2 - width/3) + (width/3 - width/12)/2, (height/2 + height/4) + height/9);
    }
 
    public void display() {
@@ -524,7 +525,7 @@ class PlayGame {
     }
   }
 
-  public void move() {
+  public void process() {
     //loops through all objects in ArrayList
     for(int i = 0; i < sprites.size(); i++) {
       //moves sprite from right to left
@@ -536,9 +537,6 @@ class PlayGame {
       checkAlive();
       clearSprite(i);
     }
-  }
-
-  public void displaySprites() {
     //displays player
     player.display();
     if(playerJump) {
@@ -568,10 +566,8 @@ class PlayGame {
     drawSky();
     //generate sprites
     generateSprites();
-    //move sprites
-    move();
-    //display sprites
-    displaySprites();
+    //moves and displays
+    process();
     //displays score;
     displayScore();
   }

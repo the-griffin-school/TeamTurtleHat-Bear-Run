@@ -86,7 +86,7 @@ class PlayGame {
     }
   }
 
-  void move() {
+  void process() {
     //loops through all objects in ArrayList
     for(int i = 0; i < sprites.size(); i++) {
       //moves sprite from right to left
@@ -98,9 +98,6 @@ class PlayGame {
       checkAlive();
       clearSprite(i);
     }
-  }
-
-  void displaySprites() {
     //displays player
     player.display();
     if(playerJump) {
@@ -124,16 +121,17 @@ class PlayGame {
   void drawSky() {
     image(sky, 0, 0);
   }
+  void drawGrass() {
+    
+  }
 
   void display() {
     //draw sky
     drawSky();
     //generate sprites
     generateSprites();
-    //move sprites
-    move();
-    //display sprites
-    displaySprites();
+    //moves and displays
+    process();
     //displays score;
     displayScore();
   }
