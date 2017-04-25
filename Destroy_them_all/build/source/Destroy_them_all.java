@@ -163,8 +163,8 @@ class Buildings extends Sprites {
     buildingSize = 140;
   }
 
-  public void drawBuilding(PShape building) {
-    posY = 350;
+  public void drawBuilding(PShape building, int newPosY) {
+      posY = newPosY;
       shape(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
       //defines boundries of the building for detection purposes
       boundryHeight = PApplet.parseInt((building.height * buildingSize)/building.width);
@@ -176,25 +176,23 @@ class Buildings extends Sprites {
     switch(typeOfSprite){
       case 1:
         //displays the first building type.
-        drawBuilding(building1);
+        drawBuilding(building1, 347);
         break;
       case 2:
-        drawBuilding(building2);
+        drawBuilding(building2, 304);
         break;
       case 3:
-        drawBuilding(building3);
+        drawBuilding(building3, 380);
         break;
       case 4:
-        posY = 350;
-        drawBuilding(building4);
+        drawBuilding(building4, 351);
         break;
       case 5:
-        posY = 350;
-        drawBuilding(building5);
+        drawBuilding(building5, 304);
         break;
       case 6:
-        posY = 350;
-        drawBuilding(building6);
+        drawBuilding(building6, 263);
+        println(581 - boundryHeight);
         break;
     }
   }
@@ -487,7 +485,7 @@ class PlayGame {
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 42.5f) {
         //add buliding to arraylist
-        sprites.add(new Buildings(width, PApplet.parseInt(random(7))));
+        sprites.add(new Buildings(width, 6));
         time = millis();
       } else if (randomSprite < 41) {
         //adds trap to arraylist
@@ -538,15 +536,15 @@ class PlayGame {
   }
 
   public void drawClouds() {
-    //shape(cloud1, 0, 0);
-    //shape(cloud2, 0, 200);
+    shape(cloud1, 0, 0);
+    shape(cloud2, 0, 200);
     shape(cloud3, 200, 200);
-    //shape(cloud4, 400, 0);
-    //shape(cloud5, 400, 200);
-    //shape(cloud6, 400, 400);
-    //shape(cloud7, 800, 0);
-    //shape(cloud8, 800, 200);
-    //shape(cloud9, 800, 400);
+    // shape(cloud4, 400, 0);
+    // shape(cloud5, 400, 200);
+    // shape(cloud6, 400, 400);
+    // shape(cloud7, 800, 0);
+    // shape(cloud8, 800, 200);
+    // shape(cloud9, 800, 400);
   }
 
   //setting game speed from outside the class
