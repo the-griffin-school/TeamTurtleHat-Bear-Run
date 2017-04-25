@@ -49,7 +49,7 @@ class PlayGame {
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 42.5) {
         //add buliding to arraylist
-        sprites.add(new Buildings(width, 6));
+        sprites.add(new Buildings(width, int(random(7))));
         time = millis();
       } else if (randomSprite < 41) {
         //adds trap to arraylist
@@ -150,12 +150,12 @@ class PlayGame {
     for(int i = 0; i < sprites.size(); i++) {
       //moves sprite from right to left
       sprites.get(i).move(getGameSpeed());
+      clearSprite(i);
       //displays sprite
       sprites.get(i).display();
       sprites.get(i).detection();
       sprites.get(i).subtractHealth();
       checkAlive();
-      clearSprite(i);
     }
     //displays player
     player.display();

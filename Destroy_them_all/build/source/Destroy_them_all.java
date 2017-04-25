@@ -164,7 +164,7 @@ class Buildings extends Sprites {
   }
 
   public void drawBuilding(PShape building, int newPosY) {
-      posY = newPosY;
+      posY = newPosY - 1;
       shape(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
       //defines boundries of the building for detection purposes
       boundryHeight = PApplet.parseInt((building.height * buildingSize)/building.width);
@@ -192,7 +192,6 @@ class Buildings extends Sprites {
         break;
       case 6:
         drawBuilding(building6, 263);
-        println(581 - boundryHeight);
         break;
     }
   }
@@ -485,7 +484,7 @@ class PlayGame {
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 42.5f) {
         //add buliding to arraylist
-        sprites.add(new Buildings(width, 6));
+        sprites.add(new Buildings(width, PApplet.parseInt(random(7))));
         time = millis();
       } else if (randomSprite < 41) {
         //adds trap to arraylist
@@ -586,12 +585,12 @@ class PlayGame {
     for(int i = 0; i < sprites.size(); i++) {
       //moves sprite from right to left
       sprites.get(i).move(getGameSpeed());
+      clearSprite(i);
       //displays sprite
       sprites.get(i).display();
       sprites.get(i).detection();
       sprites.get(i).subtractHealth();
       checkAlive();
-      clearSprite(i);
     }
     //displays player
     player.display();

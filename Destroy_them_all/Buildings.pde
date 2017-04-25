@@ -18,7 +18,7 @@ class Buildings extends Sprites {
   }
 
   void drawBuilding(PShape building, int newPosY) {
-      posY = newPosY;
+      posY = newPosY - 1s;
       shape(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
       //defines boundries of the building for detection purposes
       boundryHeight = int((building.height * buildingSize)/building.width);
@@ -46,7 +46,6 @@ class Buildings extends Sprites {
         break;
       case 6:
         drawBuilding(building6, 263);
-        println(581 - boundryHeight);
         break;
     }
   }
