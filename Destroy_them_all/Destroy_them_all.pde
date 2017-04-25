@@ -87,7 +87,10 @@ void keyPressed() {
       break;
     case "GAME START":
       if(key == ' ') {
-        playGame.playerJump = true;
+        if(!player.getJumping()) {
+          player.setCounter(0);
+        }
+        player.setJump(true);
       }
       break;
   }

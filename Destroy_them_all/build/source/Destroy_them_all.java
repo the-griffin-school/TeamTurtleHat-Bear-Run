@@ -103,7 +103,10 @@ public void keyPressed() {
       break;
     case "GAME START":
       if(key == ' ') {
-        playGame.playerJump = true;
+        if(!player.getJumping()) {
+          player.setCounter(0);
+        }
+        player.setJump(true);
       }
       break;
   }
@@ -116,21 +119,39 @@ Class that controls the bear and bear stuff
 */
 
 class Bear {
-  int posY;
+  float posY;
   //is used to control size of the bear
   int bearSize;
   int health;
+  float jumpFactor;
+  int counter;
+  boolean jumping;
+  int jumpDuration;
 
   Bear() {
     posY = 400;
     bearSize = 110;
     health = 3;
+    counter = 0;
+    jumpFactor = 1.6f;
+    jumpDuration = 27;
   }
 
   public void display() {
     shape(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
   }
 
+  public void setCounter(int newCounter) {
+    counter = newCounter;
+  }
+
+  public boolean getJumping() {
+    return jumping;
+  }
+
+  public void setJump(boolean newBool) {
+    jumping = newBool;
+  }
 
   public boolean dead() {
     if(health == 0) {
@@ -141,7 +162,19 @@ class Bear {
   }
 
   public void jump() {
+    if (jumping){
+      //counter is frame count for jump duration
+      if (counter < jumpDuration) {
+        println(counter);
+        posY = 400 - ((jumpFactor * counter) + (0.5f * -3.6f * sq(counter + -13)) + 300);
+        println(posY);
+        counter++;
 
+      } else if (counter >= jumpDuration){
+        jumping = false;
+        posY = 400;
+      }
+    }
   }
 }
 /*
@@ -455,7 +488,6 @@ int grassPosX = 0;
 
 class PlayGame {
   //Fields
-  boolean playerJump;
   float randomSprite;
   float treesX;
   float trees2X;
@@ -535,9 +567,9 @@ class PlayGame {
   }
 
   public void drawClouds() {
-    shape(cloud1, 0, 0);
-    shape(cloud2, 0, 200);
-    shape(cloud3, 200, 200);
+    // shape(cloud1, 0, 0);
+    // shape(cloud2, 0, 200);
+    // shape(cloud3, 200, 200);
     // shape(cloud4, 400, 0);
     // shape(cloud5, 400, 200);
     // shape(cloud6, 400, 400);
@@ -568,7 +600,7 @@ class PlayGame {
 
   public void checkAlive() {
     if(player.dead()) {
-      //gameState = "GAME OVER";
+      gameState = "GAME OVER";
     }
   }
 
@@ -593,10 +625,8 @@ class PlayGame {
       checkAlive();
     }
     //displays player
+    player.jump();
     player.display();
-    if(playerJump) {
-      player.jump();
-    }
   }
 
   // ##LAGS TOO MUCH GRADIENT ATTEMPT FAILED
