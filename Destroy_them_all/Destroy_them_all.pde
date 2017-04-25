@@ -12,6 +12,7 @@ MainMenu mainMenu = new MainMenu();
 PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
+GameOver gameOver = new GameOver();
 PFont robotoCondensed;
 
 
@@ -42,6 +43,7 @@ void draw() {
       playGame.display();
       break;
     case "GAME OVER":
+      gameOver.display();
       break;
     case "PAUSE":
       break;

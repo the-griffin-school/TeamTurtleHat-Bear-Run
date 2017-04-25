@@ -39,14 +39,14 @@ class PlayGame {
 
   //Function to randomely determine when a tree is going to be placed
   void generateSprites() {
-    randomSprite = random(40, 50);
+    randomSprite = random(35, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
-      if(randomSprite > 43) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 500) {
+      if(randomSprite > 42.5) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, int(random(7))));
         time = millis();
-      } else if (randomSprite < 42) {
+      } else if (randomSprite < 41) {
         //adds trap to arraylist
         sprites.add(new Traps(width, 1));
         time = millis();
@@ -74,7 +74,7 @@ class PlayGame {
 
   void checkAlive() {
     if(player.dead()) {
-     println("dead");
+      gameState = "GAME OVER";
     }
   }
 
