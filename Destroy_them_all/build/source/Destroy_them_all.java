@@ -43,7 +43,6 @@ public void setup() {
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
   playGame.addSprites();
-  playGame.cloudY();
 }
 
 public void draw() {
@@ -479,30 +478,31 @@ ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 ArrayList<Float> grassList = new ArrayList<Float>();
 ArrayList<Integer> mountainsBack = new ArrayList<Integer>();
 ArrayList<Integer> mountainsFront = new ArrayList<Integer>();
-int[] cloudY = new int[4];
-float treesX = 0;
-float trees2X = 800;
+ArrayList<Integer> clouds = new ArrayList<Integer>();
+ArrayList<Integer> cloudsY = new ArrayList<Integer>();
+ArrayList<Integer> cloudsType = new ArrayList<Integer>();
+ArrayList<Integer> cloudsSlow = new ArrayList<Integer>();
+ArrayList<Integer> cloudsSlowY = new ArrayList<Integer>();
+ArrayList<Integer> cloudsSlowType = new ArrayList<Integer>();
 //stores time;
 int time = 0;
 int grassPosX = 0;
 
 
+
 class PlayGame {
   //Fields
   float randomSprite;
-  float treesX;
-  float trees2X;
   int time;
   int score;
   float gameSpeed;
   int grassWidth = 50;
   int mtsWidth = width;
+  PShape shape;
 
   //Constructor
   PlayGame() {
     playerJump = false;
-    treesX = 0;
-    trees2X = 800;
     time = 0;
     score = 0;
     gameSpeed = 5;
@@ -533,9 +533,67 @@ class PlayGame {
     }
     for(int i = 0; i <= width; i += width) {
       mountainsBack.add(new Integer(i));
-    }
-    for(int i = 0; i <= width; i += width) {
       mountainsFront.add(new Integer(i));
+    }
+    for(int i = 0; i <= width; i += 300) {
+      clouds.add(new Integer(i));
+      cloudsSlow.add(new Integer(i));
+    }
+    for(int i = 0; i < 10; i ++) {
+      cloudsY.add(new Integer(PApplet.parseInt(random(30, 300))));
+      cloudsSlowY.add(new Integer(PApplet.parseInt(random(30, 300))));
+      cloudsType.add(new Integer(PApplet.parseInt(random(9))));
+      cloudsSlowType.add(new Integer(PApplet.parseInt(random(6,9))));
+    }
+  }
+
+  public PShape cloudType(int num) {
+    switch (num) {
+      case 0:
+        shape = cloud1;
+        break;
+      case 1:
+        shape = cloud2;
+        break;
+      case 2:
+        shape = cloud3;
+        break;
+      case 3:
+        shape = cloud4;
+        break;
+      case 4:
+        shape = cloud5;
+        break;
+      case 5:
+        shape = cloud6;
+        break;
+      case 6:
+        shape = cloud7;
+        break;
+      case 7:
+        shape = cloud8;
+        break;
+      case 8:
+        shape = cloud9;
+        break;
+    }
+    return shape;
+  }
+
+  public void drawClouds() {
+    for(int i = 0; i < clouds.size(); i++) {
+      clouds.set(i, clouds.get(i) - 2);
+      shape(cloudType(cloudsType.get(i)), clouds.get(i), cloudsY.get(i));
+      if(clouds.get(i) < 0 - 400) {
+        clouds.set(i, width);
+      }
+    }
+    for(int i = 0; i < cloudsSlow.size(); i++) {
+      cloudsSlow.set(i, cloudsSlow.get(i) - 1);
+      shape(cloudType(cloudsSlowType.get(i)), cloudsSlow.get(i), cloudsSlowY.get(i));
+      if(cloudsSlow.get(i) < - 400) {
+        cloudsSlow.set(i, width);
+      }
     }
   }
 
@@ -549,48 +607,10 @@ class PlayGame {
     }
   }
 
-  public void cloudY() {
-    cloudY[0] = PApplet.parseInt(random(50, 300));
-    cloudY[1] = PApplet.parseInt(random(50, 300));
-    cloudY[2] = PApplet.parseInt(random(50, 300));
-    cloudY[3] = PApplet.parseInt(random(50, 300));
-  }
-
-  public int returnCloudY(int i) {
-    return cloudY[i];
-  }
-
-  public PShape randCloud(PShape rand, int i) {
-    switch(i){
-      case 1:
-      rand = cloud1;
-        break;
-      case 2:
-        break;
-      case 3:
-        break;
-      case 4:
-        break;
-      case 5:
-        break;
-      case 6:
-        break;
-      case 7:
-        break;
-      case 8:
-        break;
-      case 9:
-        break;
-    }
-    return rand;
-  }
-
   public void drawMountains() {
     for(int i = 0; i < mountainsBack.size(); i++) {
       mountainsBack.set(i, mountainsBack.get(i) - 1);
       shape(mtsBack, mountainsBack.get(i), 165, width, (mtsBack.height * width)/mtsBack.width);
-      shape(cloud1, mountainsBack.get(i), returnCloudY(1));
-      shape(cloud1, mountainsBack.get(i) + 400, returnCloudY(2));
       if(mountainsBack.get(i) < 2 - width) {
         mountainsBack.set(i, width);
       }
@@ -598,26 +618,12 @@ class PlayGame {
     for(int i = 0; i < mountainsFront.size(); i++) {
       mountainsFront.set(i, mountainsFront.get(i) - 2);
       shape(mtsFront, mountainsFront.get(i), 170, width, (mtsFront.height * width)/mtsFront.width);
-      shape(cloud1, mountainsFront.get(i), returnCloudY(3));
-      shape(cloud1, mountainsFront.get(i) + 400, returnCloudY(0));
       if(mountainsFront.get(i) < 2 - width) {
         mountainsFront.set(i, width);
       }
 
     }
     //shape(mtsFront, 0, 0, width, (mtsFront.height * width)/mtsFront.width);
-  }
-
-  public void drawClouds() {
-    // shape(cloud1, 0, 0);
-    // shape(cloud2, 0, 200);
-    // shape(cloud3, 200, 200);
-    // shape(cloud4, 400, 0);
-    // shape(cloud5, 400, 200);
-    // shape(cloud6, 400, 400);
-    // shape(cloud7, 800, 0);
-    // shape(cloud8, 800, 200);
-    // shape(cloud9, 800, 400);
   }
 
   //setting game speed from outside the class
@@ -731,7 +737,7 @@ PShape grass;
 PShape mtsBack;
 PShape mtsFront;
 PShape cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9;
-PShape randCloud1, randCloud2, randCloud3, randCloud4;
+
 //used to load building and trap sprites
 public void loadSprites() {
   building1 = loadShape("Graphics/Buildings/Building 1.svg");
