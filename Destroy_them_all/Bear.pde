@@ -53,7 +53,7 @@ class Bear {
       //counter is frame count for jump duration
       if (counter < jumpDuration) {
         println(counter);
-        posY = 400 - ((jumpFactor * counter) + (0.5 * -3.6 * sq(counter + -13)) + 300);
+        posY = 400 - ((jumpFactor * counter) + (.5 * -3.6 * sq(counter + -13)) + 300);
         println(posY);
         counter++;
 

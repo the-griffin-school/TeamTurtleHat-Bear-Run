@@ -27,7 +27,6 @@ void setup() {
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
   playGame.addSprites();
-
 }
 
 void draw() {

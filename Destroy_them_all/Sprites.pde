@@ -16,6 +16,7 @@ PShape grass;
 PShape mtsBack;
 PShape mtsFront;
 PShape cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9;
+
 //used to load building and trap sprites
 void loadSprites() {
   building1 = loadShape("Graphics/Buildings/Building 1.svg");
@@ -81,7 +82,7 @@ class Sprites {
   void move(float gameSpeed) {
     posX -= gameSpeed;
   }
-  
+
   void display() {
   }
 

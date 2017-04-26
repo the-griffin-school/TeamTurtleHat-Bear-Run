@@ -43,7 +43,7 @@ public void setup() {
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
   playGame.addSprites();
-
+  playGame.cloudY();
 }
 
 public void draw() {
@@ -166,7 +166,7 @@ class Bear {
       //counter is frame count for jump duration
       if (counter < jumpDuration) {
         println(counter);
-        posY = 400 - ((jumpFactor * counter) + (0.5f * -3.6f * sq(counter + -13)) + 300);
+        posY = 400 - ((jumpFactor * counter) + (.5f * -3.6f * sq(counter + -13)) + 300);
         println(posY);
         counter++;
 
@@ -479,6 +479,7 @@ ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 ArrayList<Float> grassList = new ArrayList<Float>();
 ArrayList<Integer> mountainsBack = new ArrayList<Integer>();
 ArrayList<Integer> mountainsFront = new ArrayList<Integer>();
+int[] cloudY = new int[4];
 float treesX = 0;
 float trees2X = 800;
 //stores time;
@@ -512,7 +513,6 @@ class PlayGame {
   //Function to randomely determine when a tree is going to be placed
   public void generateSprites() {
     randomSprite = random(35, 50);
-    println(PApplet.parseInt(random(7)));
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 42.5f) {
@@ -549,10 +549,48 @@ class PlayGame {
     }
   }
 
+  public void cloudY() {
+    cloudY[0] = PApplet.parseInt(random(50, 300));
+    cloudY[1] = PApplet.parseInt(random(50, 300));
+    cloudY[2] = PApplet.parseInt(random(50, 300));
+    cloudY[3] = PApplet.parseInt(random(50, 300));
+  }
+
+  public int returnCloudY(int i) {
+    return cloudY[i];
+  }
+
+  public PShape randCloud(PShape rand, int i) {
+    switch(i){
+      case 1:
+      rand = cloud1;
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+      case 5:
+        break;
+      case 6:
+        break;
+      case 7:
+        break;
+      case 8:
+        break;
+      case 9:
+        break;
+    }
+    return rand;
+  }
+
   public void drawMountains() {
     for(int i = 0; i < mountainsBack.size(); i++) {
       mountainsBack.set(i, mountainsBack.get(i) - 1);
       shape(mtsBack, mountainsBack.get(i), 165, width, (mtsBack.height * width)/mtsBack.width);
+      shape(cloud1, mountainsBack.get(i), returnCloudY(1));
+      shape(cloud1, mountainsBack.get(i) + 400, returnCloudY(2));
       if(mountainsBack.get(i) < 2 - width) {
         mountainsBack.set(i, width);
       }
@@ -560,9 +598,12 @@ class PlayGame {
     for(int i = 0; i < mountainsFront.size(); i++) {
       mountainsFront.set(i, mountainsFront.get(i) - 2);
       shape(mtsFront, mountainsFront.get(i), 170, width, (mtsFront.height * width)/mtsFront.width);
+      shape(cloud1, mountainsFront.get(i), returnCloudY(3));
+      shape(cloud1, mountainsFront.get(i) + 400, returnCloudY(0));
       if(mountainsFront.get(i) < 2 - width) {
         mountainsFront.set(i, width);
       }
+
     }
     //shape(mtsFront, 0, 0, width, (mtsFront.height * width)/mtsFront.width);
   }
@@ -618,12 +659,12 @@ class PlayGame {
     for(int i = 0; i < sprites.size(); i++) {
       //moves sprite from right to left
       sprites.get(i).move(getGameSpeed());
-      clearSprite(i);
       //displays sprite
       sprites.get(i).display();
       sprites.get(i).detection();
       sprites.get(i).subtractHealth();
       checkAlive();
+      clearSprite(i);
     }
     //displays player
     player.jump();
@@ -690,6 +731,7 @@ PShape grass;
 PShape mtsBack;
 PShape mtsFront;
 PShape cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9;
+PShape randCloud1, randCloud2, randCloud3, randCloud4;
 //used to load building and trap sprites
 public void loadSprites() {
   building1 = loadShape("Graphics/Buildings/Building 1.svg");
@@ -755,7 +797,7 @@ class Sprites {
   public void move(float gameSpeed) {
     posX -= gameSpeed;
   }
-  
+
   public void display() {
   }
 

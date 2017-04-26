@@ -11,8 +11,6 @@ ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 ArrayList<Float> grassList = new ArrayList<Float>();
 ArrayList<Integer> mountainsBack = new ArrayList<Integer>();
 ArrayList<Integer> mountainsFront = new ArrayList<Integer>();
-float treesX = 0;
-float trees2X = 800;
 //stores time;
 int time = 0;
 int grassPosX = 0;
@@ -94,6 +92,7 @@ class PlayGame {
       if(mountainsFront.get(i) < 2 - width) {
         mountainsFront.set(i, width);
       }
+
     }
     //shape(mtsFront, 0, 0, width, (mtsFront.height * width)/mtsFront.width);
   }
