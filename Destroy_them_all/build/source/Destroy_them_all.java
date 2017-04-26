@@ -540,9 +540,9 @@ class PlayGame {
       cloudsSlow.add(new Integer(i));
     }
     for(int i = 0; i < 10; i ++) {
-      cloudsY.add(new Integer(PApplet.parseInt(random(30, 300))));
-      cloudsSlowY.add(new Integer(PApplet.parseInt(random(30, 300))));
-      cloudsType.add(new Integer(PApplet.parseInt(random(9))));
+      cloudsY.add(new Integer(PApplet.parseInt(random(40, 300))));
+      cloudsSlowY.add(new Integer(PApplet.parseInt(random(40, 300))));
+      cloudsType.add(new Integer(PApplet.parseInt(random(6))));
       cloudsSlowType.add(new Integer(PApplet.parseInt(random(6,9))));
     }
   }
