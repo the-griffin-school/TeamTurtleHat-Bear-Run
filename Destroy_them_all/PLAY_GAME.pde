@@ -34,7 +34,7 @@ class PlayGame {
     trees2X = 800;
     time = 0;
     score = 0;
-    gameSpeed = 5;
+    gameSpeed = 15;
   }
 
   //Methods
