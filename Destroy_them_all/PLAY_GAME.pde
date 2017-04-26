@@ -44,6 +44,7 @@ class PlayGame {
   //Function to randomely determine when a tree is going to be placed
   void generateSprites() {
     randomSprite = random(35, 50);
+    println(int(random(7)));
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 42.5) {

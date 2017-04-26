@@ -512,6 +512,7 @@ class PlayGame {
   //Function to randomely determine when a tree is going to be placed
   public void generateSprites() {
     randomSprite = random(35, 50);
+    println(PApplet.parseInt(random(7)));
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
     if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
       if(randomSprite > 42.5f) {
@@ -776,7 +777,7 @@ class Traps extends Sprites {
   int boundryHeight;
   int boundryWidth;
   boolean once;
-  
+
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
     super(posX, typeOfSprite);
@@ -791,13 +792,13 @@ class Traps extends Sprites {
         //load image andd set posY;
         int trapSize = 100;
         posY = 520;
-        
+
         if(!activatedStatus) {
           shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         } else {
           shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         }
-        
+
         //defines boundrys for detection
         boundryHeight = PApplet.parseInt((bearTrap.height * trapSize)/bearTrap.width);
         boundryWidth = trapSize;
@@ -824,7 +825,7 @@ class Traps extends Sprites {
     //if a trap is less than 185 it begins to test for detection
     if(posX < 185) {
       //loops through the y values of the trap
-      for (int i = PApplet.parseInt(getY()); i < (posY + boundryHeight); i += 3) {
+      for (int i = PApplet.parseInt(posY); i <= (posY + boundryHeight); i += 3) {
         //tests for detection along the left side of the trap
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           activatedStatus = true;
