@@ -108,6 +108,16 @@ public void keyPressed() {
         player.setJump(true);
       }
       break;
+    case "GAME OVER":
+      if(key == ENTER) {
+        player.health = 3;
+        playGame.score = 0;
+        for (int i = sprites.size() -1; i >= 0 ; i--) {
+          sprites.remove(i);
+        }
+        mainMenu.startGame = false;
+        gameState = "MAIN MENU";
+      }
   }
 }
 /*
@@ -476,15 +486,12 @@ ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 ArrayList<Float> grassList = new ArrayList<Float>();
 ArrayList<Integer> mountainsBack = new ArrayList<Integer>();
 ArrayList<Integer> mountainsFront = new ArrayList<Integer>();
-<<<<<<< HEAD
-=======
 ArrayList<Integer> clouds = new ArrayList<Integer>();
 ArrayList<Integer> cloudsY = new ArrayList<Integer>();
 ArrayList<Integer> cloudsType = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlow = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowY = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowType = new ArrayList<Integer>();
->>>>>>> refs/remotes/origin/Develop
 //stores time;
 int time = 0;
 int grassPosX = 0;
@@ -513,14 +520,14 @@ class PlayGame {
 
   //Function to randomely determine when a tree is going to be placed
   public void generateSprites() {
-    randomSprite = random(35, 50);
+    randomSprite = random(30, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 1500) {
       if(randomSprite > 42.5f) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, PApplet.parseInt(random(7))));
         time = millis();
-      } else if (randomSprite < 41) {
+      } else if (randomSprite < 42.5f) {
         //adds trap to arraylist
         sprites.add(new Traps(width, 1));
         time = millis();
@@ -548,8 +555,6 @@ class PlayGame {
     }
   }
 
-<<<<<<< HEAD
-=======
   public PShape cloudType(int num) {
     switch (num) {
       case 0:
@@ -610,7 +615,6 @@ class PlayGame {
     }
   }
 
->>>>>>> refs/remotes/origin/Develop
   public void drawMountains() {
     for(int i = 0; i < mountainsBack.size(); i++) {
       mountainsBack.set(i, mountainsBack.get(i) - 1);
@@ -648,6 +652,7 @@ class PlayGame {
     textSize(30);
     fill(255);
     text("Score:" + " " + score, 40, 40);
+    text("Health:" + " " + player.health , 200, 40);
   }
 
   public void checkAlive() {
@@ -697,14 +702,6 @@ class PlayGame {
   public void drawSky() {
     image(sky, 0, 0);
   }
-
-  // void drawGrass() {
-  //   int grassWidth = 50;
-  //   for(int i = 0; i < width; i += grassWidth) {
-  //     shape(grass, grassPosX + i, 570, grassWidth, (grass.height * grassWidth)/grass.width);
-  //   }
-  //   grassPosX--;
-  // }
 
   public void display() {
     //draw sky

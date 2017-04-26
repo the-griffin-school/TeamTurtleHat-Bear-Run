@@ -92,5 +92,15 @@ void keyPressed() {
         player.setJump(true);
       }
       break;
+    case "GAME OVER":
+      if(key == ENTER) {
+        player.health = 3;
+        playGame.score = 0;
+        for (int i = sprites.size() -1; i >= 0 ; i--) {
+          sprites.remove(i);
+        }
+        mainMenu.startGame = false;
+        gameState = "MAIN MENU";
+      }
   }
 }

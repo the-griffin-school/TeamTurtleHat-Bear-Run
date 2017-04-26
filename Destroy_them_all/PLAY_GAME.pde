@@ -45,14 +45,14 @@ class PlayGame {
 
   //Function to randomely determine when a tree is going to be placed
   void generateSprites() {
-    randomSprite = random(35, 50);
+    randomSprite = random(30, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 1500) {
       if(randomSprite > 42.5) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, int(random(7))));
         time = millis();
-      } else if (randomSprite < 41) {
+      } else if (randomSprite < 42.5) {
         //adds trap to arraylist
         sprites.add(new Traps(width, 1));
         time = millis();
@@ -177,6 +177,7 @@ class PlayGame {
     textSize(30);
     fill(255);
     text("Score:" + " " + score, 40, 40);
+    text("Health:" + " " + player.health , 200, 40);
   }
 
   void checkAlive() {
@@ -226,14 +227,6 @@ class PlayGame {
   void drawSky() {
     image(sky, 0, 0);
   }
-
-  // void drawGrass() {
-  //   int grassWidth = 50;
-  //   for(int i = 0; i < width; i += grassWidth) {
-  //     shape(grass, grassPosX + i, 570, grassWidth, (grass.height * grassWidth)/grass.width);
-  //   }
-  //   grassPosX--;
-  // }
 
   void display() {
     //draw sky
