@@ -31,7 +31,7 @@ class GameOver {
          deathMsg = "You're a BEARicade of progress";
          break;
        case 5:
-         deathMsg "Have you lost your BEARings?";
+         deathMsg = "Have you lost your BEARings?";
          break;
      }
 

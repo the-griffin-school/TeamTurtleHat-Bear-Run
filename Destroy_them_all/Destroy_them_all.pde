@@ -33,6 +33,7 @@ void setup() {
   playGame.addSprites();
   minim = new Minim(this);
   bearTrapSound = minim.loadFile("Sounds/Traps/bearTrap.wav", 2048);
+  loadBear();
 }
 
 void draw() {
@@ -104,6 +105,7 @@ void keyPressed() {
       if(key == ENTER) {
         player.health = 3;
         playGame.score = 0;
+        playGame.setGameSpeed(15);
         for (int i = sprites.size() -1; i >= 0 ; i--) {
           sprites.remove(i);
         }

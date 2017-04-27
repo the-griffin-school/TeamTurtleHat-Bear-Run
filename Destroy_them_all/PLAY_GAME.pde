@@ -149,7 +149,7 @@ class PlayGame {
       //draws the grass
       shape(grass, grassList.get(i), 570, grassWidth + gameSpeed, (grass.height * grassWidth)/grass.width);
       //resets the grass once it goes off screen
-      if(grassList.get(i) < 2 - grassWidth) {
+      if(grassList.get(i) < - grassWidth) {
         grassList.set(i, float(width));
       }
     }

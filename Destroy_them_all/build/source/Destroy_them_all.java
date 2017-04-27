@@ -51,6 +51,7 @@ public void setup() {
   playGame.addSprites();
   minim = new Minim(this);
   bearTrapSound = minim.loadFile("Sounds/Traps/bearTrap.wav", 2048);
+  loadBear();
 }
 
 public void draw() {
@@ -122,6 +123,7 @@ public void keyPressed() {
       if(key == ENTER) {
         player.health = 3;
         playGame.score = 0;
+        playGame.setGameSpeed(15);
         for (int i = sprites.size() -1; i >= 0 ; i--) {
           sprites.remove(i);
         }
@@ -136,6 +138,11 @@ David, Cho, Giles
 March 2017
 Class that controls the bear and bear stuff
 */
+PImage bear0000;
+
+public void loadBear() {
+  bear0000 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk.0000.png");
+}
 
 class Bear {
   float posY;
@@ -157,7 +164,7 @@ class Bear {
   }
 
   public void display() {
-    shape(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
+    shape(bear0000, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
   }
 
   public void setCounter(int newCounter) {
@@ -278,7 +285,7 @@ Displays the game over screen and give the player the option of playing again.
 It also displays the score.
 */
 class GameOver {
-  int randomMsg = PApplet.parseInt(random(5));
+  int randomMsg = PApplet.parseInt(random(6));
   String deathMsg;
 
   GameOver() {
@@ -301,6 +308,9 @@ class GameOver {
          break;
        case 4:
          deathMsg = "You're a BEARicade of progress";
+         break;
+       case 5:
+         deathMsg = "Have you lost your BEARings?";
          break;
      }
 
@@ -632,7 +642,7 @@ class PlayGame {
       //draws the grass
       shape(grass, grassList.get(i), 570, grassWidth + gameSpeed, (grass.height * grassWidth)/grass.width);
       //resets the grass once it goes off screen
-      if(grassList.get(i) < 2 - grassWidth) {
+      if(grassList.get(i) < - grassWidth) {
         grassList.set(i, PApplet.parseFloat(width));
       }
     }
