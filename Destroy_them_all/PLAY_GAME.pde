@@ -17,11 +17,6 @@ ArrayList<Integer> cloudsType = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlow = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowY = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowType = new ArrayList<Integer>();
-//stores time;
-int time = 0;
-int grassPosX = 0;
-
-
 
 class PlayGame {
   //Fields
@@ -31,6 +26,7 @@ class PlayGame {
   float gameSpeed;
   int grassWidth = 50;
   int mtsWidth = width;
+  int grassPosX = 0;
   PShape shape;
 
   //Constructor
@@ -132,8 +128,8 @@ class PlayGame {
 
   void drawGrass() {
     for(int i = 0; i < grassList.size(); i++) {
-      grassList.set(i, grassList.get(i) - 10);
-      shape(grass, grassList.get(i), 570, grassWidth, (grass.height * grassWidth)/grass.width);
+      grassList.set(i, grassList.get(i) - gameSpeed);
+      shape(grass, grassList.get(i), 570, grassWidth + gameSpeed, (grass.height * grassWidth)/grass.width);
       if(grassList.get(i) < 2 - grassWidth) {
         grassList.set(i, float(width));
       }
