@@ -90,7 +90,10 @@ void keyPressed() {
           player.setCounter(0);
         }
         player.setJump(true);
+      } else if(keyCode = ENTER) {
+        
       }
       break;
+
   }
 }

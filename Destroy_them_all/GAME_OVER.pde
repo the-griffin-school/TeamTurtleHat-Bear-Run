@@ -28,7 +28,7 @@ class GameOver {
          break;
        case 4:
          deathMsg = "You're a BEARicade of progress";
-         break;
+break; 
      }
 
      textAlign(CENTER);

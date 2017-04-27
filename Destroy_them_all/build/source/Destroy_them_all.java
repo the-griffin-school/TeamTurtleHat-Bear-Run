@@ -106,8 +106,11 @@ public void keyPressed() {
           player.setCounter(0);
         }
         player.setJump(true);
+      } else if(keyCode = ENTER) {
+        
       }
       break;
+
   }
 }
 /*
@@ -276,7 +279,7 @@ class GameOver {
          break;
        case 4:
          deathMsg = "You're a BEARicade of progress";
-         break;
+break; 
      }
 
      textAlign(CENTER);
@@ -476,15 +479,12 @@ ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 ArrayList<Float> grassList = new ArrayList<Float>();
 ArrayList<Integer> mountainsBack = new ArrayList<Integer>();
 ArrayList<Integer> mountainsFront = new ArrayList<Integer>();
-<<<<<<< HEAD
-=======
 ArrayList<Integer> clouds = new ArrayList<Integer>();
 ArrayList<Integer> cloudsY = new ArrayList<Integer>();
 ArrayList<Integer> cloudsType = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlow = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowY = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowType = new ArrayList<Integer>();
->>>>>>> refs/remotes/origin/Develop
 //stores time;
 int time = 0;
 int grassPosX = 0;
@@ -548,8 +548,6 @@ class PlayGame {
     }
   }
 
-<<<<<<< HEAD
-=======
   public PShape cloudType(int num) {
     switch (num) {
       case 0:
@@ -610,7 +608,6 @@ class PlayGame {
     }
   }
 
->>>>>>> refs/remotes/origin/Develop
   public void drawMountains() {
     for(int i = 0; i < mountainsBack.size(); i++) {
       mountainsBack.set(i, mountainsBack.get(i) - 1);
