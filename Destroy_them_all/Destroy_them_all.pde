@@ -41,6 +41,7 @@ void draw() {
       mainMenu.display();
       break;
     case "OPTIONS":
+      optionsMenuBackground();
       break;
     case "GAME START":
       playGame.display();
@@ -74,6 +75,7 @@ void keyPressed() {
             mainMenu.startGame = true;
             break;
           case 1:
+            mainMenu.options = true;
             break;
           case 2:
           //optionsMenuBackground();

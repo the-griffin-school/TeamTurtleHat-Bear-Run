@@ -8,12 +8,14 @@ Displays and controls the main menu of the game
 class MainMenu {
   //Fields
   boolean startGame;
+  boolean options;
   int selectMenu;
   float scaleFactor;
 
   //Constructor
   MainMenu() {
     startGame = false;
+    options = false;
     selectMenu = 0;
     scaleFactor = 1.5;
   }
@@ -71,6 +73,9 @@ class MainMenu {
     //if user pressed ENTER
     if(startGame) {
       gameState = "GAME START";
+    }
+    if(options) {
+      gameState = "OPTIONS";
     }
   }
 }

@@ -10,16 +10,18 @@ class Buildings extends Sprites {
   float posY;
   int boundryHeight;
   int boundryWidth;
+  int changeBuildingY = 7;
 
   //uses construcor of the sprites class
   Buildings(float posX, int typeOfSprite) {
     super(posX, typeOfSprite);
     buildingSize = 140;
+
   }
 
-  void drawBuilding(PShape building, int newPosY) {
+  void drawBuilding(PImage building, int newPosY) {
       posY = newPosY - 1;
-      shape(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
+      image(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
       //defines boundries of the building for detection purposes
       boundryHeight = int((building.height * buildingSize)/building.width);
       boundryWidth = buildingSize;
@@ -30,22 +32,22 @@ class Buildings extends Sprites {
     switch(typeOfSprite){
       case 1:
         //displays the first building type.
-        drawBuilding(building1, 347);
+        drawBuilding(building1, 347 + changeBuildingY);
         break;
       case 2:
-        drawBuilding(building2, 304);
+        drawBuilding(building2, 304 + changeBuildingY);
         break;
       case 3:
-        drawBuilding(building3, 380);
+        drawBuilding(building3, 380+ changeBuildingY);
         break;
       case 4:
-        drawBuilding(building4, 351);
+        drawBuilding(building4, 351+ changeBuildingY);
         break;
       case 5:
-        drawBuilding(building5, 304);
+        drawBuilding(building5, 304 + changeBuildingY);
         break;
       case 6:
-        drawBuilding(building6, 263);
+        drawBuilding(building6, 263 + changeBuildingY);
         break;
     }
   }

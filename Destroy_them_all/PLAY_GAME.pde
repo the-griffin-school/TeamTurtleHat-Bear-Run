@@ -7,6 +7,7 @@ Controls the actual gameplay of the game
 
 boolean playerJump = false;
 float randomSprite;
+
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 ArrayList<Float> grassList = new ArrayList<Float>();
 ArrayList<Integer> mountainsBack = new ArrayList<Integer>();
@@ -17,6 +18,8 @@ ArrayList<Integer> cloudsType = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlow = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowY = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowType = new ArrayList<Integer>();
+//stores time;
+int time = 0;
 
 class PlayGame {
   //Fields
@@ -26,7 +29,6 @@ class PlayGame {
   float gameSpeed;
   int grassWidth = 50;
   int mtsWidth = width;
-  int grassPosX = 0;
   PShape shape;
 
   //Constructor
@@ -43,7 +45,7 @@ class PlayGame {
   void generateSprites() {
     randomSprite = random(30, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 1000) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 1500) {
       if(randomSprite > 42.5) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, int(random(7))));
@@ -56,6 +58,8 @@ class PlayGame {
     }
   }
 
+  //used to add a specific number of ints/floats to the arrays.
+  //run in setup
   void addSprites() {
     for (int i = 0; i <= width; i += grassWidth) {
       grassList.add(new Float(i));
@@ -68,6 +72,7 @@ class PlayGame {
       clouds.add(new Integer(i));
       cloudsSlow.add(new Integer(i));
     }
+    //stores y values for the clouds
     for(int i = 0; i < 10; i ++) {
       cloudsY.add(new Integer(int(random(40, 300))));
       cloudsSlowY.add(new Integer(int(random(40, 300))));
@@ -76,6 +81,7 @@ class PlayGame {
     }
   }
 
+  //takes in a num from 0-9 and returns a cloud
   PShape cloudType(int num) {
     switch (num) {
       case 0:
@@ -109,17 +115,26 @@ class PlayGame {
     return shape;
   }
 
+  //displays the clouds
   void drawClouds() {
+    //loops through all the clouds in the array
     for(int i = 0; i < clouds.size(); i++) {
+      //moves the clouds left by two pixels
       clouds.set(i, clouds.get(i) - 2);
+      //draws the clouds
       shape(cloudType(cloudsType.get(i)), clouds.get(i), cloudsY.get(i));
-      if(clouds.get(i) < 0 - 400) {
+      //resets cloud once it goes off the scree
+      if(clouds.get(i) < -400) {
         clouds.set(i, width);
       }
     }
+    //loops through all the slow clouds
     for(int i = 0; i < cloudsSlow.size(); i++) {
+      //moves the cloud left by one pixel
       cloudsSlow.set(i, cloudsSlow.get(i) - 1);
+      //draws the clouds
       shape(cloudType(cloudsSlowType.get(i)), cloudsSlow.get(i), cloudsSlowY.get(i));
+      //resets the clouds once they go offscreen
       if(cloudsSlow.get(i) < - 400) {
         cloudsSlow.set(i, width);
       }
@@ -127,9 +142,13 @@ class PlayGame {
   }
 
   void drawGrass() {
+    //loops through all the grass in the array
     for(int i = 0; i < grassList.size(); i++) {
+      //moves the grass left by a specific num
       grassList.set(i, grassList.get(i) - gameSpeed);
+      //actually draws the grass
       shape(grass, grassList.get(i), 570, grassWidth + gameSpeed, (grass.height * grassWidth)/grass.width);
+      //resets the grass once it goes off screen
       if(grassList.get(i) < 2 - grassWidth) {
         grassList.set(i, float(width));
       }

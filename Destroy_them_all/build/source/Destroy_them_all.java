@@ -59,6 +59,7 @@ public void draw() {
       mainMenu.display();
       break;
     case "OPTIONS":
+      optionsMenuBackground();
       break;
     case "GAME START":
       playGame.display();
@@ -92,6 +93,7 @@ public void keyPressed() {
             mainMenu.startGame = true;
             break;
           case 1:
+            mainMenu.options = true;
             break;
           case 2:
           //optionsMenuBackground();
@@ -204,16 +206,18 @@ class Buildings extends Sprites {
   float posY;
   int boundryHeight;
   int boundryWidth;
+  int changeBuildingY = 7;
 
   //uses construcor of the sprites class
   Buildings(float posX, int typeOfSprite) {
     super(posX, typeOfSprite);
     buildingSize = 140;
+
   }
 
-  public void drawBuilding(PShape building, int newPosY) {
+  public void drawBuilding(PImage building, int newPosY) {
       posY = newPosY - 1;
-      shape(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
+      image(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
       //defines boundries of the building for detection purposes
       boundryHeight = PApplet.parseInt((building.height * buildingSize)/building.width);
       boundryWidth = buildingSize;
@@ -224,22 +228,22 @@ class Buildings extends Sprites {
     switch(typeOfSprite){
       case 1:
         //displays the first building type.
-        drawBuilding(building1, 347);
+        drawBuilding(building1, 347 + changeBuildingY);
         break;
       case 2:
-        drawBuilding(building2, 304);
+        drawBuilding(building2, 304 + changeBuildingY);
         break;
       case 3:
-        drawBuilding(building3, 380);
+        drawBuilding(building3, 380+ changeBuildingY);
         break;
       case 4:
-        drawBuilding(building4, 351);
+        drawBuilding(building4, 351+ changeBuildingY);
         break;
       case 5:
-        drawBuilding(building5, 304);
+        drawBuilding(building5, 304 + changeBuildingY);
         break;
       case 6:
-        drawBuilding(building6, 263);
+        drawBuilding(building6, 263 + changeBuildingY);
         break;
     }
   }
@@ -334,12 +338,14 @@ Displays and controls the main menu of the game
 class MainMenu {
   //Fields
   boolean startGame;
+  boolean options;
   int selectMenu;
   float scaleFactor;
 
   //Constructor
   MainMenu() {
     startGame = false;
+    options = false;
     selectMenu = 0;
     scaleFactor = 1.5f;
   }
@@ -397,6 +403,9 @@ class MainMenu {
     //if user pressed ENTER
     if(startGame) {
       gameState = "GAME START";
+    }
+    if(options) {
+      gameState = "OPTIONS";
     }
   }
 }
@@ -490,6 +499,7 @@ Controls the actual gameplay of the game
 
 boolean playerJump = false;
 float randomSprite;
+
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 ArrayList<Float> grassList = new ArrayList<Float>();
 ArrayList<Integer> mountainsBack = new ArrayList<Integer>();
@@ -500,6 +510,8 @@ ArrayList<Integer> cloudsType = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlow = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowY = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowType = new ArrayList<Integer>();
+//stores time;
+int time = 0;
 
 class PlayGame {
   //Fields
@@ -509,7 +521,6 @@ class PlayGame {
   float gameSpeed;
   int grassWidth = 50;
   int mtsWidth = width;
-  int grassPosX = 0;
   PShape shape;
 
   //Constructor
@@ -526,7 +537,7 @@ class PlayGame {
   public void generateSprites() {
     randomSprite = random(30, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 1000) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 1500) {
       if(randomSprite > 42.5f) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, PApplet.parseInt(random(7))));
@@ -539,6 +550,8 @@ class PlayGame {
     }
   }
 
+  //used to add a specific number of ints/floats to the arrays.
+  //run in setup
   public void addSprites() {
     for (int i = 0; i <= width; i += grassWidth) {
       grassList.add(new Float(i));
@@ -551,6 +564,7 @@ class PlayGame {
       clouds.add(new Integer(i));
       cloudsSlow.add(new Integer(i));
     }
+    //stores y values for the clouds
     for(int i = 0; i < 10; i ++) {
       cloudsY.add(new Integer(PApplet.parseInt(random(40, 300))));
       cloudsSlowY.add(new Integer(PApplet.parseInt(random(40, 300))));
@@ -559,6 +573,7 @@ class PlayGame {
     }
   }
 
+  //takes in a num from 0-9 and returns a cloud
   public PShape cloudType(int num) {
     switch (num) {
       case 0:
@@ -592,17 +607,26 @@ class PlayGame {
     return shape;
   }
 
+  //displays the clouds
   public void drawClouds() {
+    //loops through all the clouds in the array
     for(int i = 0; i < clouds.size(); i++) {
+      //moves the clouds left by two pixels
       clouds.set(i, clouds.get(i) - 2);
+      //draws the clouds
       shape(cloudType(cloudsType.get(i)), clouds.get(i), cloudsY.get(i));
-      if(clouds.get(i) < 0 - 400) {
+      //resets cloud once it goes off the scree
+      if(clouds.get(i) < -400) {
         clouds.set(i, width);
       }
     }
+    //loops through all the slow clouds
     for(int i = 0; i < cloudsSlow.size(); i++) {
+      //moves the cloud left by one pixel
       cloudsSlow.set(i, cloudsSlow.get(i) - 1);
+      //draws the clouds
       shape(cloudType(cloudsSlowType.get(i)), cloudsSlow.get(i), cloudsSlowY.get(i));
+      //resets the clouds once they go offscreen
       if(cloudsSlow.get(i) < - 400) {
         cloudsSlow.set(i, width);
       }
@@ -610,9 +634,13 @@ class PlayGame {
   }
 
   public void drawGrass() {
+    //loops through all the grass in the array
     for(int i = 0; i < grassList.size(); i++) {
+      //moves the grass left by a specific num
       grassList.set(i, grassList.get(i) - gameSpeed);
+      //actually draws the grass
       shape(grass, grassList.get(i), 570, grassWidth + gameSpeed, (grass.height * grassWidth)/grass.width);
+      //resets the grass once it goes off screen
       if(grassList.get(i) < 2 - grassWidth) {
         grassList.set(i, PApplet.parseFloat(width));
       }
@@ -732,14 +760,10 @@ Cho, David, Giles
 March 2017
 Class that both buildings and traps inherit.
 */
-PShape building1;
-PShape building2;
-PShape building3;
-PShape building4;
-PShape building5;
-PShape building6;
-PShape bearTrap;
-PShape bearTrapActivated;
+
+
+PImage building1, building2, building3, building4, building5, building6;
+PShape bearTrap, bearTrapActivated;
 PShape grass;
 PShape mtsBack;
 PShape mtsFront;
@@ -747,12 +771,12 @@ PShape cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9;
 
 //used to load building and trap sprites
 public void loadSprites() {
-  building1 = loadShape("Graphics/Buildings/Building 1.svg");
-  building2 = loadShape("Graphics/Buildings/Building 2.svg");
-  building3 = loadShape("Graphics/Buildings/Building 3.svg");
-  building4 = loadShape("Graphics/Buildings/Building 4.svg");
-  building5 = loadShape("Graphics/Buildings/Building 5.svg");
-  building6 = loadShape("Graphics/Buildings/Building 6.svg");
+  building1 = loadImage("Graphics/Buildings/Buildings_Artboard 1.png");
+  building2 = loadImage("Graphics/Buildings/Buildings_Artboard 2.png");
+  building3 = loadImage("Graphics/Buildings/Buildings_Artboard 3.png");
+  building4 = loadImage("Graphics/Buildings/Buildings_Artboard 4.png");
+  building5 = loadImage("Graphics/Buildings/Buildings_Artboard 5.png");
+  building6 = loadImage("Graphics/Buildings/Buildings_Artboard 6.png");
   bearTrap = loadShape("Graphics/Traps/BearTrap.svg");
   bearTrapActivated = loadShape("Graphics/Traps/BearTrapActivated.svg");
   grass = loadShape("Graphics/Environment/Grass/Grass.svg");
