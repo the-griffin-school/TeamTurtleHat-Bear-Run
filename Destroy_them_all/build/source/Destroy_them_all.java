@@ -201,22 +201,24 @@ March 2017
 Controls the displaying of buildings and building stuff
 */
 class Buildings extends Sprites {
-  //is able to control the size of the building proportionally
+  //is able to control the size of the buildings proportionally
   int buildingSize;
   float posY;
+
+  //stores width and height of building for detection purposes
   int boundryHeight;
   int boundryWidth;
+  //is able to change all of the buildings y value
   int changeBuildingY = 7;
 
   //uses construcor of the sprites class
   Buildings(float posX, int typeOfSprite) {
     super(posX, typeOfSprite);
     buildingSize = 140;
-
   }
 
   public void drawBuilding(PImage building, int newPosY) {
-      posY = newPosY - 1;
+      posY = newPosY;
       image(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
       //defines boundries of the building for detection purposes
       boundryHeight = PApplet.parseInt((building.height * buildingSize)/building.width);
@@ -282,6 +284,7 @@ class GameOver {
   GameOver() {
   }
 
+  //gives a random bear pun
    public void deathMsg() {
      switch(randomMsg) {
        case 0:
@@ -311,21 +314,9 @@ class GameOver {
      text("Score" + " " + playGame.score, width/2, height/2 + height/6);
    }
 
-   public void buttonDetection() {
-      // stroke(255);
-      // fill(0);
-      // rectMode(CORNER);
-      // rect(width/2 - width/3, height/2 + height/4, width/3 - width/12, height/6);
-      // rect(width/2 + (width/2 -width/3 - width/12), height/2 + height/4, width/3 - width/12, height/6);
-      // rectMode(CENTER);
-      // fill(255);
-      // text("Main Menu", (width/2 - width/3) + (width/3 - width/12)/2, (height/2 + height/4) + height/9);
-   }
-
    public void display() {
     background(0);
     deathMsg();
-    buttonDetection();
   }
 }
 /*
@@ -354,6 +345,7 @@ class MainMenu {
   public void drawSky() {
     image(sky, 0, 0);
   }
+
   public void drawTitle() {
     fill(255);
     textAlign(CENTER);
@@ -370,7 +362,6 @@ class MainMenu {
 
   public void display() {
     drawSky();
-    drawTitle();
     drawTitle();
     menuSelection();
   }
@@ -638,7 +629,7 @@ class PlayGame {
     for(int i = 0; i < grassList.size(); i++) {
       //moves the grass left by a specific num
       grassList.set(i, grassList.get(i) - gameSpeed);
-      //actually draws the grass
+      //draws the grass
       shape(grass, grassList.get(i), 570, grassWidth + gameSpeed, (grass.height * grassWidth)/grass.width);
       //resets the grass once it goes off screen
       if(grassList.get(i) < 2 - grassWidth) {
@@ -648,22 +639,28 @@ class PlayGame {
   }
 
   public void drawMountains() {
+    //loops through all the back mountains
     for(int i = 0; i < mountainsBack.size(); i++) {
+      //moves the background mountains left by one pixel
       mountainsBack.set(i, mountainsBack.get(i) - 1);
+      //draws the mountains
       shape(mtsBack, mountainsBack.get(i), 165, width, (mtsBack.height * width)/mtsBack.width);
+      //resets mountains once it goes offscreen
       if(mountainsBack.get(i) < 2 - width) {
         mountainsBack.set(i, width);
       }
     }
+    //loops through front mountains
     for(int i = 0; i < mountainsFront.size(); i++) {
+      //moves front mountains by two pixels
       mountainsFront.set(i, mountainsFront.get(i) - 2);
+      //draws mountains
       shape(mtsFront, mountainsFront.get(i), 170, width, (mtsFront.height * width)/mtsFront.width);
+      //resets mountains once they go offscreen
       if(mountainsFront.get(i) < 2 - width) {
         mountainsFront.set(i, width);
       }
-
     }
-    //shape(mtsFront, 0, 0, width, (mtsFront.height * width)/mtsFront.width);
   }
 
   //setting game speed from outside the class
@@ -677,6 +674,7 @@ class PlayGame {
   }
 
   public void addScore(int i) {
+    //only adds score if the building has been destroyed
     if(sprites.get(i).destroyed()) {
       score += 10;
     }
@@ -685,11 +683,13 @@ class PlayGame {
   public void displayScore() {
     textSize(30);
     fill(255);
+    //displays the score and player health in the top left corner
     text("Score:" + " " + score, 40, 40);
     text("Health:" + " " + player.health , 200, 40);
   }
 
   public void checkAlive() {
+    //if the player is dead it activates the game over screen
     if(player.dead()) {
       gameState = "GAME OVER";
     }
@@ -697,6 +697,7 @@ class PlayGame {
 
   //removes object from ArrayList if it off the screen.
   public void clearSprite(int i) {
+    //if the sprite has been destroyed or is off screen it is deleted from the array
     if(sprites.get(i).getX() < -500 || sprites.get(i).destroyed()) {
       sprites.remove(i);
     }
@@ -709,28 +710,22 @@ class PlayGame {
       sprites.get(i).move(getGameSpeed());
       //displays sprite
       sprites.get(i).display();
+      //tests for detection of the sprite
       sprites.get(i).detection();
+      //subtracs health from the player when it hits a trap
       sprites.get(i).subtractHealth();
+      //checks to see if the player is still alive
       checkAlive();
+      //adds score if a building is destoryed
       addScore(i);
+      //removes a sprite if it is destroyed or goes off screen
       clearSprite(i);
     }
     //displays player
     player.jump();
+    //displays the bear
     player.display();
   }
-
-  // ##LAGS TOO MUCH GRADIENT ATTEMPT FAILED
-  // sky gradient from (0, 228, 255) to (255, 255, 255)
-  // void drawSky() {
-  //   color skyColor = color(0, 228, 255);
-  //   strokeWeight(1);
-  //
-  //   for (int i = 0; i < height; i++){
-  //     stroke(lerpColor(skyColor, color(255), map(i, 0, height, 0, 1)));
-  //     line(0, i-1, width, i+1);
-  //   }
-  // }
 
   // draw Sky
   public void drawSky() {
@@ -853,6 +848,7 @@ Controls the displaying of traps including villagers and trap stuff
 */
 
 class Traps extends Sprites {
+  //stores the width and heigt of the trap for detection purposes
   int boundryHeight;
   int boundryWidth;
   boolean once;
@@ -873,9 +869,11 @@ class Traps extends Sprites {
         int trapSize = 100;
         posY = 520;
 
+        //if not activated it displays the flat bear trap
         if(!activatedStatus) {
           shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         } else {
+          //if not activated it displays the activated bear trap
           shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         }
 
@@ -894,6 +892,7 @@ class Traps extends Sprites {
 
   public void subtractHealth() {
     if(activated()) {
+      //once makes it so it only subtracts from the player health once
       if(once) {
         player.health--;
         once = false;
@@ -910,6 +909,7 @@ class Traps extends Sprites {
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           activatedStatus = true;
           if(!playOnce) {
+            //plays bear trap sound once
             bearTrapSound.loop(0);
             playOnce = true;
           }
@@ -921,6 +921,7 @@ class Traps extends Sprites {
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           activatedStatus = true;
           if(!playOnce) {
+            //plays bear trap sound once
             bearTrapSound.loop(0);
             playOnce = true;
           }

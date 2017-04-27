@@ -24,6 +24,7 @@ class MainMenu {
   void drawSky() {
     image(sky, 0, 0);
   }
+
   void drawTitle() {
     fill(255);
     textAlign(CENTER);
@@ -40,7 +41,6 @@ class MainMenu {
 
   void display() {
     drawSky();
-    drawTitle();
     drawTitle();
     menuSelection();
   }

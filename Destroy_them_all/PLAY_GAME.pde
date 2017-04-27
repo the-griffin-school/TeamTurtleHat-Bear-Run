@@ -146,7 +146,7 @@ class PlayGame {
     for(int i = 0; i < grassList.size(); i++) {
       //moves the grass left by a specific num
       grassList.set(i, grassList.get(i) - gameSpeed);
-      //actually draws the grass
+      //draws the grass
       shape(grass, grassList.get(i), 570, grassWidth + gameSpeed, (grass.height * grassWidth)/grass.width);
       //resets the grass once it goes off screen
       if(grassList.get(i) < 2 - grassWidth) {
@@ -156,22 +156,28 @@ class PlayGame {
   }
 
   void drawMountains() {
+    //loops through all the back mountains
     for(int i = 0; i < mountainsBack.size(); i++) {
+      //moves the background mountains left by one pixel
       mountainsBack.set(i, mountainsBack.get(i) - 1);
+      //draws the mountains
       shape(mtsBack, mountainsBack.get(i), 165, width, (mtsBack.height * width)/mtsBack.width);
+      //resets mountains once it goes offscreen
       if(mountainsBack.get(i) < 2 - width) {
         mountainsBack.set(i, width);
       }
     }
+    //loops through front mountains
     for(int i = 0; i < mountainsFront.size(); i++) {
+      //moves front mountains by two pixels
       mountainsFront.set(i, mountainsFront.get(i) - 2);
+      //draws mountains
       shape(mtsFront, mountainsFront.get(i), 170, width, (mtsFront.height * width)/mtsFront.width);
+      //resets mountains once they go offscreen
       if(mountainsFront.get(i) < 2 - width) {
         mountainsFront.set(i, width);
       }
-
     }
-    //shape(mtsFront, 0, 0, width, (mtsFront.height * width)/mtsFront.width);
   }
 
   //setting game speed from outside the class
@@ -185,6 +191,7 @@ class PlayGame {
   }
 
   void addScore(int i) {
+    //only adds score if the building has been destroyed
     if(sprites.get(i).destroyed()) {
       score += 10;
     }
@@ -193,11 +200,13 @@ class PlayGame {
   void displayScore() {
     textSize(30);
     fill(255);
+    //displays the score and player health in the top left corner
     text("Score:" + " " + score, 40, 40);
     text("Health:" + " " + player.health , 200, 40);
   }
 
   void checkAlive() {
+    //if the player is dead it activates the game over screen
     if(player.dead()) {
       gameState = "GAME OVER";
     }
@@ -205,6 +214,7 @@ class PlayGame {
 
   //removes object from ArrayList if it off the screen.
   void clearSprite(int i) {
+    //if the sprite has been destroyed or is off screen it is deleted from the array
     if(sprites.get(i).getX() < -500 || sprites.get(i).destroyed()) {
       sprites.remove(i);
     }
@@ -217,28 +227,22 @@ class PlayGame {
       sprites.get(i).move(getGameSpeed());
       //displays sprite
       sprites.get(i).display();
+      //tests for detection of the sprite
       sprites.get(i).detection();
+      //subtracs health from the player when it hits a trap
       sprites.get(i).subtractHealth();
+      //checks to see if the player is still alive
       checkAlive();
+      //adds score if a building is destoryed
       addScore(i);
+      //removes a sprite if it is destroyed or goes off screen
       clearSprite(i);
     }
     //displays player
     player.jump();
+    //displays the bear
     player.display();
   }
-
-  // ##LAGS TOO MUCH GRADIENT ATTEMPT FAILED
-  // sky gradient from (0, 228, 255) to (255, 255, 255)
-  // void drawSky() {
-  //   color skyColor = color(0, 228, 255);
-  //   strokeWeight(1);
-  //
-  //   for (int i = 0; i < height; i++){
-  //     stroke(lerpColor(skyColor, color(255), map(i, 0, height, 0, 1)));
-  //     line(0, i-1, width, i+1);
-  //   }
-  // }
 
   // draw Sky
   void drawSky() {
