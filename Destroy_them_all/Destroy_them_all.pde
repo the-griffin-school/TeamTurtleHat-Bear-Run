@@ -4,6 +4,10 @@
   March 2017
   This is the main file that controls all the screens
 */
+import ddf.minim.*;
+Minim minim;
+AudioPlayer bearTrapSound;
+
 String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
@@ -27,6 +31,8 @@ void setup() {
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
   playGame.addSprites();
+  minim = new Minim(this);
+  bearTrapSound = minim.loadFile("Sounds/Traps/bearTrap.wav", 2048);
 }
 
 void draw() {

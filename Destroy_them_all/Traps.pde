@@ -9,6 +9,7 @@ class Traps extends Sprites {
   int boundryHeight;
   int boundryWidth;
   boolean once;
+  boolean playOnce;
 
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
@@ -61,6 +62,10 @@ class Traps extends Sprites {
         //tests for detection along the left side of the trap
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           activatedStatus = true;
+          if(!playOnce) {
+            bearTrapSound.loop(0);
+            playOnce = true;
+          }
         }
       }
       //loops through x values of trap
@@ -68,6 +73,10 @@ class Traps extends Sprites {
         //tests for detection along the top of the trap
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           activatedStatus = true;
+          if(!playOnce) {
+            bearTrapSound.loop(0);
+            playOnce = true;
+          }
         }
       }
     }

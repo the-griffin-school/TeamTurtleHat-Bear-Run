@@ -3,6 +3,8 @@ import processing.data.*;
 import processing.event.*; 
 import processing.opengl.*; 
 
+import ddf.minim.*; 
+
 import java.util.HashMap; 
 import java.util.ArrayList; 
 import java.io.File; 
@@ -20,6 +22,10 @@ public class Destroy_them_all extends PApplet {
   March 2017
   This is the main file that controls all the screens
 */
+
+Minim minim;
+AudioPlayer bearTrapSound;
+
 String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
@@ -43,6 +49,8 @@ public void setup() {
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
   playGame.addSprites();
+  minim = new Minim(this);
+  bearTrapSound = minim.loadFile("Sounds/Traps/bearTrap.wav", 2048);
 }
 
 public void draw() {
@@ -205,7 +213,7 @@ class Buildings extends Sprites {
 
   public void drawBuilding(PShape building, int newPosY) {
       posY = newPosY - 1;
-      shape(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
+      shape(building, posX, posY /*, buildingSize, (building.height * buildingSize)/building.width*/);
       //defines boundries of the building for detection purposes
       boundryHeight = PApplet.parseInt((building.height * buildingSize)/building.width);
       boundryWidth = buildingSize;
@@ -828,6 +836,7 @@ class Traps extends Sprites {
   int boundryHeight;
   int boundryWidth;
   boolean once;
+  boolean playOnce;
 
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
@@ -880,6 +889,10 @@ class Traps extends Sprites {
         //tests for detection along the left side of the trap
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           activatedStatus = true;
+          if(!playOnce) {
+            bearTrapSound.loop(0);
+            playOnce = true;
+          }
         }
       }
       //loops through x values of trap
@@ -887,6 +900,10 @@ class Traps extends Sprites {
         //tests for detection along the top of the trap
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           activatedStatus = true;
+          if(!playOnce) {
+            bearTrapSound.loop(0);
+            playOnce = true;
+          }
         }
       }
     }
