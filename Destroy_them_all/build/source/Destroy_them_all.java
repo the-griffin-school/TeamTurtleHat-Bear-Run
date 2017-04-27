@@ -644,8 +644,10 @@ class PlayGame {
     return gameSpeed;
   }
 
-  public void addScore() {
-    score += 10;
+  public void addScore(int i) {
+    if(sprites.get(i).destroyed()) {
+      score += 10;
+    }
   }
 
   public void displayScore() {
@@ -664,7 +666,6 @@ class PlayGame {
   //removes object from ArrayList if it off the screen.
   public void clearSprite(int i) {
     if(sprites.get(i).getX() < -500 || sprites.get(i).destroyed()) {
-      addScore();
       sprites.remove(i);
     }
   }
@@ -679,6 +680,7 @@ class PlayGame {
       sprites.get(i).detection();
       sprites.get(i).subtractHealth();
       checkAlive();
+      addScore(i);
       clearSprite(i);
     }
     //displays player
