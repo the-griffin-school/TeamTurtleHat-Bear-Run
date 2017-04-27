@@ -47,7 +47,7 @@ class PlayGame {
   void generateSprites() {
     randomSprite = random(30, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 1500) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 1000) {
       if(randomSprite > 42.5) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, int(random(7))));
@@ -197,7 +197,7 @@ class PlayGame {
 
   void process() {
     //loops through all objects in ArrayList
-    for(int i = 0; i < sprites.size(); i++) {
+    for(int i = sprites.size() -1; i >= 0; i--) {
       //moves sprite from right to left
       sprites.get(i).move(getGameSpeed());
       //displays sprite
