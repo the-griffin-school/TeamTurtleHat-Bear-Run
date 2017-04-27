@@ -145,7 +145,7 @@ class PlayGame {
     //loops through all the grass in the array
     for(int i = 0; i < grassList.size(); i++) {
       //moves the grass left by a specific num
-      grassList.set(i, grassList.get(i) - gameSpeed);
+      grassList.set(i, grassList.get(i) - (gameSpeed * 1.2));
       //draws the grass
       shape(grass, grassList.get(i), 570, grassWidth + gameSpeed, (grass.height * grassWidth)/grass.width);
       //resets the grass once it goes off screen
@@ -194,6 +194,9 @@ class PlayGame {
     //only adds score if the building has been destroyed
     if(sprites.get(i).destroyed()) {
       score += 10;
+      if(score % 3 == 0) {
+        setGameSpeed(gameSpeed + 1);
+      }
     }
   }
 

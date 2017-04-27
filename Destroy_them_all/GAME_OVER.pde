@@ -6,7 +6,7 @@ Displays the game over screen and give the player the option of playing again.
 It also displays the score.
 */
 class GameOver {
-  int randomMsg = int(random(5));
+  int randomMsg = int(random(6));
   String deathMsg;
 
   GameOver() {
@@ -29,6 +29,9 @@ class GameOver {
          break;
        case 4:
          deathMsg = "You're a BEARicade of progress";
+         break;
+       case 5:
+         deathMsg "Have you lost your BEARings?";
          break;
      }
 
