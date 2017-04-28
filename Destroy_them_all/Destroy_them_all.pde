@@ -4,6 +4,10 @@
   March 2017
   This is the main file that controls all the screens
 */
+import ddf.minim.*;
+Minim minim;
+AudioPlayer bearTrapSound;
+
 String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
@@ -27,6 +31,9 @@ void setup() {
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
   loadSprites();
   playGame.addSprites();
+  minim = new Minim(this);
+  bearTrapSound = minim.loadFile("Sounds/Traps/bearTrap.wav", 2048);
+  loadBear();
 }
 
 void draw() {
@@ -35,6 +42,7 @@ void draw() {
       mainMenu.display();
       break;
     case "OPTIONS":
+      optionsMenuBackground();
       break;
     case "GAME START":
       playGame.display();
@@ -68,6 +76,7 @@ void keyPressed() {
             mainMenu.startGame = true;
             break;
           case 1:
+            mainMenu.options = true;
             break;
           case 2:
           //optionsMenuBackground();
@@ -94,6 +103,20 @@ void keyPressed() {
         
       }
       break;
+<<<<<<< HEAD
 
+=======
+    case "GAME OVER":
+      if(key == ENTER) {
+        player.health = 3;
+        playGame.score = 0;
+        playGame.setGameSpeed(15);
+        for (int i = sprites.size() -1; i >= 0 ; i--) {
+          sprites.remove(i);
+        }
+        mainMenu.startGame = false;
+        gameState = "MAIN MENU";
+      }
+>>>>>>> c6a704b239bc9fb99b8873334a7602e8d4d8a535
   }
 }

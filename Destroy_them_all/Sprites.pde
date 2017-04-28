@@ -4,14 +4,10 @@ Cho, David, Giles
 March 2017
 Class that both buildings and traps inherit.
 */
-PShape building1;
-PShape building2;
-PShape building3;
-PShape building4;
-PShape building5;
-PShape building6;
-PShape bearTrap;
-PShape bearTrapActivated;
+
+
+PImage building1, building2, building3, building4, building5, building6;
+PShape bearTrap, bearTrapActivated;
 PShape grass;
 PShape mtsBack;
 PShape mtsFront;
@@ -19,12 +15,12 @@ PShape cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9;
 
 //used to load building and trap sprites
 void loadSprites() {
-  building1 = loadShape("Graphics/Buildings/Building 1.svg");
-  building2 = loadShape("Graphics/Buildings/Building 2.svg");
-  building3 = loadShape("Graphics/Buildings/Building 3.svg");
-  building4 = loadShape("Graphics/Buildings/Building 4.svg");
-  building5 = loadShape("Graphics/Buildings/Building 5.svg");
-  building6 = loadShape("Graphics/Buildings/Building 6.svg");
+  building1 = loadImage("Graphics/Buildings/Buildings_Artboard 1.png");
+  building2 = loadImage("Graphics/Buildings/Buildings_Artboard 2.png");
+  building3 = loadImage("Graphics/Buildings/Buildings_Artboard 3.png");
+  building4 = loadImage("Graphics/Buildings/Buildings_Artboard 4.png");
+  building5 = loadImage("Graphics/Buildings/Buildings_Artboard 5.png");
+  building6 = loadImage("Graphics/Buildings/Buildings_Artboard 6.png");
   bearTrap = loadShape("Graphics/Traps/BearTrap.svg");
   bearTrapActivated = loadShape("Graphics/Traps/BearTrapActivated.svg");
   grass = loadShape("Graphics/Environment/Grass/Grass.svg");

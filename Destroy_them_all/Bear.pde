@@ -4,6 +4,11 @@ David, Cho, Giles
 March 2017
 Class that controls the bear and bear stuff
 */
+PImage bear0000;
+
+void loadBear() {
+  bear0000 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk.0000");
+}
 
 class Bear {
   float posY;
@@ -25,7 +30,7 @@ class Bear {
   }
 
   void display() {
-    shape(bearSprite, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
+    shape(bear0000, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
   }
 
   void setCounter(int newCounter) {

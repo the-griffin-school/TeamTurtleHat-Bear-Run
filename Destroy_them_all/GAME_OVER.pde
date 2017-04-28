@@ -6,12 +6,13 @@ Displays the game over screen and give the player the option of playing again.
 It also displays the score.
 */
 class GameOver {
-  int randomMsg = int(random(5));
+  int randomMsg = int(random(6));
   String deathMsg;
 
   GameOver() {
   }
 
+  //gives a random bear pun
    void deathMsg() {
      switch(randomMsg) {
        case 0:
@@ -28,7 +29,14 @@ class GameOver {
          break;
        case 4:
          deathMsg = "You're a BEARicade of progress";
+<<<<<<< HEAD
 break; 
+=======
+         break;
+       case 5:
+         deathMsg = "Have you lost your BEARings?";
+         break;
+>>>>>>> c6a704b239bc9fb99b8873334a7602e8d4d8a535
      }
 
      textAlign(CENTER);
@@ -41,20 +49,8 @@ break;
      text("Score" + " " + playGame.score, width/2, height/2 + height/6);
    }
 
-   void buttonDetection() {
-      // stroke(255);
-      // fill(0);
-      // rectMode(CORNER);
-      // rect(width/2 - width/3, height/2 + height/4, width/3 - width/12, height/6);
-      // rect(width/2 + (width/2 -width/3 - width/12), height/2 + height/4, width/3 - width/12, height/6);
-      // rectMode(CENTER);
-      // fill(255);
-      // text("Main Menu", (width/2 - width/3) + (width/3 - width/12)/2, (height/2 + height/4) + height/9);
-   }
-
    void display() {
     background(0);
     deathMsg();
-    buttonDetection();
   }
 }

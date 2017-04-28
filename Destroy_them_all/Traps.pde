@@ -6,9 +6,11 @@ Controls the displaying of traps including villagers and trap stuff
 */
 
 class Traps extends Sprites {
+  //stores the width and heigt of the trap for detection purposes
   int boundryHeight;
   int boundryWidth;
   boolean once;
+  boolean playOnce;
 
   //uses constructor of the sprites class
   Traps(int posX, int typeOfSprite) {
@@ -25,9 +27,11 @@ class Traps extends Sprites {
         int trapSize = 100;
         posY = 520;
 
+        //if not activated it displays the flat bear trap
         if(!activatedStatus) {
           shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         } else {
+          //if not activated it displays the activated bear trap
           shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
         }
 
@@ -46,6 +50,7 @@ class Traps extends Sprites {
 
   void subtractHealth() {
     if(activated()) {
+      //once makes it so it only subtracts from the player health once
       if(once) {
         player.health--;
         once = false;
@@ -61,6 +66,11 @@ class Traps extends Sprites {
         //tests for detection along the left side of the trap
         if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           activatedStatus = true;
+          if(!playOnce) {
+            //plays bear trap sound once
+            bearTrapSound.loop(0);
+            playOnce = true;
+          }
         }
       }
       //loops through x values of trap
@@ -68,6 +78,11 @@ class Traps extends Sprites {
         //tests for detection along the top of the trap
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           activatedStatus = true;
+          if(!playOnce) {
+            //plays bear trap sound once
+            bearTrapSound.loop(0);
+            playOnce = true;
+          }
         }
       }
     }

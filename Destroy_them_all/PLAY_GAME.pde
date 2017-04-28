@@ -7,6 +7,7 @@ Controls the actual gameplay of the game
 
 boolean playerJump = false;
 float randomSprite;
+
 ArrayList<Sprites> sprites = new ArrayList<Sprites>();
 ArrayList<Float> grassList = new ArrayList<Float>();
 ArrayList<Integer> mountainsBack = new ArrayList<Integer>();
@@ -19,9 +20,6 @@ ArrayList<Integer> cloudsSlowY = new ArrayList<Integer>();
 ArrayList<Integer> cloudsSlowType = new ArrayList<Integer>();
 //stores time;
 int time = 0;
-int grassPosX = 0;
-
-
 
 class PlayGame {
   //Fields
@@ -45,14 +43,14 @@ class PlayGame {
 
   //Function to randomely determine when a tree is going to be placed
   void generateSprites() {
-    randomSprite = random(35, 50);
+    randomSprite = random(30, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 5000) {
+    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 1500) {
       if(randomSprite > 42.5) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, int(random(7))));
         time = millis();
-      } else if (randomSprite < 41) {
+      } else if (randomSprite < 42.5) {
         //adds trap to arraylist
         sprites.add(new Traps(width, 1));
         time = millis();
@@ -60,6 +58,8 @@ class PlayGame {
     }
   }
 
+  //used to add a specific number of ints/floats to the arrays.
+  //run in setup
   void addSprites() {
     for (int i = 0; i <= width; i += grassWidth) {
       grassList.add(new Float(i));
@@ -72,6 +72,7 @@ class PlayGame {
       clouds.add(new Integer(i));
       cloudsSlow.add(new Integer(i));
     }
+    //stores y values for the clouds
     for(int i = 0; i < 10; i ++) {
       cloudsY.add(new Integer(int(random(40, 300))));
       cloudsSlowY.add(new Integer(int(random(40, 300))));
@@ -80,6 +81,7 @@ class PlayGame {
     }
   }
 
+  //takes in a num from 0-9 and returns a cloud
   PShape cloudType(int num) {
     switch (num) {
       case 0:
@@ -113,17 +115,26 @@ class PlayGame {
     return shape;
   }
 
+  //displays the clouds
   void drawClouds() {
+    //loops through all the clouds in the array
     for(int i = 0; i < clouds.size(); i++) {
+      //moves the clouds left by two pixels
       clouds.set(i, clouds.get(i) - 2);
+      //draws the clouds
       shape(cloudType(cloudsType.get(i)), clouds.get(i), cloudsY.get(i));
-      if(clouds.get(i) < 0 - 400) {
+      //resets cloud once it goes off the scree
+      if(clouds.get(i) < -400) {
         clouds.set(i, width);
       }
     }
+    //loops through all the slow clouds
     for(int i = 0; i < cloudsSlow.size(); i++) {
+      //moves the cloud left by one pixel
       cloudsSlow.set(i, cloudsSlow.get(i) - 1);
+      //draws the clouds
       shape(cloudType(cloudsSlowType.get(i)), cloudsSlow.get(i), cloudsSlowY.get(i));
+      //resets the clouds once they go offscreen
       if(cloudsSlow.get(i) < - 400) {
         cloudsSlow.set(i, width);
       }
@@ -131,32 +142,42 @@ class PlayGame {
   }
 
   void drawGrass() {
+    //loops through all the grass in the array
     for(int i = 0; i < grassList.size(); i++) {
-      grassList.set(i, grassList.get(i) - 10);
-      shape(grass, grassList.get(i), 570, grassWidth, (grass.height * grassWidth)/grass.width);
-      if(grassList.get(i) < 2 - grassWidth) {
+      //moves the grass left by a specific num
+      grassList.set(i, grassList.get(i) - (gameSpeed * 1.2));
+      //draws the grass
+      shape(grass, grassList.get(i), 570, grassWidth + gameSpeed, (grass.height * grassWidth)/grass.width);
+      //resets the grass once it goes off screen
+      if(grassList.get(i) < - grassWidth) {
         grassList.set(i, float(width));
       }
     }
   }
 
   void drawMountains() {
+    //loops through all the back mountains
     for(int i = 0; i < mountainsBack.size(); i++) {
+      //moves the background mountains left by one pixel
       mountainsBack.set(i, mountainsBack.get(i) - 1);
+      //draws the mountains
       shape(mtsBack, mountainsBack.get(i), 165, width, (mtsBack.height * width)/mtsBack.width);
+      //resets mountains once it goes offscreen
       if(mountainsBack.get(i) < 2 - width) {
         mountainsBack.set(i, width);
       }
     }
+    //loops through front mountains
     for(int i = 0; i < mountainsFront.size(); i++) {
+      //moves front mountains by two pixels
       mountainsFront.set(i, mountainsFront.get(i) - 2);
+      //draws mountains
       shape(mtsFront, mountainsFront.get(i), 170, width, (mtsFront.height * width)/mtsFront.width);
+      //resets mountains once they go offscreen
       if(mountainsFront.get(i) < 2 - width) {
         mountainsFront.set(i, width);
       }
-
     }
-    //shape(mtsFront, 0, 0, width, (mtsFront.height * width)/mtsFront.width);
   }
 
   //setting game speed from outside the class
@@ -169,17 +190,26 @@ class PlayGame {
     return gameSpeed;
   }
 
-  void addScore() {
-    score += 10;
+  void addScore(int i) {
+    //only adds score if the building has been destroyed
+    if(sprites.get(i).destroyed()) {
+      score += 10;
+      if(score % 3 == 0) {
+        setGameSpeed(gameSpeed + 1);
+      }
+    }
   }
 
   void displayScore() {
     textSize(30);
     fill(255);
+    //displays the score and player health in the top left corner
     text("Score:" + " " + score, 40, 40);
+    text("Health:" + " " + player.health , 200, 40);
   }
 
   void checkAlive() {
+    //if the player is dead it activates the game over screen
     if(player.dead()) {
       gameState = "GAME OVER";
     }
@@ -187,53 +217,40 @@ class PlayGame {
 
   //removes object from ArrayList if it off the screen.
   void clearSprite(int i) {
+    //if the sprite has been destroyed or is off screen it is deleted from the array
     if(sprites.get(i).getX() < -500 || sprites.get(i).destroyed()) {
-      addScore();
       sprites.remove(i);
     }
   }
 
   void process() {
     //loops through all objects in ArrayList
-    for(int i = 0; i < sprites.size(); i++) {
+    for(int i = sprites.size() -1; i >= 0; i--) {
       //moves sprite from right to left
       sprites.get(i).move(getGameSpeed());
       //displays sprite
       sprites.get(i).display();
+      //tests for detection of the sprite
       sprites.get(i).detection();
+      //subtracs health from the player when it hits a trap
       sprites.get(i).subtractHealth();
+      //checks to see if the player is still alive
       checkAlive();
+      //adds score if a building is destoryed
+      addScore(i);
+      //removes a sprite if it is destroyed or goes off screen
       clearSprite(i);
     }
     //displays player
     player.jump();
+    //displays the bear
     player.display();
   }
-
-  // ##LAGS TOO MUCH GRADIENT ATTEMPT FAILED
-  // sky gradient from (0, 228, 255) to (255, 255, 255)
-  // void drawSky() {
-  //   color skyColor = color(0, 228, 255);
-  //   strokeWeight(1);
-  //
-  //   for (int i = 0; i < height; i++){
-  //     stroke(lerpColor(skyColor, color(255), map(i, 0, height, 0, 1)));
-  //     line(0, i-1, width, i+1);
-  //   }
-  // }
 
   // draw Sky
   void drawSky() {
     image(sky, 0, 0);
   }
-
-  // void drawGrass() {
-  //   int grassWidth = 50;
-  //   for(int i = 0; i < width; i += grassWidth) {
-  //     shape(grass, grassPosX + i, 570, grassWidth, (grass.height * grassWidth)/grass.width);
-  //   }
-  //   grassPosX--;
-  // }
 
   void display() {
     //draw sky
