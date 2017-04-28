@@ -20,6 +20,7 @@ class Bear {
   int counter;
   boolean jumping;
   int jumpDuration;
+  int bearCounter;
 
   Bear() {
     posY = 400;
@@ -28,10 +29,15 @@ class Bear {
     counter = 0;
     jumpFactor = 1.6;
     jumpDuration = 27;
+    bearCounter = 0;
   }
 
   void display() {
-    image(bearWalk0, 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
+    image(bearType(bearCounter), 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
+    bearCounter++;
+    if(bearCounter > 45) {
+      bearCounter = 0;
+    }
   }
 
   void setCounter(int newCounter) {
@@ -68,7 +74,7 @@ class Bear {
     }
   }
 
-  PShape bearType(int num) {
+  PImage bearType(int num) {
     switch (num) {
       case 0:
         bear = bearWalk0;
