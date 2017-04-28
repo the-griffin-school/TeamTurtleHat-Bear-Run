@@ -51,6 +51,7 @@ void draw() {
       gameOver.display();
       break;
     case "PAUSE":
+      pause();
       break;
   }
   displayFrames();
@@ -102,6 +103,9 @@ void keyPressed() {
       } else if(keyCode == ENTER) {
 
       }
+      if(key == 'p' || key == 'P') {
+        gameState = "PAUSE";
+      }
       break;
 
 
@@ -115,6 +119,11 @@ void keyPressed() {
         }
         mainMenu.startGame = false;
         gameState = "MAIN MENU";
+      }
+      break;
+    case "PAUSE":
+      if(key == 'p' || key == 'P') {
+        gameState = "GAME START";
       }
   }
 }

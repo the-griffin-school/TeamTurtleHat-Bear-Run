@@ -69,6 +69,7 @@ public void draw() {
       gameOver.display();
       break;
     case "PAUSE":
+      pause();
       break;
   }
   displayFrames();
@@ -120,6 +121,9 @@ public void keyPressed() {
       } else if(keyCode == ENTER) {
 
       }
+      if(key == 'p' || key == 'P') {
+        gameState = "PAUSE";
+      }
       break;
 
 
@@ -133,6 +137,11 @@ public void keyPressed() {
         }
         mainMenu.startGame = false;
         gameState = "MAIN MENU";
+      }
+      break;
+    case "PAUSE":
+      if(key == 'p' || key == 'P') {
+        gameState = "GAME START";
       }
   }
 }
@@ -691,6 +700,15 @@ Giles, David, Cho
 March 2017
 Displays the pause screen and allows the player to unpause
 */
+
+
+public void pause() {
+
+  textAlign(CENTER);
+  textSize(80);
+  fill(0);
+  text("PAUSED", width/2, height/2);
+}
 /*
 Team-turtle-hat
 David, Cho, Giles
