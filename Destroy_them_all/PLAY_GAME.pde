@@ -61,7 +61,7 @@ class PlayGame {
   //used to add a specific number of ints/floats to the arrays.
   //run in setup
   void addSprites() {
-    for (int i = 0; i <= width; i += grassWidth) {
+    for (int i = 0; i <= width + grassWidth *2; i += grassWidth) {
       grassList.add(new Float(i));
     }
     for(int i = 0; i <= width; i += width) {
@@ -145,12 +145,12 @@ class PlayGame {
     //loops through all the grass in the array
     for(int i = 0; i < grassList.size(); i++) {
       //moves the grass left by a specific num
-      grassList.set(i, grassList.get(i) - (gameSpeed * 1.2));
+      grassList.set(i, grassList.get(i) - gameSpeed);
       //draws the grass
-      shape(grass, grassList.get(i), 570, grassWidth + gameSpeed, (grass.height * grassWidth)/grass.width);
+      shape(grass, grassList.get(i), 570, grassWidth, (grass.height * grassWidth)/grass.width);
       //resets the grass once it goes off screen
-      if(grassList.get(i) < - grassWidth) {
-        grassList.set(i, float(width));
+      if(grassList.get(i) < -grassWidth) {
+        grassList.set(i, grassList.get(i) + width + grassWidth * 3);
       }
     }
   }
@@ -194,9 +194,9 @@ class PlayGame {
     //only adds score if the building has been destroyed
     if(sprites.get(i).destroyed()) {
       score += 10;
-      if(score % 3 == 0) {
+      //if(score % 3 == 0) {
         setGameSpeed(gameSpeed + 1);
-      }
+      //}
     }
   }
 
