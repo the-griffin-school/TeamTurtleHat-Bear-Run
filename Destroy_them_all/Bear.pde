@@ -35,7 +35,7 @@ class Bear {
   void display() {
     image(bearType(bearCounter), 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
     bearCounter++;
-    if(bearCounter > 45) {
+    if(bearCounter > 44) {
       bearCounter = 0;
     }
   }
@@ -211,60 +211,55 @@ class Bear {
       case 44:
         bear = bearWalk44;
         break;
-      case 45:
-        bear = bearWalk45;
-        break;
-
     }
     return bear;
   }
 }
 
 void loadBear() {
-  bearWalk0 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk0.png");
-  bearWalk1 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk1.png");
-  bearWalk2 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk2.png");
-  bearWalk3 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk3.png");
-  bearWalk4 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk4.png");
-  bearWalk5 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk5.png");
-  bearWalk6 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk6.png");
-  bearWalk7 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk7.png");
-  bearWalk8 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk8.png");
-  bearWalk9 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk9.png");
-  bearWalk10 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk10.png");
-  bearWalk11 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk11.png");
-  bearWalk12 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk12.png");
-  bearWalk13 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk13.png");
-  bearWalk14 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk14.png");
-  bearWalk15= loadImage("Graphics/Bear/Exports/PNG Export/BearWalk15.png");
-  bearWalk16 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk16.png");
-  bearWalk17 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk17.png");
-  bearWalk18 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk18.png");
-  bearWalk19 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk19.png");
-  bearWalk20 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk20.png");
-  bearWalk21 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk21.png");
-  bearWalk22 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk22.png");
-  bearWalk23 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk23.png");
-  bearWalk24 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk24.png");
-  bearWalk25 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk25.png");
-  bearWalk26 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk26.png");
-  bearWalk27 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk27.png");
-  bearWalk28 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk28.png");
-  bearWalk29 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk29.png");
-  bearWalk30 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk30.png");
-  bearWalk31 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk31.png");
-  bearWalk32 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk32.png");
-  bearWalk33 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk33.png");
-  bearWalk34 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk34.png");
-  bearWalk35 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk35.png");
-  bearWalk36 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk36.png");
-  bearWalk37 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk37.png");
-  bearWalk38 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk38.png");
-  bearWalk39 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk39.png");
-  bearWalk40 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk40.png");
-  bearWalk41 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk41.png");
-  bearWalk42 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk42.png");
-  bearWalk43 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk43.png");
-  bearWalk44 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk44.png");
-  bearWalk45 = loadImage("Graphics/Bear/Exports/PNG Export/BearWalk45.png");
+  bearWalk0 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0000.png");
+  bearWalk1 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0001.png");
+  bearWalk2 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0002.png");
+  bearWalk3 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0003.png");
+  bearWalk4 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0004.png");
+  bearWalk5 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0005.png");
+  bearWalk6 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0006.png");
+  bearWalk7 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0007.png");
+  bearWalk8 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0008.png");
+  bearWalk9 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0009.png");
+  bearWalk10 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0010.png");
+  bearWalk11 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0011.png");
+  bearWalk12 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0012.png");
+  bearWalk13 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0013.png");
+  bearWalk14 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0014.png");
+  bearWalk15 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0015.png");
+  bearWalk16 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0016.png");
+  bearWalk17 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0017.png");
+  bearWalk18 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0018.png");
+  bearWalk19 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0019.png");
+  bearWalk20 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0020.png");
+  bearWalk21 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0021.png");
+  bearWalk22 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0022.png");
+  bearWalk23 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0023.png");
+  bearWalk24 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0024.png");
+  bearWalk25 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0025.png");
+  bearWalk26 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0026.png");
+  bearWalk27 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0027.png");
+  bearWalk28 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0028.png");
+  bearWalk29 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0029.png");
+  bearWalk30 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0030.png");
+  bearWalk31 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0031.png");
+  bearWalk32 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0032.png");
+  bearWalk33 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0033.png");
+  bearWalk34 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0034.png");
+  bearWalk35 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0035.png");
+  bearWalk36 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0036.png");
+  bearWalk37 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0037.png");
+  bearWalk38 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0038.png");
+  bearWalk39 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0039.png");
+  bearWalk40 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0040.png");
+  bearWalk41 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0041.png");
+  bearWalk42 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0042.png");
+  bearWalk43 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0043.png");
+  bearWalk44 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0044.png");
 }

@@ -29,14 +29,10 @@ class GameOver {
          break;
        case 4:
          deathMsg = "You're a BEARicade of progress";
-<<<<<<< HEAD
-break; 
-=======
          break;
-       case 5:
+      case 5:
          deathMsg = "Have you lost your BEARings?";
          break;
->>>>>>> c6a704b239bc9fb99b8873334a7602e8d4d8a535
      }
 
      textAlign(CENTER);

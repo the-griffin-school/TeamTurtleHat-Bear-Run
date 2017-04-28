@@ -99,13 +99,12 @@ void keyPressed() {
           player.setCounter(0);
         }
         player.setJump(true);
-      } else if(keyCode = ENTER) {
-        
+      } else if(keyCode == ENTER) {
+
       }
       break;
-<<<<<<< HEAD
 
-=======
+
     case "GAME OVER":
       if(key == ENTER) {
         player.health = 3;
@@ -117,6 +116,5 @@ void keyPressed() {
         mainMenu.startGame = false;
         gameState = "MAIN MENU";
       }
->>>>>>> c6a704b239bc9fb99b8873334a7602e8d4d8a535
   }
 }
