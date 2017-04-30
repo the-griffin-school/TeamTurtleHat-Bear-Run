@@ -194,9 +194,9 @@ class PlayGame {
     //only adds score if the building has been destroyed
     if(sprites.get(i).destroyed()) {
       score += 10;
-      //if(score % 3 == 0) {
+      if(score % 3 == 0) {
         setGameSpeed(gameSpeed + 1);
-      //}
+      }
     }
   }
 

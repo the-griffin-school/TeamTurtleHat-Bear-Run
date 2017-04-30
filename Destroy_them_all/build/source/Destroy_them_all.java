@@ -904,9 +904,9 @@ class PlayGame {
     //only adds score if the building has been destroyed
     if(sprites.get(i).destroyed()) {
       score += 10;
-      //if(score % 3 == 0) {
+      if(score % 3 == 0) {
         setGameSpeed(gameSpeed + 1);
-      //}
+      }
     }
   }
 
@@ -998,7 +998,7 @@ PShape cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9;
 public void loadSprites() {
   building1 = loadImage("Graphics/Buildings/Buildings_Artboard 1.png");
   building2 = loadImage("Graphics/Buildings/Buildings_Artboard 2.png");
-  building3 = loadImage("Graphics/Buildings/Buildings_Artboard 3.png");
+  building3 = loadImage("Graphics/Buildings/Buildings_Artboard 7.png");
   building4 = loadImage("Graphics/Buildings/Buildings_Artboard 4.png");
   building5 = loadImage("Graphics/Buildings/Buildings_Artboard 5.png");
   building6 = loadImage("Graphics/Buildings/Buildings_Artboard 6.png");
