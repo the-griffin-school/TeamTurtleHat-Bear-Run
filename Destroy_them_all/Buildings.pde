@@ -4,6 +4,9 @@ Cho, David, Giles
 March 2017
 Controls the displaying of buildings and building stuff
 */
+AudioPlayer boom1;
+AudioPlayer boom2;
+
 class Buildings extends Sprites {
   //is able to control the size of the buildings proportionally
   int buildingSize;
@@ -36,7 +39,7 @@ class Buildings extends Sprites {
 
   //displays a building based on typeOfSprite
   void display() {
-    if(smokeSize < 450) {
+    if(smokeSize < 400) {
       switch(typeOfSprite){
         case 1:
           //displays the first building type.
@@ -87,11 +90,11 @@ class Buildings extends Sprites {
       shapeMode(CENTER);
       fill(189, 189, 189, alpha);
       shape(smoke, posX + boundryWidth/2, posY + boundryHeight/2, smokeSize, (smoke.height * smokeSize)/smoke.width);
-      if(smokeSize < 450) {
-        smokeSize += 50;
+      if(smokeSize < 500) {
+        smokeSize += 70;
       }
-      if(smokeSize > 300) {
-        alpha -= 30;
+      if(smokeSize > 350) {
+        alpha -= 40;
       }
       shapeMode(CORNER);
     }
@@ -101,6 +104,13 @@ class Buildings extends Sprites {
     //only adds score if the building has been destroyed
     if(destroyed() && !once) {
       playGame.score += 10;
+      //SOUNDS
+      int randomSound = int(random(2));
+      if(randomSound == 0) {
+        boom1.loop(0);
+      } else {
+        boom2.loop(0);
+      }
       once = true;
       if(playGame.score % 3 == 0) {
         playGame.setGameSpeed(playGame.gameSpeed + 1);

@@ -24,7 +24,6 @@ public class Destroy_them_all extends PApplet {
 */
 
 Minim minim;
-AudioPlayer bearTrapSound;
 
 String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
@@ -51,6 +50,8 @@ public void setup() {
   playGame.addSprites();
   minim = new Minim(this);
   bearTrapSound = minim.loadFile("Sounds/Traps/bearTrap.wav", 2048);
+  boom1 = minim.loadFile("Sounds/Buildings/boom1.mp3", 2048);
+  boom2 = minim.loadFile("Sounds/Buildings/boom2.mp3", 2048);
   loadBear();
 }
 
@@ -416,6 +417,9 @@ Cho, David, Giles
 March 2017
 Controls the displaying of buildings and building stuff
 */
+AudioPlayer boom1;
+AudioPlayer boom2;
+
 class Buildings extends Sprites {
   //is able to control the size of the buildings proportionally
   int buildingSize;
@@ -448,7 +452,7 @@ class Buildings extends Sprites {
 
   //displays a building based on typeOfSprite
   public void display() {
-    if(smokeSize < 450) {
+    if(smokeSize < 400) {
       switch(typeOfSprite){
         case 1:
           //displays the first building type.
@@ -499,11 +503,11 @@ class Buildings extends Sprites {
       shapeMode(CENTER);
       fill(189, 189, 189, alpha);
       shape(smoke, posX + boundryWidth/2, posY + boundryHeight/2, smokeSize, (smoke.height * smokeSize)/smoke.width);
-      if(smokeSize < 450) {
-        smokeSize += 50;
+      if(smokeSize < 500) {
+        smokeSize += 70;
       }
-      if(smokeSize > 300) {
-        alpha -= 30;
+      if(smokeSize > 350) {
+        alpha -= 40;
       }
       shapeMode(CORNER);
     }
@@ -513,6 +517,13 @@ class Buildings extends Sprites {
     //only adds score if the building has been destroyed
     if(destroyed() && !once) {
       playGame.score += 10;
+      //SOUNDS
+      int randomSound = PApplet.parseInt(random(2));
+      if(randomSound == 0) {
+        boom1.loop(0);
+      } else {
+        boom2.loop(0);
+      }
       once = true;
       if(playGame.score % 3 == 0) {
         playGame.setGameSpeed(playGame.gameSpeed + 1);
@@ -1111,6 +1122,7 @@ Cho, David, Giles
 March 2017
 Controls the displaying of traps including villagers and trap stuff
 */
+AudioPlayer bearTrapSound;
 
 class Traps extends Sprites {
   //stores the width and heigt of the trap for detection purposes

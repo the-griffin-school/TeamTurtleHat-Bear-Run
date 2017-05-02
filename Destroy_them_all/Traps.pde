@@ -4,6 +4,7 @@ Cho, David, Giles
 March 2017
 Controls the displaying of traps including villagers and trap stuff
 */
+AudioPlayer bearTrapSound;
 
 class Traps extends Sprites {
   //stores the width and heigt of the trap for detection purposes
