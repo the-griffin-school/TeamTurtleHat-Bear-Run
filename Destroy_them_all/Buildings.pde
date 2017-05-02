@@ -7,6 +7,7 @@ Controls the displaying of buildings and building stuff
 class Buildings extends Sprites {
   //is able to control the size of the buildings proportionally
   int buildingSize;
+  int smokeSize;
   float posY;
 
   //stores width and height of building for detection purposes
@@ -14,11 +15,15 @@ class Buildings extends Sprites {
   int boundryWidth;
   //is able to change all of the buildings y value
   int changeBuildingY = 7;
+  boolean once = false;
+  int alpha;
 
   //uses construcor of the sprites class
   Buildings(float posX, int typeOfSprite) {
     super(posX, typeOfSprite);
     buildingSize = 140;
+    smokeSize = 140;
+    alpha = 255;
   }
 
   void drawBuilding(PImage building, int newPosY) {
@@ -31,26 +36,28 @@ class Buildings extends Sprites {
 
   //displays a building based on typeOfSprite
   void display() {
-    switch(typeOfSprite){
-      case 1:
-        //displays the first building type.
-        drawBuilding(building1, 347 + changeBuildingY);
-        break;
-      case 2:
-        drawBuilding(building2, 304 + changeBuildingY);
-        break;
-      case 3:
-        drawBuilding(building3, 380+ changeBuildingY);
-        break;
-      case 4:
-        drawBuilding(building4, 351+ changeBuildingY);
-        break;
-      case 5:
-        drawBuilding(building5, 304 + changeBuildingY);
-        break;
-      case 6:
-        drawBuilding(building6, 263 + changeBuildingY);
-        break;
+    if(smokeSize < 450) {
+      switch(typeOfSprite){
+        case 1:
+          //displays the first building type.
+          drawBuilding(building1, 347 + changeBuildingY);
+          break;
+        case 2:
+          drawBuilding(building2, 304 + changeBuildingY);
+          break;
+        case 3:
+          drawBuilding(building3, 380+ changeBuildingY);
+          break;
+        case 4:
+          drawBuilding(building4, 351+ changeBuildingY);
+          break;
+        case 5:
+          drawBuilding(building5, 304 + changeBuildingY);
+          break;
+        case 6:
+          drawBuilding(building6, 263 + changeBuildingY);
+          break;
+      }
     }
   }
 
@@ -70,6 +77,33 @@ class Buildings extends Sprites {
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           destroyedStatus = true;
         }
+      }
+    }
+  }
+
+  void smoke() {
+    if(destroyed()) {
+      smoke.disableStyle();
+      shapeMode(CENTER);
+      fill(189, 189, 189, alpha);
+      shape(smoke, posX + boundryWidth/2, posY + boundryHeight/2, smokeSize, (smoke.height * smokeSize)/smoke.width);
+      if(smokeSize < 450) {
+        smokeSize += 50;
+      }
+      if(smokeSize > 300) {
+        alpha -= 30;
+      }
+      shapeMode(CORNER);
+    }
+  }
+
+  void addScore() {
+    //only adds score if the building has been destroyed
+    if(destroyed() && !once) {
+      playGame.score += 10;
+      once = true;
+      if(playGame.score % 3 == 0) {
+        playGame.setGameSpeed(playGame.gameSpeed + 1);
       }
     }
   }

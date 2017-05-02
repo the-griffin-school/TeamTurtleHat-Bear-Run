@@ -419,6 +419,7 @@ Controls the displaying of buildings and building stuff
 class Buildings extends Sprites {
   //is able to control the size of the buildings proportionally
   int buildingSize;
+  int smokeSize;
   float posY;
 
   //stores width and height of building for detection purposes
@@ -426,11 +427,15 @@ class Buildings extends Sprites {
   int boundryWidth;
   //is able to change all of the buildings y value
   int changeBuildingY = 7;
+  boolean once = false;
+  int alpha;
 
   //uses construcor of the sprites class
   Buildings(float posX, int typeOfSprite) {
     super(posX, typeOfSprite);
     buildingSize = 140;
+    smokeSize = 140;
+    alpha = 255;
   }
 
   public void drawBuilding(PImage building, int newPosY) {
@@ -443,26 +448,28 @@ class Buildings extends Sprites {
 
   //displays a building based on typeOfSprite
   public void display() {
-    switch(typeOfSprite){
-      case 1:
-        //displays the first building type.
-        drawBuilding(building1, 347 + changeBuildingY);
-        break;
-      case 2:
-        drawBuilding(building2, 304 + changeBuildingY);
-        break;
-      case 3:
-        drawBuilding(building3, 380+ changeBuildingY);
-        break;
-      case 4:
-        drawBuilding(building4, 351+ changeBuildingY);
-        break;
-      case 5:
-        drawBuilding(building5, 304 + changeBuildingY);
-        break;
-      case 6:
-        drawBuilding(building6, 263 + changeBuildingY);
-        break;
+    if(smokeSize < 450) {
+      switch(typeOfSprite){
+        case 1:
+          //displays the first building type.
+          drawBuilding(building1, 347 + changeBuildingY);
+          break;
+        case 2:
+          drawBuilding(building2, 304 + changeBuildingY);
+          break;
+        case 3:
+          drawBuilding(building3, 380+ changeBuildingY);
+          break;
+        case 4:
+          drawBuilding(building4, 351+ changeBuildingY);
+          break;
+        case 5:
+          drawBuilding(building5, 304 + changeBuildingY);
+          break;
+        case 6:
+          drawBuilding(building6, 263 + changeBuildingY);
+          break;
+      }
     }
   }
 
@@ -482,6 +489,33 @@ class Buildings extends Sprites {
         if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           destroyedStatus = true;
         }
+      }
+    }
+  }
+
+  public void smoke() {
+    if(destroyed()) {
+      smoke.disableStyle();
+      shapeMode(CENTER);
+      fill(189, 189, 189, alpha);
+      shape(smoke, posX + boundryWidth/2, posY + boundryHeight/2, smokeSize, (smoke.height * smokeSize)/smoke.width);
+      if(smokeSize < 450) {
+        smokeSize += 50;
+      }
+      if(smokeSize > 300) {
+        alpha -= 30;
+      }
+      shapeMode(CORNER);
+    }
+  }
+
+  public void addScore() {
+    //only adds score if the building has been destroyed
+    if(destroyed() && !once) {
+      playGame.score += 10;
+      once = true;
+      if(playGame.score % 3 == 0) {
+        playGame.setGameSpeed(playGame.gameSpeed + 1);
       }
     }
   }
@@ -900,16 +934,6 @@ class PlayGame {
     return gameSpeed;
   }
 
-  public void addScore(int i) {
-    //only adds score if the building has been destroyed
-    if(sprites.get(i).destroyed()) {
-      score += 10;
-      if(score % 3 == 0) {
-        setGameSpeed(gameSpeed + 1);
-      }
-    }
-  }
-
   public void displayScore() {
     textSize(30);
     fill(255);
@@ -928,7 +952,7 @@ class PlayGame {
   //removes object from ArrayList if it off the screen.
   public void clearSprite(int i) {
     //if the sprite has been destroyed or is off screen it is deleted from the array
-    if(sprites.get(i).getX() < -500 || sprites.get(i).destroyed()) {
+    if(sprites.get(i).getX() < -500) {
       sprites.remove(i);
     }
   }
@@ -940,14 +964,16 @@ class PlayGame {
       sprites.get(i).move(getGameSpeed());
       //displays sprite
       sprites.get(i).display();
+
       //tests for detection of the sprite
       sprites.get(i).detection();
       //subtracs health from the player when it hits a trap
       sprites.get(i).subtractHealth();
       //checks to see if the player is still alive
       checkAlive();
+      sprites.get(i).smoke();
       //adds score if a building is destoryed
-      addScore(i);
+      sprites.get(i).addScore();
       //removes a sprite if it is destroyed or goes off screen
       clearSprite(i);
     }
@@ -993,6 +1019,7 @@ PShape grass;
 PShape mtsBack;
 PShape mtsFront;
 PShape cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9;
+PShape smoke;
 
 //used to load building and trap sprites
 public void loadSprites() {
@@ -1016,6 +1043,7 @@ public void loadSprites() {
   cloud7 = loadShape("Graphics/Environment/Sky/Clouds Master-07.svg");
   cloud8 = loadShape("Graphics/Environment/Sky/Clouds Master-08.svg");
   cloud9 = loadShape("Graphics/Environment/Sky/Clouds Master-09.svg");
+  smoke = loadShape ("Graphics/Destruction/drawing.svg");
 }
 //parent class to buildings and traps
 class Sprites {
@@ -1068,6 +1096,13 @@ class Sprites {
 
   public void subtractHealth() {
 
+  }
+
+  public void smoke() {
+  }
+
+  public void addScore() {
+    
   }
 }
 /*

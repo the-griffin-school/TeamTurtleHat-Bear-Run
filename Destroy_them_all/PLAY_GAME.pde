@@ -190,16 +190,6 @@ class PlayGame {
     return gameSpeed;
   }
 
-  void addScore(int i) {
-    //only adds score if the building has been destroyed
-    if(sprites.get(i).destroyed()) {
-      score += 10;
-      if(score % 3 == 0) {
-        setGameSpeed(gameSpeed + 1);
-      }
-    }
-  }
-
   void displayScore() {
     textSize(30);
     fill(255);
@@ -218,7 +208,7 @@ class PlayGame {
   //removes object from ArrayList if it off the screen.
   void clearSprite(int i) {
     //if the sprite has been destroyed or is off screen it is deleted from the array
-    if(sprites.get(i).getX() < -500 || sprites.get(i).destroyed()) {
+    if(sprites.get(i).getX() < -500) {
       sprites.remove(i);
     }
   }
@@ -230,14 +220,16 @@ class PlayGame {
       sprites.get(i).move(getGameSpeed());
       //displays sprite
       sprites.get(i).display();
+
       //tests for detection of the sprite
       sprites.get(i).detection();
       //subtracs health from the player when it hits a trap
       sprites.get(i).subtractHealth();
       //checks to see if the player is still alive
       checkAlive();
+      sprites.get(i).smoke();
       //adds score if a building is destoryed
-      addScore(i);
+      sprites.get(i).addScore();
       //removes a sprite if it is destroyed or goes off screen
       clearSprite(i);
     }
