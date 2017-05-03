@@ -10,6 +10,7 @@ PImage bearWalk21, bearWalk22, bearWalk23, bearWalk24, bearWalk25, bearWalk26, b
 PImage bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35, bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40;
 PImage bearWalk41, bearWalk42, bearWalk43, bearWalk44, bearWalk45;
 PImage bear;
+PImage heart;
 
 class Bear {
   float posY;
@@ -37,6 +38,13 @@ class Bear {
     bearCounter++;
     if(bearCounter > 44) {
       bearCounter = 0;
+    }
+  }
+
+  void displayHealth() {
+    int heartSize = 40;
+    for (int i = 0; i < health; i++) {
+      image(heart, 180 + (i * (heartSize + 5)), 10, heartSize, (heart.height * heartSize)/heart.width);
     }
   }
 

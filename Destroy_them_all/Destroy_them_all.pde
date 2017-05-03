@@ -6,7 +6,7 @@
 */
 import ddf.minim.*;
 Minim minim;
-AudioPlayer bearTrapSound;
+AudioPlayer backgroundMusic;
 
 String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
@@ -33,7 +33,11 @@ void setup() {
   playGame.addSprites();
   minim = new Minim(this);
   bearTrapSound = minim.loadFile("Sounds/Traps/bearTrap.wav", 2048);
+  boom1 = minim.loadFile("Sounds/Buildings/boom1.mp3", 2048);
+  boom2 = minim.loadFile("Sounds/Buildings/boom2.mp3", 2048);
+  backgroundMusic = minim.loadFile("Sounds/Background/background1.mp3", 2048);
   loadBear();
+  backgroundMusic.loop();
 }
 
 void draw() {
@@ -55,7 +59,6 @@ void draw() {
       break;
   }
   displayFrames();
-
 }
 
 void displayFrames() {

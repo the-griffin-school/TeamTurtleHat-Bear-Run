@@ -12,6 +12,7 @@ PShape grass;
 PShape mtsBack;
 PShape mtsFront;
 PShape cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9;
+PShape smoke;
 
 //used to load building and trap sprites
 void loadSprites() {
@@ -35,6 +36,8 @@ void loadSprites() {
   cloud7 = loadShape("Graphics/Environment/Sky/Clouds Master-07.svg");
   cloud8 = loadShape("Graphics/Environment/Sky/Clouds Master-08.svg");
   cloud9 = loadShape("Graphics/Environment/Sky/Clouds Master-09.svg");
+  smoke = loadShape ("Graphics/Destruction/drawing.svg");
+  heart = loadImage("Graphics/Health/heart.png");
 }
 //parent class to buildings and traps
 class Sprites {
@@ -86,6 +89,13 @@ class Sprites {
   }
 
   void subtractHealth() {
+
+  }
+
+  void smoke() {
+  }
+
+  void addScore() {
 
   }
 }
