@@ -53,7 +53,7 @@ public void setup() {
   bearTrapSound = minim.loadFile("Sounds/Traps/bearTrap.wav", 2048);
   boom1 = minim.loadFile("Sounds/Buildings/boom1.mp3", 2048);
   boom2 = minim.loadFile("Sounds/Buildings/boom2.mp3", 2048);
-  backgroundMusic = minim.loadFile("Sounds/Background/background1.mp3");
+  backgroundMusic = minim.loadFile("Sounds/Background/background1.mp3", 2048);
   loadBear();
   backgroundMusic.loop();
 }
@@ -160,6 +160,7 @@ PImage bearWalk21, bearWalk22, bearWalk23, bearWalk24, bearWalk25, bearWalk26, b
 PImage bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35, bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40;
 PImage bearWalk41, bearWalk42, bearWalk43, bearWalk44, bearWalk45;
 PImage bear;
+PImage heart;
 
 class Bear {
   float posY;
@@ -187,6 +188,13 @@ class Bear {
     bearCounter++;
     if(bearCounter > 44) {
       bearCounter = 0;
+    }
+  }
+
+  public void displayHealth() {
+    int heartSize = 40;
+    for (int i = 0; i < health; i++) {
+      image(heart, 180 + (i * (heartSize + 5)), 10, heartSize, (heart.height * heartSize)/heart.width);
     }
   }
 
@@ -481,7 +489,7 @@ class Buildings extends Sprites {
 
   public void detection() {
     //tests for detection at the last possible moment to reduce load
-    if(posX < 185) {
+    if(posX < 185 && keyCode == 16) {
       //loops through y values of the building
       for (int i = PApplet.parseInt(posY); i < (posY + boundryHeight); i += 3) {
         //tests for detection along the left side of the building
@@ -952,7 +960,7 @@ class PlayGame {
     fill(255);
     //displays the score and player health in the top left corner
     text("Score:" + " " + score, 40, 40);
-    text("Health:" + " " + player.health , 200, 40);
+    player.displayHealth();
   }
 
   public void checkAlive() {
@@ -1057,6 +1065,7 @@ public void loadSprites() {
   cloud8 = loadShape("Graphics/Environment/Sky/Clouds Master-08.svg");
   cloud9 = loadShape("Graphics/Environment/Sky/Clouds Master-09.svg");
   smoke = loadShape ("Graphics/Destruction/drawing.svg");
+  heart = loadImage("Graphics/Health/heart.png");
 }
 //parent class to buildings and traps
 class Sprites {
@@ -1115,7 +1124,7 @@ class Sprites {
   }
 
   public void addScore() {
-    
+
   }
 }
 /*

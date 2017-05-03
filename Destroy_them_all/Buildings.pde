@@ -66,7 +66,7 @@ class Buildings extends Sprites {
 
   void detection() {
     //tests for detection at the last possible moment to reduce load
-    if(posX < 185) {
+    if(posX < 185 && keyCode == 16) {
       //loops through y values of the building
       for (int i = int(posY); i < (posY + boundryHeight); i += 3) {
         //tests for detection along the left side of the building

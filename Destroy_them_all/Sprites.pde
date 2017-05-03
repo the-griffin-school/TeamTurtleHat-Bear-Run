@@ -37,6 +37,7 @@ void loadSprites() {
   cloud8 = loadShape("Graphics/Environment/Sky/Clouds Master-08.svg");
   cloud9 = loadShape("Graphics/Environment/Sky/Clouds Master-09.svg");
   smoke = loadShape ("Graphics/Destruction/drawing.svg");
+  heart = loadImage("Graphics/Health/heart.png");
 }
 //parent class to buildings and traps
 class Sprites {
@@ -95,6 +96,6 @@ class Sprites {
   }
 
   void addScore() {
-    
+
   }
 }

@@ -35,7 +35,7 @@ void setup() {
   bearTrapSound = minim.loadFile("Sounds/Traps/bearTrap.wav", 2048);
   boom1 = minim.loadFile("Sounds/Buildings/boom1.mp3", 2048);
   boom2 = minim.loadFile("Sounds/Buildings/boom2.mp3", 2048);
-  backgroundMusic = minim.loadFile("Sounds/Background/background1.mp3");
+  backgroundMusic = minim.loadFile("Sounds/Background/background1.mp3", 2048);
   loadBear();
   backgroundMusic.loop();
 }

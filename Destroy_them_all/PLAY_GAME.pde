@@ -195,7 +195,7 @@ class PlayGame {
     fill(255);
     //displays the score and player health in the top left corner
     text("Score:" + " " + score, 40, 40);
-    text("Health:" + " " + player.health , 200, 40);
+    player.displayHealth();
   }
 
   void checkAlive() {
