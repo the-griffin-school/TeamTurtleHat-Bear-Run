@@ -1,9 +1,9 @@
 /*
 Team-turtle-hat
-Cho, Giles, David
-March 2017
-Displays and controls the main menu of the game
-*/
+ Cho, Giles, David
+ March 2017
+ Displays and controls the main menu of the game
+ */
 
 class MainMenu {
   //Fields
@@ -45,36 +45,36 @@ class MainMenu {
     menuSelection();
   }
 
-  void menuSelection(){
+  void menuSelection() {
     // menu selection
     switch(selectMenu) {
-      case 0:
-        textSize(40);
-        text("Play", width/2, 300);
-        textSize(30);
-        text("Stats", width/2, 350);
-        text("Options", width/2, 400);
-        break;
-      case 1:
-        textSize(40);
-        text("Stats", width/2, 350);
-        textSize(30);
-        text("Play", width/2, 300);
-        text("Options", width/2, 400);
-        break;
-      case 2:
-        textSize(40);
-        text("Options", width/2, 400);
-        textSize(30);
-        text("Play", width/2, 300);
-        text("Stats", width/2, 350);
-        break;
+    case 0:
+      textSize(40);
+      text("Play", width/2, 300);
+      textSize(30);
+      text("Stats", width/2, 350);
+      text("Options", width/2, 400);
+      break;
+    case 1:
+      textSize(40);
+      text("Stats", width/2, 350);
+      textSize(30);
+      text("Play", width/2, 300);
+      text("Options", width/2, 400);
+      break;
+    case 2:
+      textSize(40);
+      text("Options", width/2, 400);
+      textSize(30);
+      text("Play", width/2, 300);
+      text("Stats", width/2, 350);
+      break;
     }
     //if user pressed ENTER
-    if(startGame) {
+    if (startGame) {
       gameState = "GAME START";
     }
-    if(options) {
+    if (options) {
       gameState = "OPTIONS";
     }
   }

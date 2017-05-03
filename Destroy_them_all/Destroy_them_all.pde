@@ -1,9 +1,10 @@
 /*
   Team-turtle-hat
-  Wonseok Cho, David Klingler, Giles Fowles
-  March 2017
-  This is the main file that controls all the screens
-*/
+ Wonseok Cho, David Klingler, Giles Fowles
+ March 2017
+ This is the main file that controls all the screens
+ */
+
 import ddf.minim.*;
 Minim minim;
 AudioPlayer backgroundMusic;
@@ -11,6 +12,7 @@ AudioPlayer backgroundMusic;
 String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
+Options options = new Options();
 
 //PShape sky;
 PImage sky;
@@ -41,22 +43,22 @@ void setup() {
 }
 
 void draw() {
-  switch(gameState){
-    case "MAIN MENU":
-      mainMenu.display();
-      break;
-    case "OPTIONS":
-      optionsMenuBackground();
-      break;
-    case "GAME START":
-      playGame.display();
-      break;
-    case "GAME OVER":
-      gameOver.display();
-      break;
-    case "PAUSE":
-      pause();
-      break;
+  switch(gameState) {
+  case "MAIN MENU":
+    mainMenu.display();
+    break;
+  case "OPTIONS":
+    options.display();
+    break;
+  case "GAME START":
+    playGame.display();
+    break;
+  case "GAME OVER":
+    gameOver.display();
+    break;
+  case "PAUSE":
+    pause();
+    break;
   }
   displayFrames();
 }
@@ -73,60 +75,97 @@ void displayFrames() {
 //USER INPUTS
 void keyPressed() {
   switch(gameState) {
-    case "MAIN MENU":
-      if(key == ENTER) {
-        switch(mainMenu.selectMenu) {
-          case 0:
-            mainMenu.startGame = true;
-            break;
-          case 1:
-            mainMenu.options = true;
-            break;
-          case 2:
-          //optionsMenuBackground();
-            break;
-        }
-      } else if (keyCode == UP) {
-        mainMenu.selectMenu--;
+  case "MAIN MENU":
+    if (key == ENTER) {
+      switch(mainMenu.selectMenu) {
+      case 0:
+        mainMenu.startGame = true;
+        break;
+      case 1:
+        break;
+      case 2:
+        gameState = "OPTIONS";
+        break;
+      }
+    } else if (keyCode == UP) {
+      mainMenu.selectMenu--;
 
-        // From top selection to the bottom when pressed 'up'
-        if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 2;
-      } else if (keyCode == DOWN) {
-        mainMenu.selectMenu++;
-        // From bottom selection to the top when pressed 'down'
-        if (mainMenu.selectMenu > 2) mainMenu.selectMenu = 0;
+      // From top selection to the bottom when pressed 'up'
+      if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 2;
+    } else if (keyCode == DOWN) {
+      mainMenu.selectMenu++;
+      // From bottom selection to the top when pressed 'down'
+      if (mainMenu.selectMenu > 2) mainMenu.selectMenu = 0;
+    }
+    break;
+  case "GAME START":
+    if (key == ' ') {
+      if (!player.getJumping()) {
+        player.setCounter(0);
       }
-      break;
-    case "GAME START":
-      if(key == ' ') {
-        if(!player.getJumping()) {
-          player.setCounter(0);
-        }
-        player.setJump(true);
-      } else if(keyCode == ENTER) {
-
-      }
-      if(key == 'p' || key == 'P') {
-        gameState = "PAUSE";
-      }
-      break;
+      player.setJump(true);
+    } else if (keyCode == ENTER) {
+    }
+    if (key == 'p' || key == 'P') {
+      gameState = "PAUSE";
+    }
+    break;
 
 
-    case "GAME OVER":
-      if(key == ENTER) {
-        player.health = 3;
-        playGame.score = 0;
-        playGame.setGameSpeed(15);
-        for (int i = sprites.size() -1; i >= 0 ; i--) {
-          sprites.remove(i);
-        }
-        mainMenu.startGame = false;
-        gameState = "MAIN MENU";
+  case "GAME OVER":
+    if (key == BACKSPACE) {
+      player.health = 3;
+      playGame.score = 0;
+      playGame.setGameSpeed(15);
+      for (int i = sprites.size() -1; i >= 0; i--) {
+        sprites.remove(i);
       }
-      break;
-    case "PAUSE":
-      if(key == 'p' || key == 'P') {
-        gameState = "GAME START";
+      mainMenu.startGame = false;
+      gameState = "MAIN MENU";
+    }
+    break;
+  case "PAUSE":
+    if (key == 'p' || key == 'P') {
+      gameState = "GAME START";
+    }
+    break;
+  case "OPTIONS":
+    if (keyCode == UP) {
+      options.selectMenu--;
+
+      // From top selection to the bottom when pressed 'up'
+      if (options.selectMenu < 0) options.selectMenu = 1;
+    } else if (keyCode == DOWN) {
+      options.selectMenu++;
+      // From bottom selection to the top when pressed 'down'
+      if (options.selectMenu > 1) options.selectMenu = 0;
+    }
+    if (keyCode == BACKSPACE) {
+      gameState = "MAIN MENU";
+    }
+    if (keyCode == RIGHT && options.selectMenu == 0) {
+      options.diffNum ++;
+      if (options.diffNum > 2) {
+        options.diffNum = 0;
       }
+    }
+    if (keyCode == LEFT && options.selectMenu == 0) {
+      options.diffNum --;
+      if (options.diffNum < 0) {
+        options.diffNum = 2;
+      }
+    }
+    if (keyCode == RIGHT && options.selectMenu == 1) {
+      options.soundNum ++;
+      if (options.soundNum > 1) {
+        options.soundNum = 0;
+      }
+    }
+    if (keyCode == LEFT && options.selectMenu == 1) {
+      options.soundNum --;
+      if (options.soundNum < 0) {
+        options.soundNum = 1;
+      }
+    }
   }
 }

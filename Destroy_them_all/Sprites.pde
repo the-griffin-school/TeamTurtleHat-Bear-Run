@@ -1,9 +1,9 @@
 /*
 Team-turtle-hat
-Cho, David, Giles
-March 2017
-Class that both buildings and traps inherit.
-*/
+ Cho, David, Giles
+ March 2017
+ Class that both buildings and traps inherit.
+ */
 
 
 PImage building1, building2, building3, building4, building5, building6;
@@ -89,13 +89,11 @@ class Sprites {
   }
 
   void subtractHealth() {
-
   }
 
   void smoke() {
   }
 
   void addScore() {
-
   }
 }

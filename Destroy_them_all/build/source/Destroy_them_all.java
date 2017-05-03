@@ -18,10 +18,11 @@ public class Destroy_them_all extends PApplet {
 
 /*
   Team-turtle-hat
-  Wonseok Cho, David Klingler, Giles Fowles
-  March 2017
-  This is the main file that controls all the screens
-*/
+ Wonseok Cho, David Klingler, Giles Fowles
+ March 2017
+ This is the main file that controls all the screens
+ */
+
 
 Minim minim;
 AudioPlayer backgroundMusic;
@@ -29,6 +30,7 @@ AudioPlayer backgroundMusic;
 String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
+Options options = new Options();
 
 //PShape sky;
 PImage sky;
@@ -59,22 +61,22 @@ public void setup() {
 }
 
 public void draw() {
-  switch(gameState){
-    case "MAIN MENU":
-      mainMenu.display();
-      break;
-    case "OPTIONS":
-      optionsMenuBackground();
-      break;
-    case "GAME START":
-      playGame.display();
-      break;
-    case "GAME OVER":
-      gameOver.display();
-      break;
-    case "PAUSE":
-      pause();
-      break;
+  switch(gameState) {
+  case "MAIN MENU":
+    mainMenu.display();
+    break;
+  case "OPTIONS":
+    options.display();
+    break;
+  case "GAME START":
+    playGame.display();
+    break;
+  case "GAME OVER":
+    gameOver.display();
+    break;
+  case "PAUSE":
+    pause();
+    break;
   }
   displayFrames();
 }
@@ -91,69 +93,106 @@ public void displayFrames() {
 //USER INPUTS
 public void keyPressed() {
   switch(gameState) {
-    case "MAIN MENU":
-      if(key == ENTER) {
-        switch(mainMenu.selectMenu) {
-          case 0:
-            mainMenu.startGame = true;
-            break;
-          case 1:
-            mainMenu.options = true;
-            break;
-          case 2:
-          //optionsMenuBackground();
-            break;
-        }
-      } else if (keyCode == UP) {
-        mainMenu.selectMenu--;
+  case "MAIN MENU":
+    if (key == ENTER) {
+      switch(mainMenu.selectMenu) {
+      case 0:
+        mainMenu.startGame = true;
+        break;
+      case 1:
+        break;
+      case 2:
+        gameState = "OPTIONS";
+        break;
+      }
+    } else if (keyCode == UP) {
+      mainMenu.selectMenu--;
 
-        // From top selection to the bottom when pressed 'up'
-        if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 2;
-      } else if (keyCode == DOWN) {
-        mainMenu.selectMenu++;
-        // From bottom selection to the top when pressed 'down'
-        if (mainMenu.selectMenu > 2) mainMenu.selectMenu = 0;
+      // From top selection to the bottom when pressed 'up'
+      if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 2;
+    } else if (keyCode == DOWN) {
+      mainMenu.selectMenu++;
+      // From bottom selection to the top when pressed 'down'
+      if (mainMenu.selectMenu > 2) mainMenu.selectMenu = 0;
+    }
+    break;
+  case "GAME START":
+    if (key == ' ') {
+      if (!player.getJumping()) {
+        player.setCounter(0);
       }
-      break;
-    case "GAME START":
-      if(key == ' ') {
-        if(!player.getJumping()) {
-          player.setCounter(0);
-        }
-        player.setJump(true);
-      } else if(keyCode == ENTER) {
-
-      }
-      if(key == 'p' || key == 'P') {
-        gameState = "PAUSE";
-      }
-      break;
+      player.setJump(true);
+    } else if (keyCode == ENTER) {
+    }
+    if (key == 'p' || key == 'P') {
+      gameState = "PAUSE";
+    }
+    break;
 
 
-    case "GAME OVER":
-      if(key == ENTER) {
-        player.health = 3;
-        playGame.score = 0;
-        playGame.setGameSpeed(15);
-        for (int i = sprites.size() -1; i >= 0 ; i--) {
-          sprites.remove(i);
-        }
-        mainMenu.startGame = false;
-        gameState = "MAIN MENU";
+  case "GAME OVER":
+    if (key == BACKSPACE) {
+      player.health = 3;
+      playGame.score = 0;
+      playGame.setGameSpeed(15);
+      for (int i = sprites.size() -1; i >= 0; i--) {
+        sprites.remove(i);
       }
-      break;
-    case "PAUSE":
-      if(key == 'p' || key == 'P') {
-        gameState = "GAME START";
+      mainMenu.startGame = false;
+      gameState = "MAIN MENU";
+    }
+    break;
+  case "PAUSE":
+    if (key == 'p' || key == 'P') {
+      gameState = "GAME START";
+    }
+    break;
+  case "OPTIONS":
+    if (keyCode == UP) {
+      options.selectMenu--;
+
+      // From top selection to the bottom when pressed 'up'
+      if (options.selectMenu < 0) options.selectMenu = 1;
+    } else if (keyCode == DOWN) {
+      options.selectMenu++;
+      // From bottom selection to the top when pressed 'down'
+      if (options.selectMenu > 1) options.selectMenu = 0;
+    }
+    if (keyCode == BACKSPACE) {
+      gameState = "MAIN MENU";
+    }
+    if (keyCode == RIGHT && options.selectMenu == 0) {
+      options.diffNum ++;
+      if (options.diffNum > 2) {
+        options.diffNum = 0;
       }
+    }
+    if (keyCode == LEFT && options.selectMenu == 0) {
+      options.diffNum --;
+      if (options.diffNum < 0) {
+        options.diffNum = 2;
+      }
+    }
+    if (keyCode == RIGHT && options.selectMenu == 1) {
+      options.soundNum ++;
+      if (options.soundNum > 1) {
+        options.soundNum = 0;
+      }
+    }
+    if (keyCode == LEFT && options.selectMenu == 1) {
+      options.soundNum --;
+      if (options.soundNum < 0) {
+        options.soundNum = 1;
+      }
+    }
   }
 }
 /*
 Team-turtle-hat
-David, Cho, Giles
-March 2017
-Class that controls the bear and bear stuff
-*/
+ David, Cho, Giles
+ March 2017
+ Class that controls the bear and bear stuff
+ */
 PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5, bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10;
 PImage bearWalk11, bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17, bearWalk18, bearWalk19, bearWalk20;
 PImage bearWalk21, bearWalk22, bearWalk23, bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29, bearWalk30;
@@ -186,7 +225,7 @@ class Bear {
   public void display() {
     image(bearType(bearCounter), 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
     bearCounter++;
-    if(bearCounter > 44) {
+    if (bearCounter > 44) {
       bearCounter = 0;
     }
   }
@@ -211,7 +250,7 @@ class Bear {
   }
 
   public boolean dead() {
-    if(health == 0) {
+    if (health == 0) {
       return true;
     } else {
       return false;
@@ -219,13 +258,12 @@ class Bear {
   }
 
   public void jump() {
-    if (jumping){
+    if (jumping) {
       //counter is frame count for jump duration
       if (counter < jumpDuration) {
         posY = 400 - ((jumpFactor * counter) + (.5f * -3.6f * sq(counter + -13)) + 300);
         counter++;
-
-      } else if (counter >= jumpDuration){
+      } else if (counter >= jumpDuration) {
         jumping = false;
         posY = 400;
       }
@@ -234,141 +272,141 @@ class Bear {
 
   public PImage bearType(int num) {
     switch (num) {
-      case 0:
-        bear = bearWalk0;
-        break;
-      case 1:
-        bear = bearWalk1;
-        break;
-      case 2:
-        bear = bearWalk2;
-        break;
-      case 3:
-        bear = bearWalk3;
-        break;
-      case 4:
-        bear = bearWalk4;
-        break;
-      case 5:
-        bear = bearWalk5;
-        break;
-      case 6:
-        bear = bearWalk6;
-        break;
-      case 7:
-        bear = bearWalk7;
-        break;
-      case 8:
-        bear = bearWalk8;
-        break;
-      case 9:
-        bear = bearWalk9;
-        break;
-      case 10:
-        bear = bearWalk10;
-        break;
-      case 11:
-        bear = bearWalk11;
-        break;
-      case 12:
-        bear = bearWalk12;
-        break;
-      case 13:
-        bear = bearWalk13;
-        break;
-      case 14:
-        bear = bearWalk14;
-        break;
-      case 15:
-        bear = bearWalk15;
-        break;
-      case 16:
-        bear = bearWalk16;
-        break;
-      case 17:
-        bear = bearWalk17;
-        break;
-      case 18:
-        bear = bearWalk18;
-        break;
-      case 19:
-        bear = bearWalk19;
-        break;
-      case 20:
-        bear = bearWalk20;
-        break;
-      case 21:
-        bear = bearWalk21;
-        break;
-      case 22:
-        bear = bearWalk22;
-        break;
-      case 23:
-        bear = bearWalk23;
-        break;
-      case 24:
-        bear = bearWalk24;
-        break;
-      case 25:
-        bear = bearWalk25;
-        break;
-      case 26:
-        bear = bearWalk26;
-        break;
-      case 27:
-        bear = bearWalk27;
-        break;
-      case 28:
-        bear = bearWalk28;
-        break;
-      case 29:
-        bear = bearWalk29;
-        break;
-      case 30:
-        bear = bearWalk30;
-        break;
-      case 31:
-        bear = bearWalk31;
-        break;
-      case 32:
-        bear = bearWalk32;
-        break;
-      case 33:
-        bear = bearWalk33;
-        break;
-      case 34:
-        bear = bearWalk34;
-        break;
-      case 35:
-        bear = bearWalk35;
-        break;
-      case 36:
-        bear = bearWalk36;
-        break;
-      case 37:
-        bear = bearWalk37;
-        break;
-      case 38:
-        bear = bearWalk38;
-        break;
-      case 39:
-        bear = bearWalk39;
-        break;
-      case 40:
-        bear = bearWalk40;
-        break;
-        case 41:
-        bear = bearWalk41;
-        break;
-      case 42:
-        bear = bearWalk42;
-        break;
-      case 43:
-        bear = bearWalk43;
-        break;
-      case 44:
-        bear = bearWalk44;
-        break;
+    case 0:
+      bear = bearWalk0;
+      break;
+    case 1:
+      bear = bearWalk1;
+      break;
+    case 2:
+      bear = bearWalk2;
+      break;
+    case 3:
+      bear = bearWalk3;
+      break;
+    case 4:
+      bear = bearWalk4;
+      break;
+    case 5:
+      bear = bearWalk5;
+      break;
+    case 6:
+      bear = bearWalk6;
+      break;
+    case 7:
+      bear = bearWalk7;
+      break;
+    case 8:
+      bear = bearWalk8;
+      break;
+    case 9:
+      bear = bearWalk9;
+      break;
+    case 10:
+      bear = bearWalk10;
+      break;
+    case 11:
+      bear = bearWalk11;
+      break;
+    case 12:
+      bear = bearWalk12;
+      break;
+    case 13:
+      bear = bearWalk13;
+      break;
+    case 14:
+      bear = bearWalk14;
+      break;
+    case 15:
+      bear = bearWalk15;
+      break;
+    case 16:
+      bear = bearWalk16;
+      break;
+    case 17:
+      bear = bearWalk17;
+      break;
+    case 18:
+      bear = bearWalk18;
+      break;
+    case 19:
+      bear = bearWalk19;
+      break;
+    case 20:
+      bear = bearWalk20;
+      break;
+    case 21:
+      bear = bearWalk21;
+      break;
+    case 22:
+      bear = bearWalk22;
+      break;
+    case 23:
+      bear = bearWalk23;
+      break;
+    case 24:
+      bear = bearWalk24;
+      break;
+    case 25:
+      bear = bearWalk25;
+      break;
+    case 26:
+      bear = bearWalk26;
+      break;
+    case 27:
+      bear = bearWalk27;
+      break;
+    case 28:
+      bear = bearWalk28;
+      break;
+    case 29:
+      bear = bearWalk29;
+      break;
+    case 30:
+      bear = bearWalk30;
+      break;
+    case 31:
+      bear = bearWalk31;
+      break;
+    case 32:
+      bear = bearWalk32;
+      break;
+    case 33:
+      bear = bearWalk33;
+      break;
+    case 34:
+      bear = bearWalk34;
+      break;
+    case 35:
+      bear = bearWalk35;
+      break;
+    case 36:
+      bear = bearWalk36;
+      break;
+    case 37:
+      bear = bearWalk37;
+      break;
+    case 38:
+      bear = bearWalk38;
+      break;
+    case 39:
+      bear = bearWalk39;
+      break;
+    case 40:
+      bear = bearWalk40;
+      break;
+    case 41:
+      bear = bearWalk41;
+      break;
+    case 42:
+      bear = bearWalk42;
+      break;
+    case 43:
+      bear = bearWalk43;
+      break;
+    case 44:
+      bear = bearWalk44;
+      break;
     }
     return bear;
   }
@@ -423,12 +461,14 @@ public void loadBear() {
 }
 /*
 Team-turtle-hat
-Cho, David, Giles
-March 2017
-Controls the displaying of buildings and building stuff
-*/
+ Cho, David, Giles
+ March 2017
+ Controls the displaying of buildings and building stuff
+ */
 AudioPlayer boom1;
 AudioPlayer boom2;
+boolean soundEffects = true;
+int diff = 3;
 
 class Buildings extends Sprites {
   //is able to control the size of the buildings proportionally
@@ -453,54 +493,54 @@ class Buildings extends Sprites {
   }
 
   public void drawBuilding(PImage building, int newPosY) {
-      posY = newPosY;
-      image(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
-      //defines boundries of the building for detection purposes
-      boundryHeight = PApplet.parseInt((building.height * buildingSize)/building.width);
-      boundryWidth = buildingSize;
+    posY = newPosY;
+    image(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
+    //defines boundries of the building for detection purposes
+    boundryHeight = PApplet.parseInt((building.height * buildingSize)/building.width);
+    boundryWidth = buildingSize;
   }
 
   //displays a building based on typeOfSprite
   public void display() {
-    if(smokeSize < 400) {
-      switch(typeOfSprite){
-        case 1:
-          //displays the first building type.
-          drawBuilding(building1, 347 + changeBuildingY);
-          break;
-        case 2:
-          drawBuilding(building2, 304 + changeBuildingY);
-          break;
-        case 3:
-          drawBuilding(building3, 380+ changeBuildingY);
-          break;
-        case 4:
-          drawBuilding(building4, 351+ changeBuildingY);
-          break;
-        case 5:
-          drawBuilding(building5, 304 + changeBuildingY);
-          break;
-        case 6:
-          drawBuilding(building6, 263 + changeBuildingY);
-          break;
+    if (smokeSize < 400) {
+      switch(typeOfSprite) {
+      case 1:
+        //displays the first building type.
+        drawBuilding(building1, 347 + changeBuildingY);
+        break;
+      case 2:
+        drawBuilding(building2, 304 + changeBuildingY);
+        break;
+      case 3:
+        drawBuilding(building3, 380+ changeBuildingY);
+        break;
+      case 4:
+        drawBuilding(building4, 351+ changeBuildingY);
+        break;
+      case 5:
+        drawBuilding(building5, 304 + changeBuildingY);
+        break;
+      case 6:
+        drawBuilding(building6, 263 + changeBuildingY);
+        break;
       }
     }
   }
 
   public void detection() {
     //tests for detection at the last possible moment to reduce load
-    if(posX < 185 && keyCode == 16) {
+    if (posX < 185 && keyCode == 16) {
       //loops through y values of the building
       for (int i = PApplet.parseInt(posY); i < (posY + boundryHeight); i += 3) {
         //tests for detection along the left side of the building
-        if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
+        if (posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           destroyedStatus = true;
         }
       }
       //loops through x values of building
       for (int i = PApplet.parseInt(posX); i < posX + boundryWidth; i += 3) {
         //tests for detection along the top of the building
-        if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
+        if (posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           destroyedStatus = true;
         }
       }
@@ -508,15 +548,15 @@ class Buildings extends Sprites {
   }
 
   public void smoke() {
-    if(destroyed()) {
+    if (destroyed()) {
       smoke.disableStyle();
       shapeMode(CENTER);
       fill(189, 189, 189, alpha);
       shape(smoke, posX + boundryWidth/2, posY + boundryHeight/2, smokeSize, (smoke.height * smokeSize)/smoke.width);
-      if(smokeSize < 500) {
+      if (smokeSize < 500) {
         smokeSize += 70;
       }
-      if(smokeSize > 350) {
+      if (smokeSize > 350) {
         alpha -= 40;
       }
       shapeMode(CORNER);
@@ -525,17 +565,17 @@ class Buildings extends Sprites {
 
   public void addScore() {
     //only adds score if the building has been destroyed
-    if(destroyed() && !once) {
+    if (destroyed() && !once) {
       playGame.score += 10;
       //SOUNDS
       int randomSound = PApplet.parseInt(random(2));
-      if(randomSound == 0) {
+      if (randomSound == 0 && soundEffects) {
         boom1.loop(0);
-      } else {
+      } else if (soundEffects) {
         boom2.loop(0);
       }
       once = true;
-      if(playGame.score % 3 == 0) {
+      if (playGame.score % diff == 0) {
         playGame.setGameSpeed(playGame.gameSpeed + 1);
       }
     }
@@ -543,11 +583,11 @@ class Buildings extends Sprites {
 }
 /*
 Team-turtle-hat
-Giles, David, Cho
-March 2017
-Displays the game over screen and give the player the option of playing again.
-It also displays the score.
-*/
+ Giles, David, Cho
+ March 2017
+ Displays the game over screen and give the player the option of playing again.
+ It also displays the score.
+ */
 class GameOver {
   int randomMsg = PApplet.parseInt(random(6));
   String deathMsg;
@@ -556,49 +596,49 @@ class GameOver {
   }
 
   //gives a random bear pun
-   public void deathMsg() {
-     switch(randomMsg) {
-       case 0:
-         deathMsg = "You're unBEARable";
-         break;
-       case 1:
-         deathMsg = "You're worse than a barBEARian";
-         break;
-       case 2:
-         deathMsg = "It is time for you to be BEARied";
-         break;
-       case 3:
-         deathMsg = "You should be emBEARessed";
-         break;
-       case 4:
-         deathMsg = "You're a BEARicade of progress";
-         break;
-      case 5:
-         deathMsg = "Have you lost your BEARings?";
-         break;
-     }
+  public void deathMsg() {
+    switch(randomMsg) {
+    case 0:
+      deathMsg = "You're unBEARable";
+      break;
+    case 1:
+      deathMsg = "You're worse than a barBEARian";
+      break;
+    case 2:
+      deathMsg = "It is time for you to be BEARied";
+      break;
+    case 3:
+      deathMsg = "You should be emBEARessed";
+      break;
+    case 4:
+      deathMsg = "You're a BEARicade of progress";
+      break;
+    case 5:
+      deathMsg = "Have you lost your BEARings?";
+      break;
+    }
 
-     textAlign(CENTER);
-     textSize(60);
-     fill(255, 0, 0);
-     text("GAME OVER", width/2, height/2 - height/6);
-     fill(255);
-     textSize(40);
-     text(deathMsg, width/2, height/2);
-     text("Score" + " " + playGame.score, width/2, height/2 + height/6);
-   }
+    textAlign(CENTER);
+    textSize(60);
+    fill(255, 0, 0);
+    text("GAME OVER", width/2, height/2 - height/6);
+    fill(255);
+    textSize(40);
+    text(deathMsg, width/2, height/2);
+    text("Score" + " " + playGame.score, width/2, height/2 + height/6);
+  }
 
-   public void display() {
+  public void display() {
     background(0);
     deathMsg();
   }
 }
 /*
 Team-turtle-hat
-Cho, Giles, David
-March 2017
-Displays and controls the main menu of the game
-*/
+ Cho, Giles, David
+ March 2017
+ Displays and controls the main menu of the game
+ */
 
 class MainMenu {
   //Fields
@@ -640,121 +680,147 @@ class MainMenu {
     menuSelection();
   }
 
-  public void menuSelection(){
+  public void menuSelection() {
     // menu selection
     switch(selectMenu) {
-      case 0:
-        textSize(40);
-        text("Play", width/2, 300);
-        textSize(30);
-        text("Stats", width/2, 350);
-        text("Options", width/2, 400);
-        break;
-      case 1:
-        textSize(40);
-        text("Stats", width/2, 350);
-        textSize(30);
-        text("Play", width/2, 300);
-        text("Options", width/2, 400);
-        break;
-      case 2:
-        textSize(40);
-        text("Options", width/2, 400);
-        textSize(30);
-        text("Play", width/2, 300);
-        text("Stats", width/2, 350);
-        break;
+    case 0:
+      textSize(40);
+      text("Play", width/2, 300);
+      textSize(30);
+      text("Stats", width/2, 350);
+      text("Options", width/2, 400);
+      break;
+    case 1:
+      textSize(40);
+      text("Stats", width/2, 350);
+      textSize(30);
+      text("Play", width/2, 300);
+      text("Options", width/2, 400);
+      break;
+    case 2:
+      textSize(40);
+      text("Options", width/2, 400);
+      textSize(30);
+      text("Play", width/2, 300);
+      text("Stats", width/2, 350);
+      break;
     }
     //if user pressed ENTER
-    if(startGame) {
+    if (startGame) {
       gameState = "GAME START";
     }
-    if(options) {
+    if (options) {
       gameState = "OPTIONS";
     }
   }
 }
 /*
 Team-turtle-hat
-Giles, David, Cho
-March 2017
-Display and controls the options page of the game
-*/
+ Giles, David, Cho
+ March 2017
+ Display and controls the options page of the game
+ */
 
+class Options {
+  //Fields
+  int selectMenu;
+  int diffNum;
+  int soundNum;
+  String difficulty;
+  String sound;
 
-/* class Button {
-  int RectX;
-  int RectY;
-  int RectW;
-  int RectH;
-  String text;
-
-  Button (int RectX, int RectY, int RectW, int RectH, String text) {
-    this. RectX = RectX;
-    this. RectY = RectY;
-    this. RectW = RectW;
-    this. RectH = RectH;
-    this. text = text;
+  //Constructor
+  Options() {
+    diffNum = 1;
+    soundNum = 0;
+    selectMenu = 0;
+    difficulty = "NORMAL";
+    sound = "ON";
   }
 
-  boolean mouseOver() {
-    if (mouseX >= RectX && mouseX <= RectX + RectW && mouseY >= RectY && mouseY <= RectY + RectH) {
-      return true;
-    } else {
-      return false;
-    }
+  //Methods
+  public void drawBackground() {
+    image(sky, 0, 0);
   }
 
-  void display() {
-   fill(255);
-    rect(RectX, RectY, RectW, RectH);
-    fill(0);
-   text (text, (RectX + (RectW/3)), (RectY + (RectH/3)));
-   textSize(75);
+  public void drawTitle() {
+    rectMode(CENTER);
+    stroke(255);
+    fill(255, 255, 255, 0);
+    rect(width/2, 130, 500, 100);
+    fill(255);
+    textAlign(CENTER);
+    textSize(50);
+    text("OPTIONS", width/2, 150);
   }
 
-} */
-
-int selectOptions;
-
-public void optionsMenuBackground() {
-  background(0);
-  //draw sky
-  background(0xff00e4ff);
-
-  fill(255);
-  textAlign(CENTER);
-  textFont(robotoCondensed);
-  textSize(50);
-  text("Options", width/2, 150);
-  stroke(255);
-  strokeWeight(5);
-  noFill();
-
-  textAlign(RIGHT);
-  text("DIFFICULTY", width/3, 200);
-  textAlign(LEFT);
-  text("OPTIONS", width/3, 200);
-
-
-  switch (selectOptions) {
+  public void menuSelection() {
+    textAlign(CENTER);
+    // menu selection
+    switch(selectMenu) {
     case 0:
-      textAlign(LEFT);
+      // DIFFICULTY
+      textSize(40);
+      text("DIFFICULTY: " + difficulty, width/2, 300);
       textSize(30);
-      text("EASY", width/3, 250);
-      textSize(20);
-      text("MEDIUM", width/3, 300);
-      text("HARD", width/3, 350);
-      textAlign(RIGHT);
+      text("SOUND: " + sound, width/2, 350);
+      break;
+    case 1:
+      //SOUND
+      textSize(30);
+      text("DIFFICULTY: " + difficulty, width/2, 300);
+      textSize(40);
+      text("SOUND: " + sound, width/2, 350);
       break;
     }
+  }
+
+  public void difficultyChange(int i) {
+    switch(i) {
+    case 0:
+      difficulty = "EASY";
+      diff = 2;
+      break;
+    case 1:
+      difficulty = "NORMAL";
+      diff = 3;
+      break;
+    case 2:
+      difficulty = "HARD";
+      diff = 4;
+      break;
+    }
+  }
+
+  public void soundChange(int i) {
+    switch(i) {
+    case 0:
+      sound = "ON";
+      soundEffects = true;
+      backgroundMusic.loop();
+      break;
+    case 1:
+      sound = "OFF";
+      soundEffects = false;
+      backgroundMusic.pause();
+      break;
+    }
+  }
+
+  public void display() {
+    difficultyChange(diffNum);
+    soundChange(soundNum);
+    drawBackground();
+    drawTitle();
+    menuSelection();
+  }
 }
 /*
 Team-turtle-hat
-Giles, David, Cho
-March 2017
-Displays the pause screen and allows the player to unpause
-*/
+ Giles, David, Cho
+ March 2017
+ Displays the pause screen and allows the player to unpause
+ */
 
 
 public void pause() {
@@ -765,10 +831,10 @@ public void pause() {
 }
 /*
 Team-turtle-hat
-David, Cho, Giles
-March 2017
-Controls the actual gameplay of the game
-*/
+ David, Cho, Giles
+ March 2017
+ Controls the actual gameplay of the game
+ */
 
 boolean playerJump = false;
 float randomSprite;
@@ -810,8 +876,8 @@ class PlayGame {
   public void generateSprites() {
     randomSprite = random(30, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if(randomSprite < 45 && randomSprite > 40 && millis() - time > 1500) {
-      if(randomSprite > 42.5f) {
+    if (randomSprite < 45 && randomSprite > 40 && millis() - time > 1500) {
+      if (randomSprite > 42.5f) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, PApplet.parseInt(random(7))));
         time = millis();
@@ -829,53 +895,53 @@ class PlayGame {
     for (int i = 0; i <= width + grassWidth *2; i += grassWidth) {
       grassList.add(new Float(i));
     }
-    for(int i = 0; i <= width; i += width) {
+    for (int i = 0; i <= width; i += width) {
       mountainsBack.add(new Integer(i));
       mountainsFront.add(new Integer(i));
     }
-    for(int i = 0; i <= width; i += 300) {
+    for (int i = 0; i <= width; i += 300) {
       clouds.add(new Integer(i));
       cloudsSlow.add(new Integer(i));
     }
     //stores y values for the clouds
-    for(int i = 0; i < 10; i ++) {
+    for (int i = 0; i < 10; i ++) {
       cloudsY.add(new Integer(PApplet.parseInt(random(40, 300))));
       cloudsSlowY.add(new Integer(PApplet.parseInt(random(40, 300))));
       cloudsType.add(new Integer(PApplet.parseInt(random(6))));
-      cloudsSlowType.add(new Integer(PApplet.parseInt(random(6,9))));
+      cloudsSlowType.add(new Integer(PApplet.parseInt(random(6, 9))));
     }
   }
 
   //takes in a num from 0-9 and returns a cloud
   public PShape cloudType(int num) {
     switch (num) {
-      case 0:
-        shape = cloud1;
-        break;
-      case 1:
-        shape = cloud2;
-        break;
-      case 2:
-        shape = cloud3;
-        break;
-      case 3:
-        shape = cloud4;
-        break;
-      case 4:
-        shape = cloud5;
-        break;
-      case 5:
-        shape = cloud6;
-        break;
-      case 6:
-        shape = cloud7;
-        break;
-      case 7:
-        shape = cloud8;
-        break;
-      case 8:
-        shape = cloud9;
-        break;
+    case 0:
+      shape = cloud1;
+      break;
+    case 1:
+      shape = cloud2;
+      break;
+    case 2:
+      shape = cloud3;
+      break;
+    case 3:
+      shape = cloud4;
+      break;
+    case 4:
+      shape = cloud5;
+      break;
+    case 5:
+      shape = cloud6;
+      break;
+    case 6:
+      shape = cloud7;
+      break;
+    case 7:
+      shape = cloud8;
+      break;
+    case 8:
+      shape = cloud9;
+      break;
     }
     return shape;
   }
@@ -883,24 +949,24 @@ class PlayGame {
   //displays the clouds
   public void drawClouds() {
     //loops through all the clouds in the array
-    for(int i = 0; i < clouds.size(); i++) {
+    for (int i = 0; i < clouds.size(); i++) {
       //moves the clouds left by two pixels
       clouds.set(i, clouds.get(i) - 2);
       //draws the clouds
       shape(cloudType(cloudsType.get(i)), clouds.get(i), cloudsY.get(i));
       //resets cloud once it goes off the scree
-      if(clouds.get(i) < -400) {
+      if (clouds.get(i) < -400) {
         clouds.set(i, width);
       }
     }
     //loops through all the slow clouds
-    for(int i = 0; i < cloudsSlow.size(); i++) {
+    for (int i = 0; i < cloudsSlow.size(); i++) {
       //moves the cloud left by one pixel
       cloudsSlow.set(i, cloudsSlow.get(i) - 1);
       //draws the clouds
       shape(cloudType(cloudsSlowType.get(i)), cloudsSlow.get(i), cloudsSlowY.get(i));
       //resets the clouds once they go offscreen
-      if(cloudsSlow.get(i) < - 400) {
+      if (cloudsSlow.get(i) < - 400) {
         cloudsSlow.set(i, width);
       }
     }
@@ -908,13 +974,13 @@ class PlayGame {
 
   public void drawGrass() {
     //loops through all the grass in the array
-    for(int i = 0; i < grassList.size(); i++) {
+    for (int i = 0; i < grassList.size(); i++) {
       //moves the grass left by a specific num
       grassList.set(i, grassList.get(i) - gameSpeed);
       //draws the grass
       shape(grass, grassList.get(i), 570, grassWidth, (grass.height * grassWidth)/grass.width);
       //resets the grass once it goes off screen
-      if(grassList.get(i) < -grassWidth) {
+      if (grassList.get(i) < -grassWidth) {
         grassList.set(i, grassList.get(i) + width + grassWidth * 3);
       }
     }
@@ -922,24 +988,24 @@ class PlayGame {
 
   public void drawMountains() {
     //loops through all the back mountains
-    for(int i = 0; i < mountainsBack.size(); i++) {
+    for (int i = 0; i < mountainsBack.size(); i++) {
       //moves the background mountains left by one pixel
       mountainsBack.set(i, mountainsBack.get(i) - 1);
       //draws the mountains
       shape(mtsBack, mountainsBack.get(i), 165, width, (mtsBack.height * width)/mtsBack.width);
       //resets mountains once it goes offscreen
-      if(mountainsBack.get(i) < 2 - width) {
+      if (mountainsBack.get(i) < 2 - width) {
         mountainsBack.set(i, width);
       }
     }
     //loops through front mountains
-    for(int i = 0; i < mountainsFront.size(); i++) {
+    for (int i = 0; i < mountainsFront.size(); i++) {
       //moves front mountains by two pixels
       mountainsFront.set(i, mountainsFront.get(i) - 2);
       //draws mountains
       shape(mtsFront, mountainsFront.get(i), 170, width, (mtsFront.height * width)/mtsFront.width);
       //resets mountains once they go offscreen
-      if(mountainsFront.get(i) < 2 - width) {
+      if (mountainsFront.get(i) < 2 - width) {
         mountainsFront.set(i, width);
       }
     }
@@ -965,7 +1031,7 @@ class PlayGame {
 
   public void checkAlive() {
     //if the player is dead it activates the game over screen
-    if(player.dead()) {
+    if (player.dead()) {
       gameState = "GAME OVER";
     }
   }
@@ -973,14 +1039,14 @@ class PlayGame {
   //removes object from ArrayList if it off the screen.
   public void clearSprite(int i) {
     //if the sprite has been destroyed or is off screen it is deleted from the array
-    if(sprites.get(i).getX() < -500) {
+    if (sprites.get(i).getX() < -500) {
       sprites.remove(i);
     }
   }
 
   public void process() {
     //loops through all objects in ArrayList
-    for(int i = sprites.size() -1; i >= 0; i--) {
+    for (int i = sprites.size() -1; i >= 0; i--) {
       //moves sprite from right to left
       sprites.get(i).move(getGameSpeed());
       //displays sprite
@@ -1028,10 +1094,10 @@ class PlayGame {
 }
 /*
 Team-turtle-hat
-Cho, David, Giles
-March 2017
-Class that both buildings and traps inherit.
-*/
+ Cho, David, Giles
+ March 2017
+ Class that both buildings and traps inherit.
+ */
 
 
 PImage building1, building2, building3, building4, building5, building6;
@@ -1117,22 +1183,20 @@ class Sprites {
   }
 
   public void subtractHealth() {
-
   }
 
   public void smoke() {
   }
 
   public void addScore() {
-
   }
 }
 /*
 Team-turtle-hat
-Cho, David, Giles
-March 2017
-Controls the displaying of traps including villagers and trap stuff
-*/
+ Cho, David, Giles
+ March 2017
+ Controls the displaying of traps including villagers and trap stuff
+ */
 AudioPlayer bearTrapSound;
 
 class Traps extends Sprites {
@@ -1151,37 +1215,37 @@ class Traps extends Sprites {
 
   public void display() {
     //typeOfSprite determines which building it will display
-    switch(typeOfSprite){
-      case 1:
-        //load image andd set posY;
-        int trapSize = 100;
-        posY = 520;
+    switch(typeOfSprite) {
+    case 1:
+      //load image andd set posY;
+      int trapSize = 100;
+      posY = 520;
 
-        //if not activated it displays the flat bear trap
-        if(!activatedStatus) {
-          shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
-        } else {
-          //if not activated it displays the activated bear trap
-          shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
-        }
+      //if not activated it displays the flat bear trap
+      if (!activatedStatus) {
+        shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
+      } else {
+        //if not activated it displays the activated bear trap
+        shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
+      }
 
-        //defines boundrys for detection
-        boundryHeight = PApplet.parseInt((bearTrap.height * trapSize)/bearTrap.width);
-        boundryWidth = trapSize;
-        break;
-      case 2:
-        break;
-      case 3:
-        break;
-      case 4:
-        break;
+      //defines boundrys for detection
+      boundryHeight = PApplet.parseInt((bearTrap.height * trapSize)/bearTrap.width);
+      boundryWidth = trapSize;
+      break;
+    case 2:
+      break;
+    case 3:
+      break;
+    case 4:
+      break;
     }
   }
 
   public void subtractHealth() {
-    if(activated()) {
+    if (activated()) {
       //once makes it so it only subtracts from the player health once
-      if(once) {
+      if (once) {
         player.health--;
         once = false;
       }
@@ -1190,13 +1254,13 @@ class Traps extends Sprites {
 
   public void detection() {
     //if a trap is less than 185 it begins to test for detection
-    if(posX < 185) {
+    if (posX < 185) {
       //loops through the y values of the trap
       for (int i = PApplet.parseInt(posY); i <= (posY + boundryHeight); i += 3) {
         //tests for detection along the left side of the trap
-        if(posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
+        if (posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           activatedStatus = true;
-          if(!playOnce) {
+          if (!playOnce && soundEffects) {
             //plays bear trap sound once
             bearTrapSound.loop(0);
             playOnce = true;
@@ -1206,9 +1270,9 @@ class Traps extends Sprites {
       //loops through x values of trap
       for (int i = PApplet.parseInt(getX()); i < posX + boundryWidth; i += 3) {
         //tests for detection along the top of the trap
-        if(posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
+        if (posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           activatedStatus = true;
-          if(!playOnce) {
+          if (!playOnce && soundEffects) {
             //plays bear trap sound once
             bearTrapSound.loop(0);
             playOnce = true;
