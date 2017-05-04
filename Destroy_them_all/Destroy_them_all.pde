@@ -124,52 +124,68 @@ void keyPressed() {
       gameState = "MAIN MENU";
     }
     break;
-  case "PAUSE":
-    if (key == 'p' || key == 'P') {
-      gameState = "GAME START";
-    }
-    if(keyCode == BACKSPACE) {
-      mainMenu.startGame = false;
-      gameState = "MAIN MENU";
-    }
-    break;
-  case "OPTIONS":
-    if (keyCode == UP) {
-      options.selectMenu--;
 
-      // From top selection to the bottom when pressed 'up'
-      if (options.selectMenu < 0) options.selectMenu = 1;
-    } else if (keyCode == DOWN) {
-      options.selectMenu++;
-      // From bottom selection to the top when pressed 'down'
-      if (options.selectMenu > 1) options.selectMenu = 0;
-    }
-    if (keyCode == BACKSPACE) {
-      gameState = "MAIN MENU";
-    }
-    if (keyCode == RIGHT && options.selectMenu == 0) {
-      options.diffNum ++;
-      if (options.diffNum > 2) {
-        options.diffNum = 0;
+  case "PAUSE":
+    if (keyCode == UP) {
+      pauseSelect--;
+      if (pauseSelect < 0) {
+        pauseSelect = 1;
       }
     }
-    if (keyCode == LEFT && options.selectMenu == 0) {
-      options.diffNum --;
-      if (options.diffNum < 0) {
-        options.diffNum = 2;
+
+    if (keyCode == DOWN) {
+      pauseSelect ++;
+      if (pauseSelect > 1) {
+        pauseSelect = 0;
       }
     }
-    if (keyCode == RIGHT && options.selectMenu == 1) {
-      options.soundNum ++;
-      if (options.soundNum > 1) {
-        options.soundNum = 0;
+
+    if (keyCode == ENTER) {
+      if (pauseSelect == 0) {
+        gameState = "START GAME";
+      } else {
+        gameState = "MAIN MENU";
       }
     }
-    if (keyCode == LEFT && options.selectMenu == 1) {
-      options.soundNum --;
-      if (options.soundNum < 0) {
-        options.soundNum = 1;
+      break;
+
+    case "OPTIONS":
+      if (keyCode == UP) {
+        options.selectMenu--;
+
+        // From top selection to the bottom when pressed 'up'
+        if (options.selectMenu < 0) options.selectMenu = 1;
+      } else if (keyCode == DOWN) {
+        options.selectMenu++;
+        // From bottom selection to the top when pressed 'down'
+        if (options.selectMenu > 1) options.selectMenu = 0;
+      }
+      if (keyCode == BACKSPACE) {
+        gameState = "MAIN MENU";
+      }
+      if (keyCode == RIGHT && options.selectMenu == 0) {
+        options.diffNum ++;
+        if (options.diffNum > 2) {
+          options.diffNum = 0;
+        }
+      }
+      if (keyCode == LEFT && options.selectMenu == 0) {
+        options.diffNum --;
+        if (options.diffNum < 0) {
+          options.diffNum = 2;
+        }
+      }
+      if (keyCode == RIGHT && options.selectMenu == 1) {
+        options.soundNum ++;
+        if (options.soundNum > 1) {
+          options.soundNum = 0;
+        }
+      }
+      if (keyCode == LEFT && options.selectMenu == 1) {
+        options.soundNum --;
+        if (options.soundNum < 0) {
+          options.soundNum = 1;
+        }
       }
     }
-  }
 }
