@@ -60,10 +60,10 @@ class Buildings extends Sprites {
         drawBuilding(building2, 304 + changeBuildingY);
         break;
       case 3:
-        drawBuildingEnlarged(building3, 380+ changeBuildingY);
+        drawBuildingEnlarged(building3, 276 + changeBuildingY);
         break;
       case 4:
-        drawBuildingEnlarged(building4, 351+ changeBuildingY);
+        drawBuildingEnlarged(building4, 231 + changeBuildingY);
         break;
       case 5:
         drawBuilding(building5, 304 + changeBuildingY);

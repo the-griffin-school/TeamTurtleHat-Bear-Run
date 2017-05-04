@@ -15,12 +15,12 @@ String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
 Options options = new Options();
+GameOver gameOver = new GameOver();
 
 //PShape sky;
 PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
-GameOver gameOver = new GameOver();
 PFont robotoCondensed;
 
 int currentFrameRate;
@@ -115,16 +115,35 @@ void keyPressed() {
 
 
   case "GAME OVER":
-    if (key == BACKSPACE) {
+    if (keyCode == UP) {
+      gameOver.deathSelect--;
+      if (gameOver.deathSelect < 0) {
+        gameOver.deathSelect = 1;
+      }
+    }
+
+    if (keyCode == DOWN) {
+      gameOver.deathSelect ++;
+      if (gameOver.deathSelect > 1) {
+        gameOver.deathSelect = 0;
+      }
+    }
+    if (key == ENTER) {
       player.health = 3;
       playGame.score = 0;
       playGame.setGameSpeed(15);
       for (int i = sprites.size() -1; i >= 0; i--) {
         sprites.remove(i);
       }
-      mainMenu.startGame = false;
-      gameState = "MAIN MENU";
+      if(gameOver.deathSelect == 0) {
+        gameState = "GAME START";
+      } else {
+        mainMenu.startGame = false;
+        gameState = "MAIN MENU";
+        
+      }
     }
+
     break;
   case "PAUSE":
     if (keyCode == UP) {

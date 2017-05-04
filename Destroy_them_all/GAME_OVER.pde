@@ -8,6 +8,7 @@ Team-turtle-hat
 class GameOver {
   int randomMsg = int(random(6));
   String deathMsg;
+  int deathSelect = 0;
 
   GameOver() {
   }
@@ -42,11 +43,29 @@ class GameOver {
     fill(255);
     textSize(40);
     text(deathMsg, width/2, height/2);
-    text("Score" + " " + playGame.score, width/2, height/2 + height/6);
+    text("Score" + " " + playGame.score, width/2, height/2 + 50);
+  }
+
+  void deathMenu(int num) {
+    switch (num) {
+      case 0:
+        textSize(40);
+        text("RESTART", width/2, height/2 + 150);
+        textSize(30);
+        text("MAIN MENU", width/2, height/2 + 200);
+        break;
+      case 1:
+        textSize(30);
+        text("RESTART", width/2, height/2 + 150);
+        textSize(40);
+        text("MAIN MENU", width/2, height/2 + 200);
+        break;
+    }
   }
 
   void display() {
     background(0);
     deathMsg();
+    deathMenu(deathSelect);
   }
 }

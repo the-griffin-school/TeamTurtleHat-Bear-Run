@@ -33,12 +33,12 @@ String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
 Options options = new Options();
+GameOver gameOver = new GameOver();
 
 //PShape sky;
 PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
-GameOver gameOver = new GameOver();
 PFont robotoCondensed;
 
 int currentFrameRate;
@@ -133,16 +133,35 @@ public void keyPressed() {
 
 
   case "GAME OVER":
-    if (key == BACKSPACE) {
+    if (keyCode == UP) {
+      gameOver.deathSelect--;
+      if (gameOver.deathSelect < 0) {
+        gameOver.deathSelect = 1;
+      }
+    }
+
+    if (keyCode == DOWN) {
+      gameOver.deathSelect ++;
+      if (gameOver.deathSelect > 1) {
+        gameOver.deathSelect = 0;
+      }
+    }
+    if (key == ENTER) {
       player.health = 3;
       playGame.score = 0;
       playGame.setGameSpeed(15);
       for (int i = sprites.size() -1; i >= 0; i--) {
         sprites.remove(i);
       }
-      mainMenu.startGame = false;
-      gameState = "MAIN MENU";
+      if(gameOver.deathSelect == 0) {
+        gameState = "GAME START";
+      } else {
+        mainMenu.startGame = false;
+        gameState = "MAIN MENU";
+        
+      }
     }
+
     break;
   case "PAUSE":
     if (keyCode == UP) {
@@ -546,10 +565,10 @@ class Buildings extends Sprites {
         drawBuilding(building2, 304 + changeBuildingY);
         break;
       case 3:
-        drawBuildingEnlarged(building3, 380+ changeBuildingY);
+        drawBuildingEnlarged(building3, 276 + changeBuildingY);
         break;
       case 4:
-        drawBuildingEnlarged(building4, 351+ changeBuildingY);
+        drawBuildingEnlarged(building4, 231 + changeBuildingY);
         break;
       case 5:
         drawBuilding(building5, 304 + changeBuildingY);
@@ -625,6 +644,7 @@ Team-turtle-hat
 class GameOver {
   int randomMsg = PApplet.parseInt(random(6));
   String deathMsg;
+  int deathSelect = 0;
 
   GameOver() {
   }
@@ -659,12 +679,30 @@ class GameOver {
     fill(255);
     textSize(40);
     text(deathMsg, width/2, height/2);
-    text("Score" + " " + playGame.score, width/2, height/2 + height/6);
+    text("Score" + " " + playGame.score, width/2, height/2 + 50);
+  }
+
+  public void deathMenu(int num) {
+    switch (num) {
+      case 0:
+        textSize(40);
+        text("RESTART", width/2, height/2 + 150);
+        textSize(30);
+        text("MAIN MENU", width/2, height/2 + 200);
+        break;
+      case 1:
+        textSize(30);
+        text("RESTART", width/2, height/2 + 150);
+        textSize(40);
+        text("MAIN MENU", width/2, height/2 + 200);
+        break;
+    }
   }
 
   public void display() {
     background(0);
     deathMsg();
+    deathMenu(deathSelect);
   }
 }
 /*
@@ -946,7 +984,7 @@ class PlayGame {
     if (randomSprite < 45 && randomSprite > 40 && millis() - time > genTime) {
       if (randomSprite > 42.5f + genDiff) {
         //add buliding to arraylist
-        sprites.add(new Buildings(width, PApplet.parseInt(random(7))));
+        sprites.add(new Buildings(width, 4));
         time = millis();
       } else if (randomSprite < 42.5f + genDiff) {
         //adds trap to arraylist
