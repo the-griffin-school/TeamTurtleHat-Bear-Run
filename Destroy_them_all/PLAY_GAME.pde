@@ -50,7 +50,7 @@ class PlayGame {
     if (randomSprite < 45 && randomSprite > 40 && millis() - time > genTime) {
       if (randomSprite > 42.5 + genDiff) {
         //add buliding to arraylist
-        sprites.add(new Buildings(width, 4));
+        sprites.add(new Buildings(width, int(random(7))));
         time = millis();
       } else if (randomSprite < 42.5 + genDiff) {
         //adds trap to arraylist
