@@ -128,6 +128,10 @@ void keyPressed() {
     if (key == 'p' || key == 'P') {
       gameState = "GAME START";
     }
+    if(keyCode == BACKSPACE) {
+      mainMenu.startGame = false;
+      gameState = "MAIN MENU";
+    }
     break;
   case "OPTIONS":
     if (keyCode == UP) {

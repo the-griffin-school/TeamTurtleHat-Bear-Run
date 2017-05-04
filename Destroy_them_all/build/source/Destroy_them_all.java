@@ -146,6 +146,10 @@ public void keyPressed() {
     if (key == 'p' || key == 'P') {
       gameState = "GAME START";
     }
+    if(keyCode == BACKSPACE) {
+      mainMenu.startGame = false;
+      gameState = "MAIN MENU";
+    }
     break;
   case "OPTIONS":
     if (keyCode == UP) {
@@ -780,14 +784,20 @@ class Options {
     case 0:
       difficulty = "EASY";
       diff = 2;
+      playGame.genDiff = -1;
+      playGame.genTime = 2000;
       break;
     case 1:
       difficulty = "NORMAL";
       diff = 3;
+      playGame.genDiff = 0;
+      playGame.genTime = 1500;
       break;
     case 2:
       difficulty = "HARD";
       diff = 4;
+      playGame.genDiff = 1;
+      playGame.genTime = 1100;
       break;
     }
   }
@@ -860,6 +870,8 @@ class PlayGame {
   float gameSpeed;
   int grassWidth = 50;
   int mtsWidth = width;
+  int genDiff = 0;
+  int genTime = 1500;
   PShape shape;
 
   //Constructor
@@ -876,12 +888,12 @@ class PlayGame {
   public void generateSprites() {
     randomSprite = random(30, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if (randomSprite < 45 && randomSprite > 40 && millis() - time > 1500) {
-      if (randomSprite > 42.5f) {
+    if (randomSprite < 45 && randomSprite > 40 && millis() - time > genTime) {
+      if (randomSprite > 42.5f + genDiff) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, PApplet.parseInt(random(7))));
         time = millis();
-      } else if (randomSprite < 42.5f) {
+      } else if (randomSprite < 42.5f + genDiff) {
         //adds trap to arraylist
         sprites.add(new Traps(width, 1));
         time = millis();

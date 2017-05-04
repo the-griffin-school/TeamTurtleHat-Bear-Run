@@ -64,14 +64,20 @@ class Options {
     case 0:
       difficulty = "EASY";
       diff = 2;
+      playGame.genDiff = -1;
+      playGame.genTime = 2000;
       break;
     case 1:
       difficulty = "NORMAL";
       diff = 3;
+      playGame.genDiff = 0;
+      playGame.genTime = 1500;
       break;
     case 2:
       difficulty = "HARD";
       diff = 4;
+      playGame.genDiff = 1;
+      playGame.genTime = 1100;
       break;
     }
   }

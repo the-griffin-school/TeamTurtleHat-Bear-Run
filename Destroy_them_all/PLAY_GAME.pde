@@ -29,6 +29,8 @@ class PlayGame {
   float gameSpeed;
   int grassWidth = 50;
   int mtsWidth = width;
+  int genDiff = 0;
+  int genTime = 1500;
   PShape shape;
 
   //Constructor
@@ -45,12 +47,12 @@ class PlayGame {
   void generateSprites() {
     randomSprite = random(30, 50);
     //is going to determine if a sprite should be added. Then it will decide either building or trap.
-    if (randomSprite < 45 && randomSprite > 40 && millis() - time > 1500) {
-      if (randomSprite > 42.5) {
+    if (randomSprite < 45 && randomSprite > 40 && millis() - time > genTime) {
+      if (randomSprite > 42.5 + genDiff) {
         //add buliding to arraylist
         sprites.add(new Buildings(width, int(random(7))));
         time = millis();
-      } else if (randomSprite < 42.5) {
+      } else if (randomSprite < 42.5 + genDiff) {
         //adds trap to arraylist
         sprites.add(new Traps(width, 1));
         time = millis();
