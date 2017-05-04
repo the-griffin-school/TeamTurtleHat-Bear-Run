@@ -27,6 +27,8 @@ public class Destroy_them_all extends PApplet {
 Minim minim;
 AudioPlayer backgroundMusic;
 
+int pauseSelect = 0;
+
 String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
@@ -75,7 +77,7 @@ public void draw() {
     gameOver.display();
     break;
   case "PAUSE":
-    pause();
+    paused();
     break;
   }
   displayFrames();
@@ -143,53 +145,72 @@ public void keyPressed() {
     }
     break;
   case "PAUSE":
-    if (key == 'p' || key == 'P') {
-      gameState = "GAME START";
-    }
-    if(keyCode == BACKSPACE) {
-      mainMenu.startGame = false;
-      gameState = "MAIN MENU";
-    }
-    break;
-  case "OPTIONS":
     if (keyCode == UP) {
-      options.selectMenu--;
+      pauseSelect--;
+      if (pauseSelect < 0) {
+        pauseSelect = 1;
+      }
+    }
 
-      // From top selection to the bottom when pressed 'up'
-      if (options.selectMenu < 0) options.selectMenu = 1;
-    } else if (keyCode == DOWN) {
-      options.selectMenu++;
-      // From bottom selection to the top when pressed 'down'
-      if (options.selectMenu > 1) options.selectMenu = 0;
-    }
-    if (keyCode == BACKSPACE) {
-      gameState = "MAIN MENU";
-    }
-    if (keyCode == RIGHT && options.selectMenu == 0) {
-      options.diffNum ++;
-      if (options.diffNum > 2) {
-        options.diffNum = 0;
+    if (keyCode == DOWN) {
+      pauseSelect ++;
+      if (pauseSelect > 1) {
+        pauseSelect = 0;
       }
     }
-    if (keyCode == LEFT && options.selectMenu == 0) {
-      options.diffNum --;
-      if (options.diffNum < 0) {
-        options.diffNum = 2;
+
+    if (keyCode == ENTER) {
+      pauseOnce = false;
+      if (pauseSelect == 0) {
+        time = millis();
+        gameState = "GAME START";
+      } else if (pauseSelect == 1) {
+        mainMenu.startGame = false;
+        time = millis();
+        gameState = "MAIN MENU";
       }
     }
-    if (keyCode == RIGHT && options.selectMenu == 1) {
-      options.soundNum ++;
-      if (options.soundNum > 1) {
-        options.soundNum = 0;
+      break;
+    case "OPTIONS":
+      if (keyCode == UP) {
+        options.selectMenu--;
+
+        // From top selection to the bottom when pressed 'up'
+        if (options.selectMenu < 0) options.selectMenu = 1;
+      } else if (keyCode == DOWN) {
+        options.selectMenu++;
+        // From bottom selection to the top when pressed 'down'
+        if (options.selectMenu > 1) options.selectMenu = 0;
       }
-    }
-    if (keyCode == LEFT && options.selectMenu == 1) {
-      options.soundNum --;
-      if (options.soundNum < 0) {
-        options.soundNum = 1;
+      if (keyCode == BACKSPACE) {
+        gameState = "MAIN MENU";
       }
+      if (keyCode == RIGHT && options.selectMenu == 0) {
+        options.diffNum ++;
+        if (options.diffNum > 2) {
+          options.diffNum = 0;
+        }
+      }
+      if (keyCode == LEFT && options.selectMenu == 0) {
+        options.diffNum --;
+        if (options.diffNum < 0) {
+          options.diffNum = 2;
+        }
+      }
+      if (keyCode == RIGHT && options.selectMenu == 1) {
+        options.soundNum ++;
+        if (options.soundNum > 1) {
+          options.soundNum = 0;
+        }
+      }
+      if (keyCode == LEFT && options.selectMenu == 1) {
+        options.soundNum --;
+        if (options.soundNum < 0) {
+          options.soundNum = 1;
+        }
+      }
+      break;
     }
-  }
 }
 /*
 Team-turtle-hat
@@ -831,13 +852,38 @@ Team-turtle-hat
  March 2017
  Displays the pause screen and allows the player to unpause
  */
+PImage pauseImage;
+boolean pauseOnce = false;
 
+public void pauseMenu(int num) {
+switch (num) {
+  case 0:
+    textSize(40);
+    text("RESUME", width/2, (height/2) + 100);
+    textSize(30);
+    text("MAIN MENU", width/2, (height/2)+ 150);
+    break;
+  case 1:
+    textSize(30);
+    text("RESUME", width/2, (height/2)+ 100);
+    textSize(40);
+    text("MAIN MENU", width/2, (height/2)+ 150);
+    break;
+  }
+}
 
-public void pause() {
+public void paused() {
+  if(!pauseOnce) {
+    pauseImage = get();
+    pauseOnce = true;
+  }
+  image(pauseImage, 0, 0);
   textAlign(CENTER);
   textSize(80);
   fill(0);
   text("PAUSED", width/2, height/2);
+  println(pauseSelect);
+  pauseMenu(pauseSelect);
 }
 /*
 Team-turtle-hat

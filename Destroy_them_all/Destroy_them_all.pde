@@ -9,6 +9,8 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer backgroundMusic;
 
+int pauseSelect = 0;
+
 String gameState = "MAIN MENU";
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
@@ -57,7 +59,7 @@ void draw() {
     gameOver.display();
     break;
   case "PAUSE":
-    pause();
+    paused();
     break;
   }
   displayFrames();
@@ -124,7 +126,6 @@ void keyPressed() {
       gameState = "MAIN MENU";
     }
     break;
-
   case "PAUSE":
     if (keyCode == UP) {
       pauseSelect--;
@@ -141,14 +142,17 @@ void keyPressed() {
     }
 
     if (keyCode == ENTER) {
+      pauseOnce = false;
       if (pauseSelect == 0) {
-        gameState = "START GAME";
-      } else {
+        time = millis();
+        gameState = "GAME START";
+      } else if (pauseSelect == 1) {
+        mainMenu.startGame = false;
+        time = millis();
         gameState = "MAIN MENU";
       }
     }
       break;
-
     case "OPTIONS":
       if (keyCode == UP) {
         options.selectMenu--;
@@ -187,5 +191,6 @@ void keyPressed() {
           options.soundNum = 1;
         }
       }
+      break;
     }
 }
