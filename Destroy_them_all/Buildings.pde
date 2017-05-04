@@ -33,6 +33,15 @@ class Buildings extends Sprites {
 
   void drawBuilding(PImage building, int newPosY) {
     posY = newPosY;
+    buildingSize = 140;
+    image(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
+    //defines boundries of the building for detection purposes
+    boundryHeight = int((building.height * buildingSize)/building.width);
+    boundryWidth = buildingSize;
+  }
+  void drawBuildingEnlarged(PImage building, int newPosY) {
+    posY = newPosY;
+    buildingSize = 210;
     image(building, posX, posY, buildingSize, (building.height * buildingSize)/building.width);
     //defines boundries of the building for detection purposes
     boundryHeight = int((building.height * buildingSize)/building.width);
@@ -51,10 +60,10 @@ class Buildings extends Sprites {
         drawBuilding(building2, 304 + changeBuildingY);
         break;
       case 3:
-        drawBuilding(building3, 380+ changeBuildingY);
+        drawBuildingEnlarged(building3, 380+ changeBuildingY);
         break;
       case 4:
-        drawBuilding(building4, 351+ changeBuildingY);
+        drawBuildingEnlarged(building4, 351+ changeBuildingY);
         break;
       case 5:
         drawBuilding(building5, 304 + changeBuildingY);
