@@ -34,6 +34,7 @@ PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
 Options options = new Options();
 GameOver gameOver = new GameOver();
+HowTo howTo = new HowTo();
 
 //PShape sky;
 PImage sky;
@@ -79,6 +80,9 @@ public void draw() {
   case "PAUSE":
     paused();
     break;
+  case "HOW TO":
+    howTo.display();
+    break;
   }
   displayFrames();
 }
@@ -106,16 +110,19 @@ public void keyPressed() {
       case 2:
         gameState = "OPTIONS";
         break;
+      case 3:
+        gameState = "HOW TO";
+        break;
       }
     } else if (keyCode == UP) {
       mainMenu.selectMenu--;
 
       // From top selection to the bottom when pressed 'up'
-      if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 2;
+      if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 3;
     } else if (keyCode == DOWN) {
       mainMenu.selectMenu++;
       // From bottom selection to the top when pressed 'down'
-      if (mainMenu.selectMenu > 2) mainMenu.selectMenu = 0;
+      if (mainMenu.selectMenu > 3) mainMenu.selectMenu = 0;
     }
     break;
   case "GAME START":
@@ -158,7 +165,7 @@ public void keyPressed() {
       } else {
         mainMenu.startGame = false;
         gameState = "MAIN MENU";
-        
+
       }
     }
 
@@ -229,6 +236,10 @@ public void keyPressed() {
         }
       }
       break;
+    case "HOW TO":
+      if (keyCode == ENTER) {
+        gameState = "MAIN MENU";
+      }
     }
 }
 /*
@@ -705,6 +716,48 @@ class GameOver {
     deathMenu(deathSelect);
   }
 }
+class HowTo{
+
+  HowTo() {
+
+  }
+
+  public void drawSky() {
+    image(sky, 0, 0);
+  }
+
+  public void drawTitle() {
+    fill(255);
+    textAlign(CENTER);
+    textFont(robotoCondensed);
+    textSize(50);
+    text("HOW TO PLAY", width/2, 150);
+    stroke(255);
+    strokeWeight(5);
+    noFill();
+    rectMode(CENTER);
+    rect(width/2, 130, 500, 100);
+  }
+
+  public void backToMenu() {
+    textSize(40);
+    text("Press Enter to Return to Main Menu", width/2, height - 70);
+  }
+
+  public void howTo() {
+    textSize(30);
+    text("Use arrow keys to navigate menus and enter to select the desired option", width/2, 300);
+    text("Press space while playing to jump over traps and shift to destroy buildings", width/2, 350);
+    text("Press p while playing to pause the game", width/2, 400);
+  }
+
+  public void display() {
+    drawSky();
+    drawTitle();
+    backToMenu();
+    howTo();
+  }
+}
 /*
 Team-turtle-hat
  Cho, Giles, David
@@ -761,6 +814,7 @@ class MainMenu {
       textSize(30);
       text("Stats", width/2, 350);
       text("Options", width/2, 400);
+      text("How to Play", width/2, 450);
       break;
     case 1:
       textSize(40);
@@ -768,6 +822,7 @@ class MainMenu {
       textSize(30);
       text("Play", width/2, 300);
       text("Options", width/2, 400);
+      text("How to Play", width/2, 450);
       break;
     case 2:
       textSize(40);
@@ -775,7 +830,17 @@ class MainMenu {
       textSize(30);
       text("Play", width/2, 300);
       text("Stats", width/2, 350);
+      text("How to Play", width/2, 450);
       break;
+    case 3:
+      textSize(40);
+      text("How to Play", width/2, 450);
+      textSize(30);
+      text("Play", width/2, 300);
+      text("Stats", width/2, 350);
+      text("Options", width/2, 400);
+      break;
+
     }
     //if user pressed ENTER
     if (startGame) {

@@ -54,6 +54,7 @@ class MainMenu {
       textSize(30);
       text("Stats", width/2, 350);
       text("Options", width/2, 400);
+      text("How to Play", width/2, 450);
       break;
     case 1:
       textSize(40);
@@ -61,6 +62,7 @@ class MainMenu {
       textSize(30);
       text("Play", width/2, 300);
       text("Options", width/2, 400);
+      text("How to Play", width/2, 450);
       break;
     case 2:
       textSize(40);
@@ -68,7 +70,17 @@ class MainMenu {
       textSize(30);
       text("Play", width/2, 300);
       text("Stats", width/2, 350);
+      text("How to Play", width/2, 450);
       break;
+    case 3:
+      textSize(40);
+      text("How to Play", width/2, 450);
+      textSize(30);
+      text("Play", width/2, 300);
+      text("Stats", width/2, 350);
+      text("Options", width/2, 400);
+      break;
+
     }
     //if user pressed ENTER
     if (startGame) {

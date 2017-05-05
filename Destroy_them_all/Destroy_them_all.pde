@@ -16,6 +16,7 @@ PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
 Options options = new Options();
 GameOver gameOver = new GameOver();
+HowTo howTo = new HowTo();
 
 //PShape sky;
 PImage sky;
@@ -61,6 +62,9 @@ void draw() {
   case "PAUSE":
     paused();
     break;
+  case "HOW TO":
+    howTo.display();
+    break;
   }
   displayFrames();
 }
@@ -88,16 +92,19 @@ void keyPressed() {
       case 2:
         gameState = "OPTIONS";
         break;
+      case 3:
+        gameState = "HOW TO";
+        break;
       }
     } else if (keyCode == UP) {
       mainMenu.selectMenu--;
 
       // From top selection to the bottom when pressed 'up'
-      if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 2;
+      if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 3;
     } else if (keyCode == DOWN) {
       mainMenu.selectMenu++;
       // From bottom selection to the top when pressed 'down'
-      if (mainMenu.selectMenu > 2) mainMenu.selectMenu = 0;
+      if (mainMenu.selectMenu > 3) mainMenu.selectMenu = 0;
     }
     break;
   case "GAME START":
@@ -140,7 +147,7 @@ void keyPressed() {
       } else {
         mainMenu.startGame = false;
         gameState = "MAIN MENU";
-        
+
       }
     }
 
@@ -211,5 +218,9 @@ void keyPressed() {
         }
       }
       break;
+    case "HOW TO":
+      if (keyCode == ENTER) {
+        gameState = "MAIN MENU";
+      }
     }
 }
