@@ -190,7 +190,7 @@ void keyPressed() {
         // From bottom selection to the top when pressed 'down'
         if (options.selectMenu > 1) options.selectMenu = 0;
       }
-      if (keyCode == BACKSPACE) {
+      if (keyCode == ENTER) {
         gameState = "MAIN MENU";
       }
       if (keyCode == RIGHT && options.selectMenu == 0) {

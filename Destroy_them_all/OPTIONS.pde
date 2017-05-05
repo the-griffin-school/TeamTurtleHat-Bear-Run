@@ -36,6 +36,8 @@ class Options {
     textAlign(CENTER);
     textSize(50);
     text("OPTIONS", width/2, 150);
+    textSize(40);
+    text("Press Enter to Return to Main Menu", width/2, height - height/6);
   }
 
   void menuSelection() {
