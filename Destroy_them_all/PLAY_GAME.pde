@@ -32,6 +32,11 @@ class PlayGame {
   int genDiff = 0;
   int genTime = 1500;
   PShape shape;
+  int counterNight = 0;
+  int alpha2 = 0;
+  int nightTime = 0;
+  boolean nightSwitch = false;
+  int adder = 1;
 
   //Constructor
   PlayGame() {
@@ -246,6 +251,30 @@ class PlayGame {
     image(sky, 0, 0);
   }
 
+  void night() {
+    fill(0, 0, 0, alpha2);
+    rectMode(CORNER);
+    rect(0, 0, width, height);
+
+    if (millis() - nightTime > 45000) {
+      nightSwitch = true;
+    }
+    if (nightSwitch) {
+      if (counterNight % 3 == 0) {
+        alpha2 += adder;
+      }
+      counterNight++;
+      if(counterNight > 100) {
+       counterNight = 0;
+      }
+      if (alpha2 > 200) {
+        nightSwitch = false;
+        adder *= -1;
+        nightTime = millis();
+      }
+    }
+  }
+
   void display() {
     //draw sky
     drawSky();
@@ -261,5 +290,7 @@ class PlayGame {
     drawGrass();
     //displays score;
     displayScore();
+    //night
+    night();
   }
 }

@@ -104,6 +104,7 @@ public void keyPressed() {
       switch(mainMenu.selectMenu) {
       case 0:
         mainMenu.startGame = true;
+        playGame.nightTime = millis();
         break;
       case 1:
         break;
@@ -157,6 +158,9 @@ public void keyPressed() {
       player.health = 3;
       playGame.score = 0;
       playGame.setGameSpeed(15);
+      playGame.nightSwitch = false;
+      playGame.alpha2 = 0;
+      playGame.adder = 1;
       for (int i = sprites.size() -1; i >= 0; i--) {
         sprites.remove(i);
       }
@@ -996,7 +1000,6 @@ public void paused() {
   textSize(80);
   fill(0);
   text("PAUSED", width/2, height/2);
-  println(pauseSelect);
   pauseMenu(pauseSelect);
 }
 /*
@@ -1033,6 +1036,11 @@ class PlayGame {
   int genDiff = 0;
   int genTime = 1500;
   PShape shape;
+  int counterNight = 0;
+  int alpha2 = 0;
+  int nightTime = 0;
+  boolean nightSwitch = false;
+  int adder = 1;
 
   //Constructor
   PlayGame() {
@@ -1247,6 +1255,30 @@ class PlayGame {
     image(sky, 0, 0);
   }
 
+  public void night() {
+    fill(0, 0, 0, alpha2);
+    rectMode(CORNER);
+    rect(0, 0, width, height);
+
+    if (millis() - nightTime > 10000) {
+      nightSwitch = true;
+    }
+    if (nightSwitch) {
+      if (counterNight % 3 == 0) {
+        alpha2 += adder;
+      }
+      counterNight++;
+      if(counterNight > 100) {
+       counterNight = 0;
+      }
+      if (alpha2 > 200) {
+        nightSwitch = false;
+        adder *= -1;
+        nightTime = millis();
+      }
+    }
+  }
+
   public void display() {
     //draw sky
     drawSky();
@@ -1262,6 +1294,8 @@ class PlayGame {
     drawGrass();
     //displays score;
     displayScore();
+    //night
+    night();
   }
 }
 /*

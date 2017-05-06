@@ -86,6 +86,7 @@ void keyPressed() {
       switch(mainMenu.selectMenu) {
       case 0:
         mainMenu.startGame = true;
+        playGame.nightTime = millis();
         break;
       case 1:
         break;
@@ -139,6 +140,9 @@ void keyPressed() {
       player.health = 3;
       playGame.score = 0;
       playGame.setGameSpeed(15);
+      playGame.nightSwitch = false;
+      playGame.alpha2 = 0;
+      playGame.adder = 1;
       for (int i = sprites.size() -1; i >= 0; i--) {
         sprites.remove(i);
       }

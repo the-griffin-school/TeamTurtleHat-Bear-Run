@@ -34,6 +34,5 @@ void paused() {
   textSize(80);
   fill(0);
   text("PAUSED", width/2, height/2);
-  println(pauseSelect);
   pauseMenu(pauseSelect);
 }
