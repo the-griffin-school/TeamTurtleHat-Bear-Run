@@ -1260,7 +1260,7 @@ class PlayGame {
     rectMode(CORNER);
     rect(0, 0, width, height);
 
-    if (millis() - nightTime > 10000) {
+    if (millis() - nightTime > 45000) {
       nightSwitch = true;
     }
     if (nightSwitch) {
