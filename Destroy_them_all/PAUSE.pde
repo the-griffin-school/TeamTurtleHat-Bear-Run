@@ -4,9 +4,11 @@ Team-turtle-hat
  March 2017
  Displays the pause screen and allows the player to unpause
  */
+ //Variables
 PImage pauseImage;
 boolean pauseOnce = false;
 
+//PauseMenu cases
 void pauseMenu(int num) {
 switch (num) {
   case 0:
@@ -24,6 +26,7 @@ switch (num) {
   }
 }
 
+//pause function
 void paused() {
   if(!pauseOnce) {
     pauseImage = get();

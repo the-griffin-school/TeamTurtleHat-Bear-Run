@@ -5,7 +5,7 @@ Team-turtle-hat
  Class that both buildings and traps inherit.
  */
 
-
+//Building sprites
 PImage building1, building2, building3, building4, building5, building6;
 PShape bearTrap, bearTrapActivated;
 PShape grass;

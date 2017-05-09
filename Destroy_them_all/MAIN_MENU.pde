@@ -5,6 +5,7 @@ Team-turtle-hat
  Displays and controls the main menu of the game
  */
 
+
 class MainMenu {
   //Fields
   boolean startGame;
@@ -25,6 +26,7 @@ class MainMenu {
     image(sky, 0, 0);
   }
 
+//Draws Title at top center
   void drawTitle() {
     fill(255);
     textAlign(CENTER);
@@ -38,13 +40,14 @@ class MainMenu {
     rect(width/2, 130, 500, 100);
   }
 
-
+//display function and associated functions
   void display() {
     drawSky();
     drawTitle();
     menuSelection();
   }
 
+//Main Menu selection cases
   void menuSelection() {
     // menu selection
     switch(selectMenu) {

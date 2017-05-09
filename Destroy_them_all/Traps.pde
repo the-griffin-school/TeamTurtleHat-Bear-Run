@@ -4,6 +4,8 @@ Team-turtle-hat
  March 2017
  Controls the displaying of traps including villagers and trap stuff
  */
+
+//Trap noise
 AudioPlayer bearTrapSound;
 
 class Traps extends Sprites {

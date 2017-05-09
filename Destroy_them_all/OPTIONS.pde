@@ -5,6 +5,7 @@ Team-turtle-hat
  Display and controls the options page of the game
  */
 
+
 class Options {
   //Fields
   int selectMenu;
@@ -27,6 +28,7 @@ class Options {
     image(sky, 0, 0);
   }
 
+//draws title at center
   void drawTitle() {
     rectMode(CENTER);
     stroke(255);
@@ -40,6 +42,7 @@ class Options {
     text("Press Enter to Return to Main Menu", width/2, height - height/6);
   }
 
+//Options menu selection cases
   void menuSelection() {
     textAlign(CENTER);
     // menu selection
@@ -61,6 +64,7 @@ class Options {
     }
   }
 
+//Difficulty cases
   void difficultyChange(int i) {
     switch(i) {
     case 0:
@@ -84,6 +88,7 @@ class Options {
     }
   }
 
+//Sound cases
   void soundChange(int i) {
     switch(i) {
     case 0:
@@ -99,6 +104,7 @@ class Options {
     }
   }
 
+//Options display functions
   void display() {
     difficultyChange(diffNum);
     soundChange(soundNum);
