@@ -32,4 +32,5 @@ class Highscore {
     highscore = highscores[0];
     return highscore;
   }
+
 }

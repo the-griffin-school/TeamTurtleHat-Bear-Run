@@ -45,7 +45,7 @@ class GameOver {
      textSize(40);
      text(deathMsg, width/2, height/2);
      text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6);
-     text("Highscore = " + highscores.getHighscore(), width/2, height/2 + height/6 + 70);
+     text("Highscore" + " " + highscores.getHighscore(), width/2, height/2 + height/6 + 70);
 
    }
 
