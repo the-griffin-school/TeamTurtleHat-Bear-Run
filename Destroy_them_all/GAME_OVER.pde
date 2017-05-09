@@ -42,7 +42,9 @@ class GameOver {
      fill(255);
      textSize(40);
      text(deathMsg, width/2, height/2);
-     text("Score" + " " + playGame.score, width/2, height/2 + height/6);
+     text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6);
+     text("Highscore = " + highscore.getHighscore(), width/2, (height/3) * 2);
+
    }
 
    void display() {

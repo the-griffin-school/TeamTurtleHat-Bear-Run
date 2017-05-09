@@ -4,11 +4,14 @@ David, Cho, Giles
 March 2017
 Class that controls the bear and bear stuff
 */
-PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5, bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10;
-PImage bearWalk11, bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17, bearWalk18, bearWalk19, bearWalk20;
-PImage bearWalk21, bearWalk22, bearWalk23, bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29, bearWalk30;
-PImage bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35, bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40;
-PImage bearWalk41, bearWalk42, bearWalk43, bearWalk44, bearWalk45;
+PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5,
+       bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10, bearWalk11,
+       bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17,
+       bearWalk18, bearWalk19, bearWalk20, bearWalk21, bearWalk22, bearWalk23,
+       bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29,
+       bearWalk30, bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35,
+       bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40, bearWalk41,
+       bearWalk42, bearWalk43, bearWalk44, bearWalk45;
 PImage bear;
 
 class Bear {

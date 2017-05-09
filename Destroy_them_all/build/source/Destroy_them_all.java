@@ -27,14 +27,18 @@ Minim minim;
 AudioPlayer bearTrapSound;
 
 String gameState = "MAIN MENU";
+Highscore highscore = new Highscore();
+
+//Game States
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
+GameOver gameOver = new GameOver();
 
 //PShape sky;
 PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
-GameOver gameOver = new GameOver();
+
 PFont robotoCondensed;
 
 int currentFrameRate;
@@ -151,11 +155,14 @@ David, Cho, Giles
 March 2017
 Class that controls the bear and bear stuff
 */
-PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5, bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10;
-PImage bearWalk11, bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17, bearWalk18, bearWalk19, bearWalk20;
-PImage bearWalk21, bearWalk22, bearWalk23, bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29, bearWalk30;
-PImage bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35, bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40;
-PImage bearWalk41, bearWalk42, bearWalk43, bearWalk44, bearWalk45;
+PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5,
+       bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10, bearWalk11,
+       bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17,
+       bearWalk18, bearWalk19, bearWalk20, bearWalk21, bearWalk22, bearWalk23,
+       bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29,
+       bearWalk30, bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35,
+       bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40, bearWalk41,
+       bearWalk42, bearWalk43, bearWalk44, bearWalk45;
 PImage bear;
 
 class Bear {
@@ -530,12 +537,41 @@ class GameOver {
      fill(255);
      textSize(40);
      text(deathMsg, width/2, height/2);
-     text("Score" + " " + playGame.score, width/2, height/2 + height/6);
+     text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6);
+     text("Highscore = " + highscore.getHighscore(), width/2, (height/3) * 2);
+
    }
 
    public void display() {
     background(0);
     deathMsg();
+  }
+}
+class Highscore {
+  //Fields
+  int[] highscores = {};
+  int highscore;
+
+  //constructor
+  Highscore() {
+
+  }
+
+  //Methods
+  //function to write onto a text file
+  public void saveHighscore() {
+    highscores = loadStrings("Highscore.txt");
+    highscore = highscores[0];
+    if(playGame.getScore() > highscore) {
+      saveStrings("Highscore.txt", playGame.getScore());
+    }
+  }
+
+  //function to read from text file
+  public int getHighscore() {
+    highscores = loadStrings("Highscore.txt");
+    highscore = highscores[0];
+    return highscore;
   }
 }
 /*
@@ -750,6 +786,11 @@ class PlayGame {
   }
 
   //Methods
+
+  //Function to retrieve score value
+  public int getScore() {
+    return score;
+  }
 
   //Function to randomely determine when a tree is going to be placed
   public void generateSprites() {
@@ -998,7 +1039,7 @@ PShape cloud1, cloud2, cloud3, cloud4, cloud5, cloud6, cloud7, cloud8, cloud9;
 public void loadSprites() {
   building1 = loadImage("Graphics/Buildings/Buildings_Artboard 1.png");
   building2 = loadImage("Graphics/Buildings/Buildings_Artboard 2.png");
-  building3 = loadImage("Graphics/Buildings/Buildings_Artboard 7.png");
+  building3 = loadImage("Graphics/Buildings/Buildings_Artboard 3.png");
   building4 = loadImage("Graphics/Buildings/Buildings_Artboard 4.png");
   building5 = loadImage("Graphics/Buildings/Buildings_Artboard 5.png");
   building6 = loadImage("Graphics/Buildings/Buildings_Artboard 6.png");
