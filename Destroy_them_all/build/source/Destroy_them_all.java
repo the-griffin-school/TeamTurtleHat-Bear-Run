@@ -27,12 +27,12 @@ Minim minim;
 AudioPlayer bearTrapSound;
 
 String gameState = "MAIN MENU";
-Highscore highscore = new Highscore();
 
 //Game States
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
 GameOver gameOver = new GameOver();
+Highscore highscores = new Highscore();
 
 //PShape sky;
 PImage sky;
@@ -500,6 +500,8 @@ March 2017
 Displays the game over screen and give the player the option of playing again.
 It also displays the score.
 */
+
+
 class GameOver {
   int randomMsg = PApplet.parseInt(random(6));
   String deathMsg;
@@ -538,17 +540,20 @@ class GameOver {
      textSize(40);
      text(deathMsg, width/2, height/2);
      text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6);
-     text("Highscore = " + highscore.getHighscore(), width/2, (height/3) * 2);
+     text("Highscore = " + highscores.getHighscore(), width/2, height/2 + height/6 + 70);
 
    }
 
    public void display() {
     background(0);
     deathMsg();
+    highscores.saveHighscore();
   }
 }
 class Highscore {
   //Fields
+  String[] rawHighscore = {};
+  String[] saveScore = {" "};
   int[] highscores = {};
   int highscore;
 
@@ -560,16 +565,22 @@ class Highscore {
   //Methods
   //function to write onto a text file
   public void saveHighscore() {
-    highscores = loadStrings("Highscore.txt");
-    highscore = highscores[0];
+    rawHighscore = loadStrings("Highscore.txt");
+    highscores = PApplet.parseInt(rawHighscore);
+    for(int i = highscores.length -1; i >= 0; i--){
+      highscore += (10^i * highscores[i])/10;
+    }
+
     if(playGame.getScore() > highscore) {
-      saveStrings("Highscore.txt", playGame.getScore());
+      saveScore[0] = str(playGame.getScore());
+      saveStrings("Highscore.txt", "blah");
+      println(saveScore);
     }
   }
 
   //function to read from text file
   public int getHighscore() {
-    highscores = loadStrings("Highscore.txt");
+    highscores = PApplet.parseInt(loadStrings("Highscore.txt"));
     highscore = highscores[0];
     return highscore;
   }

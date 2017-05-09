@@ -9,12 +9,12 @@ Minim minim;
 AudioPlayer bearTrapSound;
 
 String gameState = "MAIN MENU";
-Highscore highscore = new Highscore();
 
 //Game States
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
 GameOver gameOver = new GameOver();
+Highscore highscores = new Highscore();
 
 //PShape sky;
 PImage sky;

@@ -5,6 +5,8 @@ March 2017
 Displays the game over screen and give the player the option of playing again.
 It also displays the score.
 */
+
+
 class GameOver {
   int randomMsg = int(random(6));
   String deathMsg;
@@ -43,12 +45,13 @@ class GameOver {
      textSize(40);
      text(deathMsg, width/2, height/2);
      text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6);
-     text("Highscore = " + highscore.getHighscore(), width/2, (height/3) * 2);
+     text("Highscore = " + highscores.getHighscore(), width/2, height/2 + height/6 + 70);
 
    }
 
    void display() {
     background(0);
     deathMsg();
+    highscores.saveHighscore();
   }
 }
