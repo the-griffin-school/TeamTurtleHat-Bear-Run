@@ -5,6 +5,8 @@ Team-turtle-hat
  Displays the game over screen and give the player the option of playing again.
  It also displays the score.
  */
+ 
+ //GameOver functions: dictates death screen looks and functions. 
 class GameOver {
   int randomMsg = int(random(6));
   String deathMsg;
@@ -36,6 +38,7 @@ class GameOver {
       break;
     }
 
+//GameOver settings that stay the same.
     textAlign(CENTER);
     textSize(60);
     fill(255, 0, 0);
@@ -46,6 +49,7 @@ class GameOver {
     text("Score" + " " + playGame.score, width/2, height/2 + 50);
   }
 
+//Restart/Main Menu cases for Game Over. 
   void deathMenu(int num) {
     switch (num) {
       case 0:
@@ -63,6 +67,7 @@ class GameOver {
     }
   }
 
+//Game Over display function
   void display() {
     background(0);
     deathMsg();

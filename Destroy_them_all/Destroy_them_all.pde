@@ -4,7 +4,8 @@
  March 2017
  This is the main file that controls all the screens
  */
-
+ 
+ //Variables
 import ddf.minim.*;
 Minim minim;
 AudioPlayer backgroundMusic;
@@ -31,6 +32,7 @@ void setup() {
   background(0);
   textAlign(CENTER);
 
+//Images/Sounds/Sprites loading variales
   sky = loadImage("Graphics/Environment/Sky/SkyImage.png");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
@@ -45,6 +47,7 @@ void setup() {
   backgroundMusic.loop();
 }
 
+//void draw: runs the various cases that display our functions. 
 void draw() {
   switch(gameState) {
   case "MAIN MENU":
@@ -69,6 +72,7 @@ void draw() {
   displayFrames();
 }
 
+//Displays frame rate counter at top right corner. 
 void displayFrames() {
   currentFrameRate = int(frameRate);
   textAlign(CORNERS);
@@ -78,7 +82,7 @@ void displayFrames() {
   text("Frame rate: " + currentFrameRate, 950, 40);
 }
 
-//USER INPUTS
+//USER INPUTS (key functions in various menus).
 void keyPressed() {
   switch(gameState) {
   case "MAIN MENU":

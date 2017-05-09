@@ -4,6 +4,7 @@ Team-turtle-hat
  March 2017
  Class that controls the bear and bear stuff
  */
+ //Bear and heart image variables
 PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5, bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10;
 PImage bearWalk11, bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17, bearWalk18, bearWalk19, bearWalk20;
 PImage bearWalk21, bearWalk22, bearWalk23, bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29, bearWalk30;
@@ -12,9 +13,11 @@ PImage bearWalk41, bearWalk42, bearWalk43, bearWalk44, bearWalk45;
 PImage bear;
 PImage heart;
 
+//Bear class
 class Bear {
+  //controls bear size
   float posY;
-  //is used to control size of the bear
+  //other bear variables
   int bearSize;
   int health;
   float jumpFactor;
@@ -23,6 +26,7 @@ class Bear {
   int jumpDuration;
   int bearCounter;
 
+//definitions for various variables related to Bear./
   Bear() {
     posY = 400;
     bearSize = 110;
@@ -33,6 +37,7 @@ class Bear {
     bearCounter = 0;
   }
 
+//display function for Bear
   void display() {
     image(bearType(bearCounter), 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
     bearCounter++;
@@ -41,6 +46,7 @@ class Bear {
     }
   }
 
+//display function for health hearts.
   void displayHealth() {
     int heartSize = 40;
     for (int i = 0; i < health; i++) {
@@ -48,6 +54,7 @@ class Bear {
     }
   }
 
+//jump stuff thing
   void setCounter(int newCounter) {
     counter = newCounter;
   }
@@ -60,6 +67,7 @@ class Bear {
     jumping = newBool;
   }
 
+//death boolean
   boolean dead() {
     if (health == 0) {
       return true;
@@ -68,6 +76,7 @@ class Bear {
     }
   }
 
+//jumping function
   void jump() {
     if (jumping) {
       //counter is frame count for jump duration
@@ -81,6 +90,7 @@ class Bear {
     }
   }
 
+//image cycling for walk animation
   PImage bearType(int num) {
     switch (num) {
     case 0:

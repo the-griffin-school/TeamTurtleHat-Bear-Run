@@ -256,7 +256,7 @@ class PlayGame {
     rectMode(CORNER);
     rect(0, 0, width, height);
 
-    if (millis() - nightTime > 1000) {
+    if (millis() - nightTime > 45000) {
       nightSwitch = true;
     }
     if (nightSwitch) {
@@ -267,7 +267,7 @@ class PlayGame {
       if(counterNight > 100) {
        counterNight = 0;
       }
-      if (alpha2 > 200) {
+      if (alpha2 > 180) {
         nightSwitch = false;
         adder *= -1;
         nightTime = millis();
