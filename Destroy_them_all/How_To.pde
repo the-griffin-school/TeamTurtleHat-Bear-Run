@@ -9,7 +9,7 @@ class HowTo{
     image(sky, 0, 0);
   }
 
-//draw How To Play center titel
+//draw How To Play center title
   void drawTitle() {
     fill(255);
     textAlign(CENTER);
