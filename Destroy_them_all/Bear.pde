@@ -20,9 +20,7 @@ PImage heart;
 
 //Bear class
 class Bear {
-  //controls bear size
   float posY;
-  //other bear variables
   int bearSize;
   int health;
   float jumpFactor;
@@ -31,7 +29,8 @@ class Bear {
   int jumpDuration;
   int bearCounter;
 
-//definitions for various variables related to Bear./
+//definitions for various variables related to Bear
+  //construcor
   Bear() {
     posY = 400;
     bearSize = 110;
@@ -42,7 +41,8 @@ class Bear {
     bearCounter = 0;
   }
 
-//display function for Bear
+  //METHODS
+  //display function for Bear
   void display() {
     image(bearType(bearCounter), 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
     bearCounter++;
@@ -285,3 +285,4 @@ void loadBear() {
   bearWalk43 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0043.png");
   bearWalk44 = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0044.png");
 }
+//hi

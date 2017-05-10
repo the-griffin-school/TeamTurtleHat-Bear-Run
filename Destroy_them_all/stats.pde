@@ -1,5 +1,8 @@
 class Stats {
 
+  Stats() {
+  }
+
   void display() {
     image(sky, 0, 0, width, height);
 
@@ -11,12 +14,12 @@ class Stats {
     fill(255);
     textAlign(CENTER);
     textSize(50);
-    text("OPTIONS", width/2, 150);
+    text("STATS", width/2, 150);
 
     fill(255);
     textAlign(CENTER);
     textSize(45);
-    text("Highscore:" + " " + highscores.getHighscore(), width/2, height/2 - 30);
+    text("Highscore:" + " " + highscores.getHighscore(), width/2, height/2);
     text("Press Enter To Return to Main Menu", width/2, height - height/6);
   }
 }

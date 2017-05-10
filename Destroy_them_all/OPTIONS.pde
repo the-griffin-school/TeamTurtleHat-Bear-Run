@@ -39,6 +39,7 @@ class Options {
     textSize(50);
     text("OPTIONS", width/2, 150);
     textSize(40);
+
     text("Press Enter to Return to Main Menu", width/2, height - height/6);
   }
 
@@ -64,7 +65,7 @@ class Options {
     }
   }
 
-//Difficulty cases
+//Difficulty cases and controls settings related to difficulty
   void difficultyChange(int i) {
     switch(i) {
     case 0:

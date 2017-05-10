@@ -1,7 +1,6 @@
 class HowTo{
 
   HowTo() {
-
   }
 
 //draw Sky background
