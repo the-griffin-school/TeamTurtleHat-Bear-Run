@@ -13,16 +13,27 @@ AudioPlayer backgroundMusic;
 int pauseSelect = 0;
 
 String gameState = "MAIN MENU";
+
+//Game States
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
+<<<<<<< HEAD
+GameOver gameOver = new GameOver();
+Highscore highscores = new Highscore();
+=======
 Options options = new Options();
 GameOver gameOver = new GameOver();
 HowTo howTo = new HowTo();
+>>>>>>> Develop
 
 //PShape sky;
 PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
+<<<<<<< HEAD
+
+=======
+>>>>>>> Develop
 PFont robotoCondensed;
 
 int currentFrameRate;

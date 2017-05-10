@@ -30,16 +30,27 @@ AudioPlayer backgroundMusic;
 int pauseSelect = 0;
 
 String gameState = "MAIN MENU";
+
+//Game States
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
+<<<<<<< HEAD
+GameOver gameOver = new GameOver();
+Highscore highscores = new Highscore();
+=======
 Options options = new Options();
 GameOver gameOver = new GameOver();
 HowTo howTo = new HowTo();
+>>>>>>> Develop
 
 //PShape sky;
 PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
+<<<<<<< HEAD
+
+=======
+>>>>>>> Develop
 PFont robotoCondensed;
 
 int currentFrameRate;
@@ -248,6 +259,20 @@ public void keyPressed() {
 }
 /*
 Team-turtle-hat
+<<<<<<< HEAD
+David, Cho, Giles
+March 2017
+Class that controls the bear and bear stuff
+*/
+PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5,
+       bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10, bearWalk11,
+       bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17,
+       bearWalk18, bearWalk19, bearWalk20, bearWalk21, bearWalk22, bearWalk23,
+       bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29,
+       bearWalk30, bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35,
+       bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40, bearWalk41,
+       bearWalk42, bearWalk43, bearWalk44, bearWalk45;
+=======
  David, Cho, Giles
  March 2017
  Class that controls the bear and bear stuff
@@ -257,6 +282,7 @@ PImage bearWalk11, bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, b
 PImage bearWalk21, bearWalk22, bearWalk23, bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29, bearWalk30;
 PImage bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35, bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40;
 PImage bearWalk41, bearWalk42, bearWalk43, bearWalk44, bearWalk45;
+>>>>>>> Develop
 PImage bear;
 PImage heart;
 
@@ -651,11 +677,21 @@ class Buildings extends Sprites {
 }
 /*
 Team-turtle-hat
+<<<<<<< HEAD
+Giles, David, Cho
+March 2017
+Displays the game over screen and give the player the option of playing again.
+It also displays the score.
+*/
+
+
+=======
  Giles, David, Cho
  March 2017
  Displays the game over screen and give the player the option of playing again.
  It also displays the score.
  */
+>>>>>>> Develop
 class GameOver {
   int randomMsg = PApplet.parseInt(random(6));
   String deathMsg;
@@ -665,6 +701,79 @@ class GameOver {
   }
 
   //gives a random bear pun
+<<<<<<< HEAD
+   public void deathMsg() {
+     switch(randomMsg) {
+       case 0:
+         deathMsg = "You're unBEARable";
+         break;
+       case 1:
+         deathMsg = "You're worse than a barBEARian";
+         break;
+       case 2:
+         deathMsg = "It is time for you to be BEARied";
+         break;
+       case 3:
+         deathMsg = "You should be emBEARessed";
+         break;
+       case 4:
+         deathMsg = "You're a BEARicade of progress";
+         break;
+      case 5:
+         deathMsg = "Have you lost your BEARings?";
+         break;
+     }
+
+     textAlign(CENTER);
+     textSize(60);
+     fill(255, 0, 0);
+     text("GAME OVER", width/2, height/2 - height/6);
+     fill(255);
+     textSize(40);
+     text(deathMsg, width/2, height/2);
+     text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6);
+     text("Highscore" + " " + highscores.getHighscore(), width/2, height/2 + height/6 + 70);
+
+   }
+
+   public void display() {
+    background(0);
+    deathMsg();
+    highscores.saveHighscore();
+  }
+}
+
+class Highscore {
+  //Fields
+  String[] rawHighscore = {};
+  String[] saveScore = {" "};
+  int[] highscores = {};
+  int highscore;
+
+  //Methods
+  //function to write onto a text file
+  public void saveHighscore() {
+    highscore = highscores[0];
+    rawHighscore = loadStrings("Highscore.txt");
+    highscores = PApplet.parseInt(rawHighscore);
+    for(int i = highscores.length -1; i >= 0; i--){
+      highscore += (10^i * highscores[i])/10;
+    }
+
+    if(playGame.getScore() > highscore) {
+      String[] scoreSaved = {str(playGame.getScore())};
+      //saveScore[0] = str(playGame.getScore());
+      saveStrings("Highscore.txt", scoreSaved);
+      println(scoreSaved);
+    }
+  }
+
+  //function to read from text file
+  public int getHighscore() {
+    highscores = PApplet.parseInt(loadStrings("Highscore.txt"));
+    highscore = highscores[0];
+    return highscore;
+=======
   public void deathMsg() {
     switch(randomMsg) {
     case 0:
@@ -760,6 +869,7 @@ class HowTo{
     drawTitle();
     backToMenu();
     howTo();
+>>>>>>> Develop
   }
 }
 /*
@@ -1051,6 +1161,11 @@ class PlayGame {
   }
 
   //Methods
+
+  //Function to retrieve score value
+  public int getScore() {
+    return score;
+  }
 
   //Function to randomely determine when a tree is going to be placed
   public void generateSprites() {

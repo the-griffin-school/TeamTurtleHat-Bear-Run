@@ -48,6 +48,11 @@ class PlayGame {
 
   //Methods
 
+  //Function to retrieve score value
+  int getScore() {
+    return score;
+  }
+
   //Function to randomely determine when a tree is going to be placed
   void generateSprites() {
     randomSprite = random(30, 50);

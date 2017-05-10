@@ -1,5 +1,14 @@
 /*
 Team-turtle-hat
+<<<<<<< HEAD
+Giles, David, Cho
+March 2017
+Displays the game over screen and give the player the option of playing again.
+It also displays the score.
+*/
+
+
+=======
  Giles, David, Cho
  March 2017
  Displays the game over screen and give the player the option of playing again.
@@ -7,6 +16,7 @@ Team-turtle-hat
  */
  
  //GameOver functions: dictates death screen looks and functions. 
+>>>>>>> Develop
 class GameOver {
   int randomMsg = int(random(6));
   String deathMsg;
@@ -38,6 +48,19 @@ class GameOver {
       break;
     }
 
+<<<<<<< HEAD
+     textAlign(CENTER);
+     textSize(60);
+     fill(255, 0, 0);
+     text("GAME OVER", width/2, height/2 - height/6);
+     fill(255);
+     textSize(40);
+     text(deathMsg, width/2, height/2);
+     text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6);
+     text("Highscore" + " " + highscores.getHighscore(), width/2, height/2 + height/6 + 70);
+
+   }
+=======
 //GameOver settings that stay the same.
     textAlign(CENTER);
     textSize(60);
@@ -66,11 +89,16 @@ class GameOver {
         break;
     }
   }
+>>>>>>> Develop
 
 //Game Over display function
   void display() {
     background(0);
     deathMsg();
+<<<<<<< HEAD
+    highscores.saveHighscore();
+=======
     deathMenu(deathSelect);
+>>>>>>> Develop
   }
 }
