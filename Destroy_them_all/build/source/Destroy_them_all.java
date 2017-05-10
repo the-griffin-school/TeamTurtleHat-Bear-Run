@@ -540,7 +540,7 @@ class GameOver {
      textSize(40);
      text(deathMsg, width/2, height/2);
      text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6);
-     text("Highscore" + " " + highscores.getIntHighScore(), width/2, height/2 + height/6 + 70);
+     text("Highscore" + " " + highscores.getHighscore(), width/2, height/2 + height/6 + 70);
 
    }
 
@@ -550,6 +550,7 @@ class GameOver {
     highscores.saveHighscore();
   }
 }
+
 class Highscore {
   //Fields
   String[] rawHighscore = {};
@@ -557,14 +558,10 @@ class Highscore {
   int[] highscores = {};
   int highscore;
 
-  //constructor
-  Highscore() {
-
-  }
-
   //Methods
   //function to write onto a text file
   public void saveHighscore() {
+    highscore = highscores[0];
     rawHighscore = loadStrings("Highscore.txt");
     highscores = PApplet.parseInt(rawHighscore);
     for(int i = highscores.length -1; i >= 0; i--){
@@ -572,21 +569,16 @@ class Highscore {
     }
 
     if(playGame.getScore() > highscore) {
-      saveScore[0] = str(playGame.getScore());
-      saveStrings("Highscore.txt", saveScore);
-      println(saveScore);
+      String[] scoreSaved = {str(playGame.getScore())};
+      //saveScore[0] = str(playGame.getScore());
+      saveStrings("Highscore.txt", scoreSaved);
+      println(scoreSaved);
     }
   }
 
   //function to read from text file
   public int getHighscore() {
     highscores = PApplet.parseInt(loadStrings("Highscore.txt"));
-    highscore = highscores[0];
-    return highscore;
-  }
-
-  public int getIntHighScore() {
-    highscores = PApplet.parseInt(loadBytes("Highscore.dat"));
     highscore = highscores[0];
     return highscore;
   }

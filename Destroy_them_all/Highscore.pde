@@ -1,3 +1,4 @@
+
 class Highscore {
   //Fields
   String[] rawHighscore = {};
@@ -5,14 +6,10 @@ class Highscore {
   int[] highscores = {};
   int highscore;
 
-  //constructor
-  Highscore() {
-
-  }
-
   //Methods
   //function to write onto a text file
   void saveHighscore() {
+    highscore = highscores[0];
     rawHighscore = loadStrings("Highscore.txt");
     highscores = int(rawHighscore);
     for(int i = highscores.length -1; i >= 0; i--){
@@ -20,9 +17,10 @@ class Highscore {
     }
 
     if(playGame.getScore() > highscore) {
-      saveScore[0] = str(playGame.getScore());
-      saveStrings("Highscore.txt", saveScore);
-      println(saveScore);
+      String[] scoreSaved = {str(playGame.getScore())};
+      //saveScore[0] = str(playGame.getScore());
+      saveStrings("Highscore.txt", scoreSaved);
+      println(scoreSaved);
     }
   }
 
@@ -32,5 +30,4 @@ class Highscore {
     highscore = highscores[0];
     return highscore;
   }
-
 }
