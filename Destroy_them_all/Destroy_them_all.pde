@@ -1,26 +1,39 @@
 /*
   Team-turtle-hat
-  Wonseok Cho, David Klingler, Giles Fowles
-  March 2017
-  This is the main file that controls all the screens
-*/
+ Wonseok Cho, David Klingler, Giles Fowles
+ March 2017
+ This is the main file that controls all the screens
+ */
+ 
+ //Variables
 import ddf.minim.*;
 Minim minim;
-AudioPlayer bearTrapSound;
+AudioPlayer backgroundMusic;
+
+int pauseSelect = 0;
 
 String gameState = "MAIN MENU";
 
 //Game States
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
+<<<<<<< HEAD
 GameOver gameOver = new GameOver();
 Highscore highscores = new Highscore();
+=======
+Options options = new Options();
+GameOver gameOver = new GameOver();
+HowTo howTo = new HowTo();
+>>>>>>> Develop
 
 //PShape sky;
 PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
+<<<<<<< HEAD
 
+=======
+>>>>>>> Develop
 PFont robotoCondensed;
 
 int currentFrameRate;
@@ -30,6 +43,7 @@ void setup() {
   background(0);
   textAlign(CENTER);
 
+//Images/Sounds/Sprites loading variales
   sky = loadImage("Graphics/Environment/Sky/SkyImage.png");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
@@ -37,31 +51,39 @@ void setup() {
   playGame.addSprites();
   minim = new Minim(this);
   bearTrapSound = minim.loadFile("Sounds/Traps/bearTrap.wav", 2048);
+  boom1 = minim.loadFile("Sounds/Buildings/boom1.mp3", 2048);
+  boom2 = minim.loadFile("Sounds/Buildings/boom2.mp3", 2048);
+  backgroundMusic = minim.loadFile("Sounds/Background/background1.mp3", 2048);
   loadBear();
+  backgroundMusic.loop();
 }
 
+//void draw: runs the various cases that display our functions. 
 void draw() {
-  switch(gameState){
-    case "MAIN MENU":
-      mainMenu.display();
-      break;
-    case "OPTIONS":
-      optionsMenuBackground();
-      break;
-    case "GAME START":
-      playGame.display();
-      break;
-    case "GAME OVER":
-      gameOver.display();
-      break;
-    case "PAUSE":
-      pause();
-      break;
+  switch(gameState) {
+  case "MAIN MENU":
+    mainMenu.display();
+    break;
+  case "OPTIONS":
+    options.display();
+    break;
+  case "GAME START":
+    playGame.display();
+    break;
+  case "GAME OVER":
+    gameOver.display();
+    break;
+  case "PAUSE":
+    paused();
+    break;
+  case "HOW TO":
+    howTo.display();
+    break;
   }
   displayFrames();
-
 }
 
+//Displays frame rate counter at top right corner. 
 void displayFrames() {
   currentFrameRate = int(frameRate);
   textAlign(CORNERS);
@@ -71,63 +93,153 @@ void displayFrames() {
   text("Frame rate: " + currentFrameRate, 950, 40);
 }
 
-//USER INPUTS
+//USER INPUTS (key functions in various menus).
 void keyPressed() {
   switch(gameState) {
-    case "MAIN MENU":
-      if(key == ENTER) {
-        switch(mainMenu.selectMenu) {
-          case 0:
-            mainMenu.startGame = true;
-            break;
-          case 1:
-            mainMenu.options = true;
-            break;
-          case 2:
-          //optionsMenuBackground();
-            break;
-        }
-      } else if (keyCode == UP) {
-        mainMenu.selectMenu--;
-
-        // From top selection to the bottom when pressed 'up'
-        if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 2;
-      } else if (keyCode == DOWN) {
-        mainMenu.selectMenu++;
-        // From bottom selection to the top when pressed 'down'
-        if (mainMenu.selectMenu > 2) mainMenu.selectMenu = 0;
+  case "MAIN MENU":
+    if (key == ENTER) {
+      switch(mainMenu.selectMenu) {
+      case 0:
+        mainMenu.startGame = true;
+        playGame.nightTime = millis();
+        break;
+      case 1:
+        break;
+      case 2:
+        gameState = "OPTIONS";
+        break;
+      case 3:
+        gameState = "HOW TO";
+        break;
       }
-      break;
-    case "GAME START":
-      if(key == ' ') {
-        if(!player.getJumping()) {
-          player.setCounter(0);
-        }
-        player.setJump(true);
-      } else if(keyCode == ENTER) {
+    } else if (keyCode == UP) {
+      mainMenu.selectMenu--;
 
+      // From top selection to the bottom when pressed 'up'
+      if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 3;
+    } else if (keyCode == DOWN) {
+      mainMenu.selectMenu++;
+      // From bottom selection to the top when pressed 'down'
+      if (mainMenu.selectMenu > 3) mainMenu.selectMenu = 0;
+    }
+    break;
+  case "GAME START":
+    if (key == ' ') {
+      if (!player.getJumping()) {
+        player.setCounter(0);
       }
-      if(key == 'p' || key == 'P') {
-        gameState = "PAUSE";
+      player.setJump(true);
+    } else if (keyCode == ENTER) {
+    }
+    if (key == 'p' || key == 'P') {
+      gameState = "PAUSE";
+    }
+    break;
+
+
+  case "GAME OVER":
+    if (keyCode == UP) {
+      gameOver.deathSelect--;
+      if (gameOver.deathSelect < 0) {
+        gameOver.deathSelect = 1;
       }
-      break;
+    }
 
-
-    case "GAME OVER":
-      if(key == ENTER) {
-        player.health = 3;
-        playGame.score = 0;
-        playGame.setGameSpeed(15);
-        for (int i = sprites.size() -1; i >= 0 ; i--) {
-          sprites.remove(i);
-        }
+    if (keyCode == DOWN) {
+      gameOver.deathSelect ++;
+      if (gameOver.deathSelect > 1) {
+        gameOver.deathSelect = 0;
+      }
+    }
+    if (key == ENTER) {
+      player.health = 3;
+      playGame.score = 0;
+      playGame.setGameSpeed(15);
+      playGame.nightSwitch = false;
+      playGame.alpha2 = 0;
+      playGame.adder = 1;
+      for (int i = sprites.size() -1; i >= 0; i--) {
+        sprites.remove(i);
+      }
+      if(gameOver.deathSelect == 0) {
+        gameState = "GAME START";
+      } else {
         mainMenu.startGame = false;
         gameState = "MAIN MENU";
+
+      }
+    }
+
+    break;
+  case "PAUSE":
+    if (keyCode == UP) {
+      pauseSelect--;
+      if (pauseSelect < 0) {
+        pauseSelect = 1;
+      }
+    }
+
+    if (keyCode == DOWN) {
+      pauseSelect ++;
+      if (pauseSelect > 1) {
+        pauseSelect = 0;
+      }
+    }
+
+    if (keyCode == ENTER) {
+      pauseOnce = false;
+      if (pauseSelect == 0) {
+        time = millis();
+        gameState = "GAME START";
+      } else if (pauseSelect == 1) {
+        mainMenu.startGame = false;
+        time = millis();
+        gameState = "MAIN MENU";
+      }
+    }
+      break;
+    case "OPTIONS":
+      if (keyCode == UP) {
+        options.selectMenu--;
+
+        // From top selection to the bottom when pressed 'up'
+        if (options.selectMenu < 0) options.selectMenu = 1;
+      } else if (keyCode == DOWN) {
+        options.selectMenu++;
+        // From bottom selection to the top when pressed 'down'
+        if (options.selectMenu > 1) options.selectMenu = 0;
+      }
+      if (keyCode == ENTER) {
+        gameState = "MAIN MENU";
+      }
+      if (keyCode == RIGHT && options.selectMenu == 0) {
+        options.diffNum ++;
+        if (options.diffNum > 2) {
+          options.diffNum = 0;
+        }
+      }
+      if (keyCode == LEFT && options.selectMenu == 0) {
+        options.diffNum --;
+        if (options.diffNum < 0) {
+          options.diffNum = 2;
+        }
+      }
+      if (keyCode == RIGHT && options.selectMenu == 1) {
+        options.soundNum ++;
+        if (options.soundNum > 1) {
+          options.soundNum = 0;
+        }
+      }
+      if (keyCode == LEFT && options.selectMenu == 1) {
+        options.soundNum --;
+        if (options.soundNum < 0) {
+          options.soundNum = 1;
+        }
       }
       break;
-    case "PAUSE":
-      if(key == 'p' || key == 'P') {
-        gameState = "GAME START";
+    case "HOW TO":
+      if (keyCode == ENTER) {
+        gameState = "MAIN MENU";
       }
-  }
+    }
 }

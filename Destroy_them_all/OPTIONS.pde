@@ -1,75 +1,115 @@
 /*
 Team-turtle-hat
-Giles, David, Cho
-March 2017
-Display and controls the options page of the game
-*/
+ Giles, David, Cho
+ March 2017
+ Display and controls the options page of the game
+ */
 
 
-/* class Button {
-  int RectX;
-  int RectY;
-  int RectW;
-  int RectH;
-  String text;
+class Options {
+  //Fields
+  int selectMenu;
+  int diffNum;
+  int soundNum;
+  String difficulty;
+  String sound;
 
-  Button (int RectX, int RectY, int RectW, int RectH, String text) {
-    this. RectX = RectX;
-    this. RectY = RectY;
-    this. RectW = RectW;
-    this. RectH = RectH;
-    this. text = text;
+  //Constructor
+  Options() {
+    diffNum = 1;
+    soundNum = 0;
+    selectMenu = 0;
+    difficulty = "NORMAL";
+    sound = "ON";
   }
 
-  boolean mouseOver() {
-    if (mouseX >= RectX && mouseX <= RectX + RectW && mouseY >= RectY && mouseY <= RectY + RectH) {
-      return true;
-    } else {
-      return false;
-    }
+  //Methods
+  void drawBackground() {
+    image(sky, 0, 0);
   }
 
-  void display() {
-   fill(255);
-    rect(RectX, RectY, RectW, RectH);
-    fill(0);
-   text (text, (RectX + (RectW/3)), (RectY + (RectH/3)));
-   textSize(75);
+//draws title at center
+  void drawTitle() {
+    rectMode(CENTER);
+    stroke(255);
+    fill(255, 255, 255, 0);
+    rect(width/2, 130, 500, 100);
+    fill(255);
+    textAlign(CENTER);
+    textSize(50);
+    text("OPTIONS", width/2, 150);
+    textSize(40);
+    text("Press Enter to Return to Main Menu", width/2, height - height/6);
   }
 
-} */
-
-int selectOptions;
-
-void optionsMenuBackground() {
-  background(0);
-  //draw sky
-  background(#00e4ff);
-
-  fill(255);
-  textAlign(CENTER);
-  textFont(robotoCondensed);
-  textSize(50);
-  text("Options", width/2, 150);
-  stroke(255);
-  strokeWeight(5);
-  noFill();
-
-  textAlign(RIGHT);
-  text("DIFFICULTY", width/3, 200);
-  textAlign(LEFT);
-  text("OPTIONS", width/3, 200);
-
-
-  switch (selectOptions) {
+//Options menu selection cases
+  void menuSelection() {
+    textAlign(CENTER);
+    // menu selection
+    switch(selectMenu) {
     case 0:
-      textAlign(LEFT);
+      // DIFFICULTY
+      textSize(40);
+      text("DIFFICULTY: " + difficulty, width/2, 300);
       textSize(30);
-      text("EASY", width/3, 250);
-      textSize(20);
-      text("MEDIUM", width/3, 300);
-      text("HARD", width/3, 350);
-      textAlign(RIGHT);
+      text("SOUND: " + sound, width/2, 350);
+      break;
+    case 1:
+      //SOUND
+      textSize(30);
+      text("DIFFICULTY: " + difficulty, width/2, 300);
+      textSize(40);
+      text("SOUND: " + sound, width/2, 350);
       break;
     }
+  }
+
+//Difficulty cases
+  void difficultyChange(int i) {
+    switch(i) {
+    case 0:
+      difficulty = "EASY";
+      diff = 2;
+      playGame.genDiff = -1;
+      playGame.genTime = 2000;
+      break;
+    case 1:
+      difficulty = "NORMAL";
+      diff = 3;
+      playGame.genDiff = 0;
+      playGame.genTime = 1500;
+      break;
+    case 2:
+      difficulty = "HARD";
+      diff = 4;
+      playGame.genDiff = 1;
+      playGame.genTime = 1100;
+      break;
+    }
+  }
+
+//Sound cases
+  void soundChange(int i) {
+    switch(i) {
+    case 0:
+      sound = "ON";
+      soundEffects = true;
+      backgroundMusic.loop();
+      break;
+    case 1:
+      sound = "OFF";
+      soundEffects = false;
+      backgroundMusic.pause();
+      break;
+    }
+  }
+
+//Options display functions
+  void display() {
+    difficultyChange(diffNum);
+    soundChange(soundNum);
+    drawBackground();
+    drawTitle();
+    menuSelection();
+  }
 }
