@@ -4,7 +4,7 @@
  March 2017
  This is the main file that controls all the screens
  */
- 
+
  //Variables
 import ddf.minim.*;
 Minim minim;
@@ -17,23 +17,16 @@ String gameState = "MAIN MENU";
 //Game States
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
-<<<<<<< HEAD
 GameOver gameOver = new GameOver();
 Highscore highscores = new Highscore();
-=======
 Options options = new Options();
-GameOver gameOver = new GameOver();
 HowTo howTo = new HowTo();
->>>>>>> Develop
+Stats stats = new Stats();
 
 //PShape sky;
 PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
-<<<<<<< HEAD
-
-=======
->>>>>>> Develop
 PFont robotoCondensed;
 
 int currentFrameRate;
@@ -58,7 +51,7 @@ void setup() {
   backgroundMusic.loop();
 }
 
-//void draw: runs the various cases that display our functions. 
+//void draw: runs the various cases that display our functions.
 void draw() {
   switch(gameState) {
   case "MAIN MENU":
@@ -79,11 +72,14 @@ void draw() {
   case "HOW TO":
     howTo.display();
     break;
+  case "STATS":
+    stats.display();
+    break;
   }
   displayFrames();
 }
 
-//Displays frame rate counter at top right corner. 
+//Displays frame rate counter at top right corner.
 void displayFrames() {
   currentFrameRate = int(frameRate);
   textAlign(CORNERS);
@@ -104,6 +100,7 @@ void keyPressed() {
         playGame.nightTime = millis();
         break;
       case 1:
+        gameState = "STATS";
         break;
       case 2:
         gameState = "OPTIONS";
@@ -241,5 +238,11 @@ void keyPressed() {
       if (keyCode == ENTER) {
         gameState = "MAIN MENU";
       }
+      break;
+    case "STATS":
+        if (keyCode == ENTER) {
+          gameState = "MAIN MENU";
+        }
+      break;
     }
-}
+  }

@@ -23,6 +23,7 @@ public class Destroy_them_all extends PApplet {
  This is the main file that controls all the screens
  */
 
+ //Variables
 
 Minim minim;
 AudioPlayer backgroundMusic;
@@ -34,23 +35,16 @@ String gameState = "MAIN MENU";
 //Game States
 PlayGame playGame = new PlayGame();
 MainMenu mainMenu = new MainMenu();
-<<<<<<< HEAD
 GameOver gameOver = new GameOver();
 Highscore highscores = new Highscore();
-=======
 Options options = new Options();
-GameOver gameOver = new GameOver();
 HowTo howTo = new HowTo();
->>>>>>> Develop
+Stats stats = new Stats();
 
 //PShape sky;
 PImage sky;
 PShape bearSprite;
 Bear player = new Bear();
-<<<<<<< HEAD
-
-=======
->>>>>>> Develop
 PFont robotoCondensed;
 
 int currentFrameRate;
@@ -60,6 +54,7 @@ public void setup() {
   background(0);
   textAlign(CENTER);
 
+//Images/Sounds/Sprites loading variales
   sky = loadImage("Graphics/Environment/Sky/SkyImage.png");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
@@ -74,6 +69,7 @@ public void setup() {
   backgroundMusic.loop();
 }
 
+//void draw: runs the various cases that display our functions.
 public void draw() {
   switch(gameState) {
   case "MAIN MENU":
@@ -94,10 +90,14 @@ public void draw() {
   case "HOW TO":
     howTo.display();
     break;
+  case "STATS":
+    stats.display();
+    break;
   }
   displayFrames();
 }
 
+//Displays frame rate counter at top right corner.
 public void displayFrames() {
   currentFrameRate = PApplet.parseInt(frameRate);
   textAlign(CORNERS);
@@ -107,7 +107,7 @@ public void displayFrames() {
   text("Frame rate: " + currentFrameRate, 950, 40);
 }
 
-//USER INPUTS
+//USER INPUTS (key functions in various menus).
 public void keyPressed() {
   switch(gameState) {
   case "MAIN MENU":
@@ -118,6 +118,7 @@ public void keyPressed() {
         playGame.nightTime = millis();
         break;
       case 1:
+        gameState = "STATS";
         break;
       case 2:
         gameState = "OPTIONS";
@@ -255,8 +256,14 @@ public void keyPressed() {
       if (keyCode == ENTER) {
         gameState = "MAIN MENU";
       }
+      break;
+    case "STATS":
+        if (keyCode == ENTER) {
+          gameState = "MAIN MENU";
+        }
+      break;
     }
-}
+  }
 /*
 Team-turtle-hat
 <<<<<<< HEAD
@@ -272,23 +279,16 @@ PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5,
        bearWalk30, bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35,
        bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40, bearWalk41,
        bearWalk42, bearWalk43, bearWalk44, bearWalk45;
-=======
- David, Cho, Giles
- March 2017
- Class that controls the bear and bear stuff
- */
-PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5, bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10;
-PImage bearWalk11, bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17, bearWalk18, bearWalk19, bearWalk20;
-PImage bearWalk21, bearWalk22, bearWalk23, bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29, bearWalk30;
-PImage bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35, bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40;
-PImage bearWalk41, bearWalk42, bearWalk43, bearWalk44, bearWalk45;
->>>>>>> Develop
+
+ //Bear and heart image variables
 PImage bear;
 PImage heart;
 
+//Bear class
 class Bear {
+  //controls bear size
   float posY;
-  //is used to control size of the bear
+  //other bear variables
   int bearSize;
   int health;
   float jumpFactor;
@@ -297,6 +297,7 @@ class Bear {
   int jumpDuration;
   int bearCounter;
 
+//definitions for various variables related to Bear./
   Bear() {
     posY = 400;
     bearSize = 110;
@@ -307,6 +308,7 @@ class Bear {
     bearCounter = 0;
   }
 
+//display function for Bear
   public void display() {
     image(bearType(bearCounter), 75, posY, bearSize, (bearSprite.height * bearSize)/bearSprite.width);
     bearCounter++;
@@ -315,6 +317,7 @@ class Bear {
     }
   }
 
+//display function for health hearts.
   public void displayHealth() {
     int heartSize = 40;
     for (int i = 0; i < health; i++) {
@@ -322,6 +325,7 @@ class Bear {
     }
   }
 
+//jump stuff thing
   public void setCounter(int newCounter) {
     counter = newCounter;
   }
@@ -334,6 +338,7 @@ class Bear {
     jumping = newBool;
   }
 
+//death boolean
   public boolean dead() {
     if (health == 0) {
       return true;
@@ -342,6 +347,7 @@ class Bear {
     }
   }
 
+//jumping function
   public void jump() {
     if (jumping) {
       //counter is frame count for jump duration
@@ -355,6 +361,7 @@ class Bear {
     }
   }
 
+//image cycling for walk animation
   public PImage bearType(int num) {
     switch (num) {
     case 0:
@@ -684,14 +691,7 @@ Displays the game over screen and give the player the option of playing again.
 It also displays the score.
 */
 
-
-=======
- Giles, David, Cho
- March 2017
- Displays the game over screen and give the player the option of playing again.
- It also displays the score.
- */
->>>>>>> Develop
+ //GameOver functions: dictates death screen looks and functions.
 class GameOver {
   int randomMsg = PApplet.parseInt(random(6));
   String deathMsg;
@@ -701,45 +701,64 @@ class GameOver {
   }
 
   //gives a random bear pun
-<<<<<<< HEAD
-   public void deathMsg() {
-     switch(randomMsg) {
-       case 0:
-         deathMsg = "You're unBEARable";
-         break;
-       case 1:
-         deathMsg = "You're worse than a barBEARian";
-         break;
-       case 2:
-         deathMsg = "It is time for you to be BEARied";
-         break;
-       case 3:
-         deathMsg = "You should be emBEARessed";
-         break;
-       case 4:
-         deathMsg = "You're a BEARicade of progress";
-         break;
-      case 5:
-         deathMsg = "Have you lost your BEARings?";
-         break;
-     }
+  public void deathMsg() {
+    switch(randomMsg) {
+    case 0:
+      deathMsg = "You're unBEARable";
+      break;
+    case 1:
+      deathMsg = "You're worse than a barBEARian";
+      break;
+    case 2:
+      deathMsg = "It is time for you to be BEARied";
+      break;
+    case 3:
+      deathMsg = "You should be emBEARessed";
+      break;
+    case 4:
+      deathMsg = "You're a BEARicade of progress";
+      break;
+    case 5:
+      deathMsg = "Have you lost your BEARings?";
+      break;
+    }
 
      textAlign(CENTER);
      textSize(60);
      fill(255, 0, 0);
-     text("GAME OVER", width/2, height/2 - height/6);
+     text("GAME OVER", width/2, height/2 - height/6 - 40);
      fill(255);
      textSize(40);
-     text(deathMsg, width/2, height/2);
-     text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6);
-     text("Highscore" + " " + highscores.getHighscore(), width/2, height/2 + height/6 + 70);
+     text(deathMsg, width/2, height/2 - 40);
+     text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6 - 50);
+     text("Highscore" + " " + highscores.getHighscore(), width/2, height/2 + height/6);
 
    }
 
-   public void display() {
+//Restart/Main Menu cases for Game Over.
+  public void deathMenu(int num) {
+    switch (num) {
+      case 0:
+        textSize(40);
+        text("RESTART", width/2, height - 100);
+        textSize(30);
+        text("MAIN MENU", width/2, height - 50);
+        break;
+      case 1:
+        textSize(30);
+        text("RESTART", width/2, height - 100);
+        textSize(40);
+        text("MAIN MENU", width/2, height - 50);
+        break;
+    }
+  }
+
+//Game Over display function
+  public void display() {
     background(0);
     deathMsg();
     highscores.saveHighscore();
+    deathMenu(deathSelect);
   }
 }
 
@@ -773,60 +792,6 @@ class Highscore {
     highscores = PApplet.parseInt(loadStrings("Highscore.txt"));
     highscore = highscores[0];
     return highscore;
-=======
-  public void deathMsg() {
-    switch(randomMsg) {
-    case 0:
-      deathMsg = "You're unBEARable";
-      break;
-    case 1:
-      deathMsg = "You're worse than a barBEARian";
-      break;
-    case 2:
-      deathMsg = "It is time for you to be BEARied";
-      break;
-    case 3:
-      deathMsg = "You should be emBEARessed";
-      break;
-    case 4:
-      deathMsg = "You're a BEARicade of progress";
-      break;
-    case 5:
-      deathMsg = "Have you lost your BEARings?";
-      break;
-    }
-
-    textAlign(CENTER);
-    textSize(60);
-    fill(255, 0, 0);
-    text("GAME OVER", width/2, height/2 - height/6);
-    fill(255);
-    textSize(40);
-    text(deathMsg, width/2, height/2);
-    text("Score" + " " + playGame.score, width/2, height/2 + 50);
-  }
-
-  public void deathMenu(int num) {
-    switch (num) {
-      case 0:
-        textSize(40);
-        text("RESTART", width/2, height/2 + 150);
-        textSize(30);
-        text("MAIN MENU", width/2, height/2 + 200);
-        break;
-      case 1:
-        textSize(30);
-        text("RESTART", width/2, height/2 + 150);
-        textSize(40);
-        text("MAIN MENU", width/2, height/2 + 200);
-        break;
-    }
-  }
-
-  public void display() {
-    background(0);
-    deathMsg();
-    deathMenu(deathSelect);
   }
 }
 class HowTo{
@@ -835,10 +800,12 @@ class HowTo{
 
   }
 
+//draw Sky background
   public void drawSky() {
     image(sky, 0, 0);
   }
 
+//draw How To Play center title
   public void drawTitle() {
     fill(255);
     textAlign(CENTER);
@@ -852,11 +819,13 @@ class HowTo{
     rect(width/2, 130, 500, 100);
   }
 
+//returns to menu
   public void backToMenu() {
     textSize(40);
     text("Press Enter to Return to Main Menu", width/2, height - 70);
   }
 
+////displays instruction text for How To Menu
   public void howTo() {
     textSize(30);
     text("Use arrow keys to navigate menus and enter to select the desired option", width/2, 300);
@@ -864,12 +833,12 @@ class HowTo{
     text("Press p while playing to pause the game", width/2, 400);
   }
 
+//How To display function
   public void display() {
     drawSky();
     drawTitle();
     backToMenu();
     howTo();
->>>>>>> Develop
   }
 }
 /*
@@ -878,6 +847,7 @@ Team-turtle-hat
  March 2017
  Displays and controls the main menu of the game
  */
+
 
 class MainMenu {
   //Fields
@@ -899,6 +869,7 @@ class MainMenu {
     image(sky, 0, 0);
   }
 
+//Draws Title at top center
   public void drawTitle() {
     fill(255);
     textAlign(CENTER);
@@ -912,13 +883,14 @@ class MainMenu {
     rect(width/2, 130, 500, 100);
   }
 
-
+//display function and associated functions
   public void display() {
     drawSky();
     drawTitle();
     menuSelection();
   }
 
+//Main Menu selection cases
   public void menuSelection() {
     // menu selection
     switch(selectMenu) {
@@ -972,6 +944,7 @@ Team-turtle-hat
  Display and controls the options page of the game
  */
 
+
 class Options {
   //Fields
   int selectMenu;
@@ -994,6 +967,7 @@ class Options {
     image(sky, 0, 0);
   }
 
+//draws title at center
   public void drawTitle() {
     rectMode(CENTER);
     stroke(255);
@@ -1007,6 +981,7 @@ class Options {
     text("Press Enter to Return to Main Menu", width/2, height - height/6);
   }
 
+//Options menu selection cases
   public void menuSelection() {
     textAlign(CENTER);
     // menu selection
@@ -1028,6 +1003,7 @@ class Options {
     }
   }
 
+//Difficulty cases
   public void difficultyChange(int i) {
     switch(i) {
     case 0:
@@ -1051,6 +1027,7 @@ class Options {
     }
   }
 
+//Sound cases
   public void soundChange(int i) {
     switch(i) {
     case 0:
@@ -1066,6 +1043,7 @@ class Options {
     }
   }
 
+//Options display functions
   public void display() {
     difficultyChange(diffNum);
     soundChange(soundNum);
@@ -1080,9 +1058,11 @@ Team-turtle-hat
  March 2017
  Displays the pause screen and allows the player to unpause
  */
+ //Variables
 PImage pauseImage;
 boolean pauseOnce = false;
 
+//PauseMenu cases
 public void pauseMenu(int num) {
 switch (num) {
   case 0:
@@ -1100,6 +1080,7 @@ switch (num) {
   }
 }
 
+//pause function
 public void paused() {
   if(!pauseOnce) {
     pauseImage = get();
@@ -1375,7 +1356,7 @@ class PlayGame {
     rectMode(CORNER);
     rect(0, 0, width, height);
 
-    if (millis() - nightTime > 1000) {
+    if (millis() - nightTime > 45000) {
       nightSwitch = true;
     }
     if (nightSwitch) {
@@ -1386,7 +1367,7 @@ class PlayGame {
       if(counterNight > 100) {
        counterNight = 0;
       }
-      if (alpha2 > 200) {
+      if (alpha2 > 180) {
         nightSwitch = false;
         adder *= -1;
         nightTime = millis();
@@ -1420,7 +1401,7 @@ Team-turtle-hat
  Class that both buildings and traps inherit.
  */
 
-
+//Building sprites
 PImage building1, building2, building3, building4, building5, building6;
 PShape bearTrap, bearTrapActivated;
 PShape grass;
@@ -1518,6 +1499,8 @@ Team-turtle-hat
  March 2017
  Controls the displaying of traps including villagers and trap stuff
  */
+
+//Trap noise
 AudioPlayer bearTrapSound;
 
 class Traps extends Sprites {
@@ -1601,6 +1584,28 @@ class Traps extends Sprites {
         }
       }
     }
+  }
+}
+class Stats {
+
+  public void display() {
+    image(sky, 0, 0, width, height);
+
+    //title
+    rectMode(CENTER);
+    stroke(255);
+    fill(255, 255, 255, 0);
+    rect(width/2, 130, 500, 100);
+    fill(255);
+    textAlign(CENTER);
+    textSize(50);
+    text("OPTIONS", width/2, 150);
+
+    fill(255);
+    textAlign(CENTER);
+    textSize(45);
+    text("Highscore:" + " " + highscores.getHighscore(), width/2, height/2 - 30);
+    text("Press Enter To Return to Main Menu", width/2, height - height/6);
   }
 }
   public void settings() {  size(1100, 600); }

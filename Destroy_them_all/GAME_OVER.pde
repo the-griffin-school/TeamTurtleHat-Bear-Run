@@ -7,16 +7,7 @@ Displays the game over screen and give the player the option of playing again.
 It also displays the score.
 */
 
-
-=======
- Giles, David, Cho
- March 2017
- Displays the game over screen and give the player the option of playing again.
- It also displays the score.
- */
- 
- //GameOver functions: dictates death screen looks and functions. 
->>>>>>> Develop
+ //GameOver functions: dictates death screen looks and functions.
 class GameOver {
   int randomMsg = int(random(6));
   String deathMsg;
@@ -48,57 +39,41 @@ class GameOver {
       break;
     }
 
-<<<<<<< HEAD
      textAlign(CENTER);
      textSize(60);
      fill(255, 0, 0);
-     text("GAME OVER", width/2, height/2 - height/6);
+     text("GAME OVER", width/2, height/2 - height/6 - 40);
      fill(255);
      textSize(40);
-     text(deathMsg, width/2, height/2);
-     text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6);
-     text("Highscore" + " " + highscores.getHighscore(), width/2, height/2 + height/6 + 70);
+     text(deathMsg, width/2, height/2 - 40);
+     text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6 - 50);
+     text("Highscore" + " " + highscores.getHighscore(), width/2, height/2 + height/6);
 
    }
-=======
-//GameOver settings that stay the same.
-    textAlign(CENTER);
-    textSize(60);
-    fill(255, 0, 0);
-    text("GAME OVER", width/2, height/2 - height/6);
-    fill(255);
-    textSize(40);
-    text(deathMsg, width/2, height/2);
-    text("Score" + " " + playGame.score, width/2, height/2 + 50);
-  }
 
-//Restart/Main Menu cases for Game Over. 
+//Restart/Main Menu cases for Game Over.
   void deathMenu(int num) {
     switch (num) {
       case 0:
         textSize(40);
-        text("RESTART", width/2, height/2 + 150);
+        text("RESTART", width/2, height - 100);
         textSize(30);
-        text("MAIN MENU", width/2, height/2 + 200);
+        text("MAIN MENU", width/2, height - 50);
         break;
       case 1:
         textSize(30);
-        text("RESTART", width/2, height/2 + 150);
+        text("RESTART", width/2, height - 100);
         textSize(40);
-        text("MAIN MENU", width/2, height/2 + 200);
+        text("MAIN MENU", width/2, height - 50);
         break;
     }
   }
->>>>>>> Develop
 
 //Game Over display function
   void display() {
     background(0);
     deathMsg();
-<<<<<<< HEAD
     highscores.saveHighscore();
-=======
     deathMenu(deathSelect);
->>>>>>> Develop
   }
 }
