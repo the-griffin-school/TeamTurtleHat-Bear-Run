@@ -18,11 +18,11 @@ class Highscore {
     highscore = highscores[0];
     rawHighscore = loadStrings("Highscore.txt");
     highscores = int(rawHighscore);
-    for(int i = highscores.length -1; i >= 0; i--){
+    for (int i = highscores.length -1; i >= 0; i--) {
       highscore += (10^i * highscores[i])/10;
     }
 
-    if(playGame.getScore() > highscore) {
+    if (playGame.getScore() > highscore) {
       String[] scoreSaved = {str(playGame.getScore())};
       //saveScore[0] = str(playGame.getScore());
       saveStrings("Highscore.txt", scoreSaved);

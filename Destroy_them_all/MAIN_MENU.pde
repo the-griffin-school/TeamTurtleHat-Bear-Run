@@ -26,7 +26,7 @@ class MainMenu {
     image(sky, 0, 0);
   }
 
-//Draws Title at top center
+  //Draws Title at top center
   void drawTitle() {
     fill(255);
     textAlign(CENTER);
@@ -40,14 +40,14 @@ class MainMenu {
     rect(width/2, 130, 500, 100);
   }
 
-//display function and associated functions
+  //display function and associated functions
   void display() {
     drawSky();
     drawTitle();
     menuSelection();
   }
 
-//Main Menu selection cases
+  //Main Menu selection cases
   void menuSelection() {
     // menu selection
     switch(selectMenu) {
@@ -83,7 +83,6 @@ class MainMenu {
       text("Stats", width/2, 350);
       text("Options", width/2, 400);
       break;
-
     }
     //if user pressed ENTER
     if (startGame) {

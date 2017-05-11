@@ -25,23 +25,23 @@ class Traps extends Sprites {
   void display() {
     //typeOfSprite determines which building it will display
     switch(typeOfSprite) {
-      case 1:
-        //load image andd set posY;
-        int trapSize = 100;
-        posY = 520;
+    case 1:
+      //load image andd set posY;
+      int trapSize = 100;
+      posY = 520;
 
-        //if not activated it displays the flat bear trap
-        if (!activatedStatus) {
-          shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
-        } else {
-          //if not activated it displays the activated bear trap
-          shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
-        }
+      //if not activated it displays the flat bear trap
+      if (!activatedStatus) {
+        shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
+      } else {
+        //if not activated it displays the activated bear trap
+        shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
+      }
 
-        //defines boundrys for detection
-        boundryHeight = int((bearTrap.height * trapSize)/bearTrap.width);
-        boundryWidth = trapSize;
-        break;
+      //defines boundrys for detection
+      boundryHeight = int((bearTrap.height * trapSize)/bearTrap.width);
+      boundryWidth = trapSize;
+      break;
     }
   }
 

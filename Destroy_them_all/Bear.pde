@@ -1,19 +1,19 @@
 /*
 Team-turtle-hat
-David, Cho, Giles
-March 2017
-Class that controls the bear and bear stuff
-*/
-PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5,
-       bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10, bearWalk11,
-       bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17,
-       bearWalk18, bearWalk19, bearWalk20, bearWalk21, bearWalk22, bearWalk23,
-       bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29,
-       bearWalk30, bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35,
-       bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40, bearWalk41,
-       bearWalk42, bearWalk43, bearWalk44, bearWalk45;
+ David, Cho, Giles
+ March 2017
+ Class that controls the bear and bear stuff
+ */
+PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5, 
+  bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10, bearWalk11, 
+  bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17, 
+  bearWalk18, bearWalk19, bearWalk20, bearWalk21, bearWalk22, bearWalk23, 
+  bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29, 
+  bearWalk30, bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35, 
+  bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40, bearWalk41, 
+  bearWalk42, bearWalk43, bearWalk44, bearWalk45;
 
- //Bear and heart image variables
+//Bear and heart image variables
 PImage bear;
 PImage heart;
 
@@ -28,7 +28,7 @@ class Bear {
   int jumpDuration;
   int bearCounter;
 
-//definitions for various variables related to Bear
+  //definitions for various variables related to Bear
   //construcor
   Bear() {
     posY = 400;
@@ -50,7 +50,7 @@ class Bear {
     }
   }
 
-//display function for health hearts.
+  //display function for health hearts.
   void displayHealth() {
     int heartSize = 40;
     for (int i = 0; i < health; i++) {
@@ -58,7 +58,7 @@ class Bear {
     }
   }
 
-//jump stuff thing
+  //jump stuff thing
   void setCounter(int newCounter) {
     counter = newCounter;
   }
@@ -71,7 +71,7 @@ class Bear {
     jumping = newBool;
   }
 
-//death boolean
+  //death boolean
   boolean dead() {
     if (health == 0) {
       return true;
@@ -80,7 +80,7 @@ class Bear {
     }
   }
 
-//jumping function
+  //jumping function
   void jump() {
     if (jumping) {
       //counter is frame count for jump duration
@@ -94,7 +94,7 @@ class Bear {
     }
   }
 
-//image cycling for walk animation
+  //image cycling for walk animation
   PImage bearType(int num) {
     switch (num) {
     case 0:

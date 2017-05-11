@@ -11,7 +11,7 @@ boolean pauseOnce = false;
 
 //PauseMenu cases
 void pauseMenu(int num) {
-switch (num) {
+  switch (num) {
   case 0:
     textSize(40);
     text("RESUME", width/2, (height/2) + 100);
@@ -29,7 +29,7 @@ switch (num) {
 
 //pause function
 void paused() {
-  if(!pauseOnce) {
+  if (!pauseOnce) {
     pauseImage = get();
     pauseOnce = true;
   }

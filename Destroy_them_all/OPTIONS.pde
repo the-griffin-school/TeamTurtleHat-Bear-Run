@@ -28,7 +28,7 @@ class Options {
     image(sky, 0, 0);
   }
 
-//draws title at center
+  //draws title at center
   void drawTitle() {
     rectMode(CENTER);
     stroke(255);
@@ -43,7 +43,7 @@ class Options {
     text("Press Enter to Return to Main Menu", width/2, height - height/6);
   }
 
-//Options menu selection cases
+  //Options menu selection cases
   void menuSelection() {
     textAlign(CENTER);
     // menu selection
@@ -65,7 +65,7 @@ class Options {
     }
   }
 
-//Difficulty cases and controls settings related to difficulty
+  //Difficulty cases and controls settings related to difficulty
   void difficultyChange(int i) {
     switch(i) {
     case 0:
@@ -89,7 +89,7 @@ class Options {
     }
   }
 
-//Sound cases
+  //Sound cases
   void soundChange(int i) {
     switch(i) {
     case 0:
@@ -105,7 +105,7 @@ class Options {
     }
   }
 
-//Options display functions
+  //Options display functions
   void display() {
     difficultyChange(diffNum);
     soundChange(soundNum);

@@ -5,17 +5,17 @@ Team-turtle-hat
  Page that tells user how to play the game
  */
 
-class HowTo{
+class HowTo {
 
   HowTo() {
   }
 
-//draw Sky background
+  //draw Sky background
   void drawSky() {
     image(sky, 0, 0);
   }
 
-//draw How To Play center title
+  //draw How To Play center title
   void drawTitle() {
     fill(255);
     textAlign(CENTER);
@@ -29,13 +29,13 @@ class HowTo{
     rect(width/2, 130, 500, 100);
   }
 
-//returns to menu
+  //returns to menu
   void backToMenu() {
     textSize(40);
     text("Press Enter to Return to Main Menu", width/2, height - 70);
   }
 
-////displays instruction text for How To Menu
+  ////displays instruction text for How To Menu
   void howTo() {
     textSize(30);
     text("Use arrow keys to navigate menus and enter to select the desired option", width/2, 300);
@@ -43,7 +43,7 @@ class HowTo{
     text("Press p while playing to pause the game", width/2, 400);
   }
 
-//How To display function
+  //How To display function
   void display() {
     drawSky();
     drawTitle();
