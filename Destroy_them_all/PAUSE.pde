@@ -4,7 +4,8 @@ Team-turtle-hat
  March 2017
  Displays the pause screen and allows the player to unpause
  */
- //Variables
+
+//Variables
 PImage pauseImage;
 boolean pauseOnce = false;
 

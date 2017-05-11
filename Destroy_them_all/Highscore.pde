@@ -1,3 +1,9 @@
+/*
+Team-turtle-hat
+ Cho, David, Giles
+ March 2017
+ Class used to read highscore and save new highscores
+ */
 
 class Highscore {
   //Fields

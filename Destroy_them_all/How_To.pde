@@ -1,3 +1,10 @@
+/*
+Team-turtle-hat
+ David, Cho, Giles
+ March 2017
+ Page that tells user how to play the game
+ */
+
 class HowTo{
 
   HowTo() {

@@ -1,3 +1,10 @@
+/*
+Team-turtle-hat
+ Cho, Giles, David
+ March 2017
+ Used to display the highscore from the main menu
+ */
+
 class Stats {
 
   Stats() {
