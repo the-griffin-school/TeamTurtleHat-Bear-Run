@@ -39,6 +39,8 @@ void setup() {
 
 //Images/Sounds/Sprites loading variales
   sky = loadImage("Graphics/Environment/Sky/SkyImage.png");
+  //bear = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0000.png");
+  bearSprite = loadShape("Graphics/Bear/Bear.svg");
   robotoCondensed = loadFont("Fonts/RobotoCondensed-Bold-50.vlw");
   //loads sprites of buildings and traps
   loadSprites();

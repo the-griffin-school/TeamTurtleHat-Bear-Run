@@ -70,7 +70,7 @@ class Options {
     switch(i) {
     case 0:
       difficulty = "EASY";
-      diff = 2;
+      diff = 8;
       playGame.genDiff = -1;
       playGame.genTime = 2000;
       break;

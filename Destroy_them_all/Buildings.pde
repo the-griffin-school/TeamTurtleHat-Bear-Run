@@ -125,6 +125,7 @@ class Buildings extends Sprites {
       once = true;
       if (playGame.score % diff == 0) {
         playGame.setGameSpeed(playGame.gameSpeed + 1);
+        println("cho sucks");
       }
     }
   }
