@@ -1346,7 +1346,7 @@ class PlayGame {
       //displays sprite
       sprites.get(i).display();
       //tests for detection of the sprite
-      sprites.get(i).detection();
+      //sprites.get(i).detection();
       //subtracs health from the player when it hits a trap
       sprites.get(i).subtractHealth();
       //checks to see if the player is still alive
