@@ -24,7 +24,7 @@ public class Destroy_them_all extends PApplet {
  also includes keyPressed which controls the imput from the user
  */
 
- //Variables
+//Variables
 
 Minim minim;
 AudioPlayer backgroundMusic;
@@ -55,7 +55,7 @@ public void setup() {
   background(0);
   textAlign(CENTER);
 
-//Images/Sounds/Sprites loading variales
+  //Images/Sounds/Sprites loading variales
   sky = loadImage("Graphics/Environment/Sky/SkyImage.png");
   //bear = loadImage("Graphics/Bear/Exports/PNG Export/Bear Animation.0000.png");
   bearSprite = loadShape("Graphics/Bear/Bear.svg");
@@ -116,177 +116,175 @@ public void displayFrames() {
 //USER INPUTS (key functions in various menus).
 public void keyPressed() {
   switch(gameState) {
-    case "MAIN MENU":
-      if (key == ENTER) {
-        switch(mainMenu.selectMenu) {
-        case 0:
-          mainMenu.startGame = true;
-          playGame.nightTime = millis();
-          break;
-        case 1:
-          gameState = "STATS";
-          break;
-        case 2:
-          gameState = "OPTIONS";
-          break;
-        case 3:
-          gameState = "HOW TO";
-          break;
-        }
-      } else if (keyCode == UP) {
-        mainMenu.selectMenu--;
-
-        // From top selection to the bottom when pressed 'up'
-        if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 3;
-      } else if (keyCode == DOWN) {
-        mainMenu.selectMenu++;
-        // From bottom selection to the top when pressed 'down'
-        if (mainMenu.selectMenu > 3) mainMenu.selectMenu = 0;
-      }
-      break;
-    case "GAME START":
-      if (key == ' ') {
-        if (!player.getJumping()) {
-          player.setCounter(0);
-        }
-        player.setJump(true);
-      } else if (keyCode == ENTER) {
-      }
-      if (key == 'p' || key == 'P') {
-        gameState = "PAUSE";
-      }
-      break;
-
-
-    case "GAME OVER":
-      if (keyCode == UP) {
-        gameOver.deathSelect--;
-        if (gameOver.deathSelect < 0) {
-          gameOver.deathSelect = 1;
-        }
-      }
-
-      if (keyCode == DOWN) {
-        gameOver.deathSelect ++;
-        if (gameOver.deathSelect > 1) {
-          gameOver.deathSelect = 0;
-        }
-      }
-      if (key == ENTER) {
-        player.health = 3;
-        playGame.score = 0;
-        playGame.setGameSpeed(15);
-        playGame.nightSwitch = false;
-        playGame.alpha2 = 0;
-        playGame.adder = 1;
-        for (int i = sprites.size() -1; i >= 0; i--) {
-          sprites.remove(i);
-        }
-        if(gameOver.deathSelect == 0) {
-          gameState = "GAME START";
-        } else {
-          mainMenu.startGame = false;
-          gameState = "MAIN MENU";
-
-        }
-      }
-
-      break;
-    case "PAUSE":
-      if (keyCode == UP) {
-        pauseSelect--;
-        if (pauseSelect < 0) {
-          pauseSelect = 1;
-        }
-      }
-
-      if (keyCode == DOWN) {
-        pauseSelect ++;
-        if (pauseSelect > 1) {
-          pauseSelect = 0;
-        }
-      }
-
-      if (keyCode == ENTER) {
-        pauseOnce = false;
-        if (pauseSelect == 0) {
-          time = millis();
-          gameState = "GAME START";
-        } else if (pauseSelect == 1) {
-          mainMenu.startGame = false;
-          time = millis();
-          gameState = "MAIN MENU";
-        }
-      }
+  case "MAIN MENU":
+    if (key == ENTER) {
+      switch(mainMenu.selectMenu) {
+      case 0:
+        mainMenu.startGame = true;
+        playGame.nightTime = millis();
         break;
-      case "OPTIONS":
-        if (keyCode == UP) {
-          options.selectMenu--;
-
-          // From top selection to the bottom when pressed 'up'
-          if (options.selectMenu < 0) options.selectMenu = 1;
-        } else if (keyCode == DOWN) {
-          options.selectMenu++;
-          // From bottom selection to the top when pressed 'down'
-          if (options.selectMenu > 1) options.selectMenu = 0;
-        }
-        if (keyCode == ENTER) {
-          gameState = "MAIN MENU";
-        }
-        if (keyCode == RIGHT && options.selectMenu == 0) {
-          options.diffNum ++;
-          if (options.diffNum > 2) {
-            options.diffNum = 0;
-          }
-        }
-        if (keyCode == LEFT && options.selectMenu == 0) {
-          options.diffNum --;
-          if (options.diffNum < 0) {
-            options.diffNum = 2;
-          }
-        }
-        if (keyCode == RIGHT && options.selectMenu == 1) {
-          options.soundNum ++;
-          if (options.soundNum > 1) {
-            options.soundNum = 0;
-          }
-        }
-        if (keyCode == LEFT && options.selectMenu == 1) {
-          options.soundNum --;
-          if (options.soundNum < 0) {
-            options.soundNum = 1;
-          }
-        }
+      case 1:
+        gameState = "STATS";
         break;
-      case "HOW TO":
-        if (keyCode == ENTER) {
-          gameState = "MAIN MENU";
-        }
+      case 2:
+        gameState = "OPTIONS";
         break;
-      case "STATS":
-          if (keyCode == ENTER) {
-            gameState = "MAIN MENU";
-          }
+      case 3:
+        gameState = "HOW TO";
         break;
       }
+    } else if (keyCode == UP) {
+      mainMenu.selectMenu--;
+
+      // From top selection to the bottom when pressed 'up'
+      if (mainMenu.selectMenu < 0) mainMenu.selectMenu = 3;
+    } else if (keyCode == DOWN) {
+      mainMenu.selectMenu++;
+      // From bottom selection to the top when pressed 'down'
+      if (mainMenu.selectMenu > 3) mainMenu.selectMenu = 0;
+    }
+    break;
+  case "GAME START":
+    if (key == ' ') {
+      if (!player.getJumping()) {
+        player.setCounter(0);
+      }
+      player.setJump(true);
+    } else if (keyCode == ENTER) {
+    }
+    if (key == 'p' || key == 'P') {
+      gameState = "PAUSE";
+    }
+    break;
+
+
+  case "GAME OVER":
+    if (keyCode == UP) {
+      gameOver.deathSelect--;
+      if (gameOver.deathSelect < 0) {
+        gameOver.deathSelect = 1;
+      }
+    }
+
+    if (keyCode == DOWN) {
+      gameOver.deathSelect ++;
+      if (gameOver.deathSelect > 1) {
+        gameOver.deathSelect = 0;
+      }
+    }
+    if (key == ENTER) {
+      player.health = 3;
+      playGame.score = 0;
+      playGame.setGameSpeed(15);
+      playGame.nightSwitch = false;
+      playGame.alpha2 = 0;
+      playGame.adder = 1;
+      for (int i = sprites.size() -1; i >= 0; i--) {
+        sprites.remove(i);
+      }
+      if (gameOver.deathSelect == 0) {
+        gameState = "GAME START";
+      } else {
+        mainMenu.startGame = false;
+        gameState = "MAIN MENU";
+      }
+    }
+
+    break;
+  case "PAUSE":
+    if (keyCode == UP) {
+      pauseSelect--;
+      if (pauseSelect < 0) {
+        pauseSelect = 1;
+      }
+    }
+
+    if (keyCode == DOWN) {
+      pauseSelect ++;
+      if (pauseSelect > 1) {
+        pauseSelect = 0;
+      }
+    }
+
+    if (keyCode == ENTER) {
+      pauseOnce = false;
+      if (pauseSelect == 0) {
+        time = millis();
+        gameState = "GAME START";
+      } else if (pauseSelect == 1) {
+        mainMenu.startGame = false;
+        time = millis();
+        gameState = "MAIN MENU";
+      }
+    }
+    break;
+  case "OPTIONS":
+    if (keyCode == UP) {
+      options.selectMenu--;
+
+      // From top selection to the bottom when pressed 'up'
+      if (options.selectMenu < 0) options.selectMenu = 1;
+    } else if (keyCode == DOWN) {
+      options.selectMenu++;
+      // From bottom selection to the top when pressed 'down'
+      if (options.selectMenu > 1) options.selectMenu = 0;
+    }
+    if (keyCode == ENTER) {
+      gameState = "MAIN MENU";
+    }
+    if (keyCode == RIGHT && options.selectMenu == 0) {
+      options.diffNum ++;
+      if (options.diffNum > 2) {
+        options.diffNum = 0;
+      }
+    }
+    if (keyCode == LEFT && options.selectMenu == 0) {
+      options.diffNum --;
+      if (options.diffNum < 0) {
+        options.diffNum = 2;
+      }
+    }
+    if (keyCode == RIGHT && options.selectMenu == 1) {
+      options.soundNum ++;
+      if (options.soundNum > 1) {
+        options.soundNum = 0;
+      }
+    }
+    if (keyCode == LEFT && options.selectMenu == 1) {
+      options.soundNum --;
+      if (options.soundNum < 0) {
+        options.soundNum = 1;
+      }
+    }
+    break;
+  case "HOW TO":
+    if (keyCode == ENTER) {
+      gameState = "MAIN MENU";
+    }
+    break;
+  case "STATS":
+    if (keyCode == ENTER) {
+      gameState = "MAIN MENU";
+    }
+    break;
   }
+}
 /*
 Team-turtle-hat
-<<<<<<< HEAD
-David, Cho, Giles
-March 2017
-Class that controls the bear and bear stuff
-*/
-PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5,
-       bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10, bearWalk11,
-       bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17,
-       bearWalk18, bearWalk19, bearWalk20, bearWalk21, bearWalk22, bearWalk23,
-       bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29,
-       bearWalk30, bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35,
-       bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40, bearWalk41,
-       bearWalk42, bearWalk43, bearWalk44, bearWalk45;
+ David, Cho, Giles
+ March 2017
+ Class that controls the bear and bear stuff
+ */
+PImage bearWalk0, bearWalk1, bearWalk2, bearWalk3, bearWalk4, bearWalk5, 
+  bearWalk6, bearWalk7, bearWalk8, bearWalk9, bearWalk10, bearWalk11, 
+  bearWalk12, bearWalk13, bearWalk14, bearWalk15, bearWalk16, bearWalk17, 
+  bearWalk18, bearWalk19, bearWalk20, bearWalk21, bearWalk22, bearWalk23, 
+  bearWalk24, bearWalk25, bearWalk26, bearWalk27, bearWalk28, bearWalk29, 
+  bearWalk30, bearWalk31, bearWalk32, bearWalk33, bearWalk34, bearWalk35, 
+  bearWalk36, bearWalk37, bearWalk38, bearWalk39, bearWalk40, bearWalk41, 
+  bearWalk42, bearWalk43, bearWalk44, bearWalk45;
 
- //Bear and heart image variables
+//Bear and heart image variables
 PImage bear;
 PImage heart;
 
@@ -301,7 +299,7 @@ class Bear {
   int jumpDuration;
   int bearCounter;
 
-//definitions for various variables related to Bear
+  //definitions for various variables related to Bear
   //construcor
   Bear() {
     posY = 400;
@@ -323,7 +321,7 @@ class Bear {
     }
   }
 
-//display function for health hearts.
+  //display function for health hearts.
   public void displayHealth() {
     int heartSize = 40;
     for (int i = 0; i < health; i++) {
@@ -331,7 +329,7 @@ class Bear {
     }
   }
 
-//jump stuff thing
+  //jump stuff thing
   public void setCounter(int newCounter) {
     counter = newCounter;
   }
@@ -344,7 +342,7 @@ class Bear {
     jumping = newBool;
   }
 
-//death boolean
+  //death boolean
   public boolean dead() {
     if (health == 0) {
       return true;
@@ -353,7 +351,7 @@ class Bear {
     }
   }
 
-//jumping function
+  //jumping function
   public void jump() {
     if (jumping) {
       //counter is frame count for jump duration
@@ -367,7 +365,7 @@ class Bear {
     }
   }
 
-//image cycling for walk animation
+  //image cycling for walk animation
   public PImage bearType(int num) {
     switch (num) {
     case 0:
@@ -692,14 +690,48 @@ class Buildings extends Sprites {
 }
 /*
 Team-turtle-hat
-<<<<<<< HEAD
-Giles, David, Cho
-March 2017
-Displays the game over screen and give the player the option of playing again.
-It also displays the score.
-*/
+ Cho, David, Giles
+ March 2017
+ Class used give credit to the best coders and most orgainized coders in the class
+ */
 
- //GameOver functions: dictates death screen looks and functions.
+ class Credits {
+
+   Credits() {
+
+   }
+
+   public void display() {
+     image(sky, 0, 0, width, height);
+
+     //title
+     rectMode(CENTER);
+     stroke(255);
+     fill(255, 255, 255, 0);
+     rect(width/2, 130, 500, 100);
+     fill(255);
+     textAlign(CENTER);
+     textSize(50);
+     text("CREDITS", width/2, 150);
+
+     fill(255);
+     textAlign(CENTER);
+     textSize(45);
+     text("Made By: Cho, David, Giles", width/2, height/2);
+     text("Press Enter To Return to Main Menu", width/2, height - height/6);
+
+   }
+ }
+/*
+Team-turtle-hat
+ <<<<<<< HEAD
+ Giles, David, Cho
+ March 2017
+ Displays the game over screen and give the player the option of playing again.
+ It also displays the score.
+ */
+
+//GameOver functions: dictates death screen looks and functions.
 class GameOver {
   int randomMsg = PApplet.parseInt(random(6));
   String deathMsg;
@@ -731,37 +763,36 @@ class GameOver {
       break;
     }
 
-     textAlign(CENTER);
-     textSize(60);
-     fill(255, 0, 0);
-     text("GAME OVER", width/2, height/2 - height/6 - 40);
-     fill(255);
-     textSize(40);
-     text(deathMsg, width/2, height/2 - 40);
-     text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6 - 50);
-     text("Highscore" + " " + highscores.getHighscore(), width/2, height/2 + height/6);
+    textAlign(CENTER);
+    textSize(60);
+    fill(255, 0, 0);
+    text("GAME OVER", width/2, height/2 - height/6 - 40);
+    fill(255);
+    textSize(40);
+    text(deathMsg, width/2, height/2 - 40);
+    text("Score" + " " + playGame.getScore(), width/2, height/2 + height/6 - 50);
+    text("Highscore" + " " + highscores.getHighscore(), width/2, height/2 + height/6);
+  }
 
-   }
-
-//Restart/Main Menu cases for Game Over.
+  //Restart/Main Menu cases for Game Over.
   public void deathMenu(int num) {
     switch (num) {
-      case 0:
-        textSize(40);
-        text("RESTART", width/2, height - 100);
-        textSize(30);
-        text("MAIN MENU", width/2, height - 50);
-        break;
-      case 1:
-        textSize(30);
-        text("RESTART", width/2, height - 100);
-        textSize(40);
-        text("MAIN MENU", width/2, height - 50);
-        break;
+    case 0:
+      textSize(40);
+      text("RESTART", width/2, height - 100);
+      textSize(30);
+      text("MAIN MENU", width/2, height - 50);
+      break;
+    case 1:
+      textSize(30);
+      text("RESTART", width/2, height - 100);
+      textSize(40);
+      text("MAIN MENU", width/2, height - 50);
+      break;
     }
   }
 
-//Game Over display function
+  //Game Over display function
   public void display() {
     background(0);
     deathMsg();
@@ -769,6 +800,12 @@ class GameOver {
     deathMenu(deathSelect);
   }
 }
+/*
+Team-turtle-hat
+ Cho, David, Giles
+ March 2017
+ Class used to read highscore and save new highscores
+ */
 
 class Highscore {
   //Fields
@@ -783,11 +820,11 @@ class Highscore {
     highscore = highscores[0];
     rawHighscore = loadStrings("Highscore.txt");
     highscores = PApplet.parseInt(rawHighscore);
-    for(int i = highscores.length -1; i >= 0; i--){
+    for (int i = highscores.length -1; i >= 0; i--) {
       highscore += (10^i * highscores[i])/10;
     }
 
-    if(playGame.getScore() > highscore) {
+    if (playGame.getScore() > highscore) {
       String[] scoreSaved = {str(playGame.getScore())};
       //saveScore[0] = str(playGame.getScore());
       saveStrings("Highscore.txt", scoreSaved);
@@ -802,17 +839,24 @@ class Highscore {
     return highscore;
   }
 }
-class HowTo{
+/*
+Team-turtle-hat
+ David, Cho, Giles
+ March 2017
+ Page that tells user how to play the game
+ */
+
+class HowTo {
 
   HowTo() {
   }
 
-//draw Sky background
+  //draw Sky background
   public void drawSky() {
     image(sky, 0, 0);
   }
 
-//draw How To Play center title
+  //draw How To Play center title
   public void drawTitle() {
     fill(255);
     textAlign(CENTER);
@@ -826,13 +870,13 @@ class HowTo{
     rect(width/2, 130, 500, 100);
   }
 
-//returns to menu
+  //returns to menu
   public void backToMenu() {
     textSize(40);
     text("Press Enter to Return to Main Menu", width/2, height - 70);
   }
 
-////displays instruction text for How To Menu
+  ////displays instruction text for How To Menu
   public void howTo() {
     textSize(30);
     text("Use arrow keys to navigate menus and enter to select the desired option", width/2, 300);
@@ -840,7 +884,7 @@ class HowTo{
     text("Press p while playing to pause the game", width/2, 400);
   }
 
-//How To display function
+  //How To display function
   public void display() {
     drawSky();
     drawTitle();
@@ -876,7 +920,7 @@ class MainMenu {
     image(sky, 0, 0);
   }
 
-//Draws Title at top center
+  //Draws Title at top center
   public void drawTitle() {
     fill(255);
     textAlign(CENTER);
@@ -890,14 +934,14 @@ class MainMenu {
     rect(width/2, 130, 500, 100);
   }
 
-//display function and associated functions
+  //display function and associated functions
   public void display() {
     drawSky();
     drawTitle();
     menuSelection();
   }
 
-//Main Menu selection cases
+  //Main Menu selection cases
   public void menuSelection() {
     // menu selection
     switch(selectMenu) {
@@ -933,7 +977,6 @@ class MainMenu {
       text("Stats", width/2, 350);
       text("Options", width/2, 400);
       break;
-
     }
     //if user pressed ENTER
     if (startGame) {
@@ -974,7 +1017,7 @@ class Options {
     image(sky, 0, 0);
   }
 
-//draws title at center
+  //draws title at center
   public void drawTitle() {
     rectMode(CENTER);
     stroke(255);
@@ -989,7 +1032,7 @@ class Options {
     text("Press Enter to Return to Main Menu", width/2, height - height/6);
   }
 
-//Options menu selection cases
+  //Options menu selection cases
   public void menuSelection() {
     textAlign(CENTER);
     // menu selection
@@ -1011,7 +1054,7 @@ class Options {
     }
   }
 
-//Difficulty cases and controls settings related to difficulty
+  //Difficulty cases and controls settings related to difficulty
   public void difficultyChange(int i) {
     switch(i) {
     case 0:
@@ -1035,7 +1078,7 @@ class Options {
     }
   }
 
-//Sound cases
+  //Sound cases
   public void soundChange(int i) {
     switch(i) {
     case 0:
@@ -1051,7 +1094,7 @@ class Options {
     }
   }
 
-//Options display functions
+  //Options display functions
   public void display() {
     difficultyChange(diffNum);
     soundChange(soundNum);
@@ -1066,13 +1109,14 @@ Team-turtle-hat
  March 2017
  Displays the pause screen and allows the player to unpause
  */
- //Variables
+
+//Variables
 PImage pauseImage;
 boolean pauseOnce = false;
 
 //PauseMenu cases
 public void pauseMenu(int num) {
-switch (num) {
+  switch (num) {
   case 0:
     textSize(40);
     text("RESUME", width/2, (height/2) + 100);
@@ -1090,7 +1134,7 @@ switch (num) {
 
 //pause function
 public void paused() {
-  if(!pauseOnce) {
+  if (!pauseOnce) {
     pauseImage = get();
     pauseOnce = true;
   }
@@ -1499,6 +1543,13 @@ class Sprites {
   public void addScore() {
   }
 }
+/*
+Team-turtle-hat
+ Cho, Giles, David
+ March 2017
+ Used to display the highscore from the main menu
+ */
+
 class Stats {
 
   Stats() {
@@ -1551,23 +1602,23 @@ class Traps extends Sprites {
   public void display() {
     //typeOfSprite determines which building it will display
     switch(typeOfSprite) {
-      case 1:
-        //load image andd set posY;
-        int trapSize = 100;
-        posY = 520;
+    case 1:
+      //load image andd set posY;
+      int trapSize = 100;
+      posY = 520;
 
-        //if not activated it displays the flat bear trap
-        if (!activatedStatus) {
-          shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
-        } else {
-          //if not activated it displays the activated bear trap
-          shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
-        }
+      //if not activated it displays the flat bear trap
+      if (!activatedStatus) {
+        shape(bearTrap, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
+      } else {
+        //if not activated it displays the activated bear trap
+        shape(bearTrapActivated, posX, posY, trapSize, (bearTrap.height * trapSize)/bearTrap.width);
+      }
 
-        //defines boundrys for detection
-        boundryHeight = PApplet.parseInt((bearTrap.height * trapSize)/bearTrap.width);
-        boundryWidth = trapSize;
-        break;
+      //defines boundrys for detection
+      boundryHeight = PApplet.parseInt((bearTrap.height * trapSize)/bearTrap.width);
+      boundryWidth = trapSize;
+      break;
     }
   }
 
