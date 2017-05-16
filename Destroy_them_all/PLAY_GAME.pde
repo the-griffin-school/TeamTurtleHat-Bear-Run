@@ -167,30 +167,30 @@ class PlayGame {
     }
   }
 
-  void drawMountains() {
-    //loops through all the back mountains
-    for (int i = 0; i < mountainsBack.size(); i++) {
-      //moves the background mountains left by one pixel
-      mountainsBack.set(i, mountainsBack.get(i) - 1);
-      //draws the mountains
-      shape(mtsBack, mountainsBack.get(i), 165, width, (mtsBack.height * width)/mtsBack.width);
-      //resets mountains once it goes offscreen
-      if (mountainsBack.get(i) < 2 - width) {
-        mountainsBack.set(i, width);
-      }
-    }
-    //loops through front mountains
-    for (int i = 0; i < mountainsFront.size(); i++) {
-      //moves front mountains by two pixels
-      mountainsFront.set(i, mountainsFront.get(i) - 2);
-      //draws mountains
-      shape(mtsFront, mountainsFront.get(i), 170, width, (mtsFront.height * width)/mtsFront.width);
-      //resets mountains once they go offscreen
-      if (mountainsFront.get(i) < 2 - width) {
-        mountainsFront.set(i, width);
-      }
-    }
-  }
+  // void drawMountains() {
+  //   //loops through all the back mountains
+  //   for (int i = 0; i < mountainsBack.size(); i++) {
+  //     //moves the background mountains left by one pixel
+  //     mountainsBack.set(i, mountainsBack.get(i) - 1);
+  //     //draws the mountains
+  //     shape(mtsBack, mountainsBack.get(i), 165, width, (mtsBack.height * width)/mtsBack.width);
+  //     //resets mountains once it goes offscreen
+  //     if (mountainsBack.get(i) < 2 - width) {
+  //       mountainsBack.set(i, width);
+  //     }
+  //   }
+  //   //loops through front mountains
+  //   for (int i = 0; i < mountainsFront.size(); i++) {
+  //     //moves front mountains by two pixels
+  //     mountainsFront.set(i, mountainsFront.get(i) - 2);
+  //     //draws mountains
+  //     shape(mtsFront, mountainsFront.get(i), 170, width, (mtsFront.height * width)/mtsFront.width);
+  //     //resets mountains once they go offscreen
+  //     if (mountainsFront.get(i) < 2 - width) {
+  //       mountainsFront.set(i, width);
+  //     }
+  //   }
+  // }
 
   //setting game speed from outside the class
   void setGameSpeed(float newSpeed) {
@@ -232,7 +232,6 @@ class PlayGame {
       sprites.get(i).move(getGameSpeed());
       //displays sprite
       sprites.get(i).display();
-
       //tests for detection of the sprite
       sprites.get(i).detection();
       //subtracs health from the player when it hits a trap
@@ -284,7 +283,7 @@ class PlayGame {
     //draw sky
     drawSky();
     //draws mts
-    drawMountains();
+    //drawMountains();
     //draw Clouds
     drawClouds();
     //generate sprites

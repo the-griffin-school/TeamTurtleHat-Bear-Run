@@ -79,14 +79,14 @@ class Buildings extends Sprites {
     //tests for detection at the last possible moment to reduce load
     if (posX < 185 && keyCode == 16) {
       //loops through y values of the building
-      for (int i = int(posY); i < (posY + boundryHeight); i += 3) {
+      for (int i = int(posY); i < (posY + boundryHeight); i += 60) {
         //tests for detection along the left side of the building
         if (posX > 75 && i < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && i > player.posY) {
           destroyedStatus = true;
         }
       }
       //loops through x values of building
-      for (int i = int(posX); i < posX + boundryWidth; i += 3) {
+      for (int i = int(posX); i < posX + boundryWidth; i += 60) {
         //tests for detection along the top of the building
         if (posY < (player.posY + (bearSprite.height * player.bearSize)/bearSprite.width) && posY > player.posY && i > 75 && i < 185) {
           destroyedStatus = true;
